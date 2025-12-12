@@ -1114,7 +1114,7 @@ body {
                     
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('introduction')">
-                            🦉 Ask Theo for Feedback
+                            🦉 Ask Theo for Feedback | 向Theo请求反馈
                         </button>
                     </div>
                 </div>
@@ -1253,7 +1253,7 @@ body {
                     
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('body')">
-                            🦉 Ask Theo for Body Feedback
+                            🦉 Ask Theo for Body Feedback | 向Theo请求正文反馈
                         </button>
                     </div>
                 </div>
@@ -1308,7 +1308,7 @@ body {
                     
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('conclusion')">
-                            🦉 Ask Theo for Conclusion Feedback
+                            🦉 Ask Theo for Conclusion Feedback | 向Theo请求结论反馈
                         </button>
                     </div>
                 </div>
@@ -1374,8 +1374,8 @@ body {
         <div class="coach-header">
             <div class="coach-avatar">🦉</div>
             <div class="coach-info">
-                <h4>Theo the Essay Coach</h4>
-                <p>I guide, I don't give answers!</p>
+                <h4>Theo the Essay Coach | 论文教练Theo</h4>
+                <p>I guide, I don't give answers! | 我引导，不给答案！</p>
             </div>
             <button class="coach-close" onclick="toggleCoach()">×</button>
         </div>
@@ -1383,19 +1383,20 @@ body {
         <div class="coach-messages" id="coachMessages">
             <div class="coach-message assistant">
                 <p>👋 Hello! I'm <strong>Theo</strong>, your essay writing coach! I'll help you with hints, grammar checks, and formula guidance. Remember—I guide, I don't write for you!</p>
+                <p class="zh" style="font-size: 0.9em; margin-top: 8px; opacity: 0.85;">你好！我是<strong>Theo</strong>，你的论文写作教练！我会给你提示、语法检查和公式指导。记住——我引导，不为你写作！</p>
             </div>
         </div>
         
         <div class="coach-input-area">
             <div class="coach-actions">
-                <button class="coach-action-btn" onclick="askForHint()">💡 Hint</button>
-                <button class="coach-action-btn" onclick="checkGrammar()">✏️ Grammar</button>
-                <button class="coach-action-btn" onclick="explainFormula()">📝 Formula</button>
+                <button class="coach-action-btn" onclick="askForHint()">💡 Hint | 提示</button>
+                <button class="coach-action-btn" onclick="checkGrammar()">✏️ Grammar | 语法</button>
+                <button class="coach-action-btn" onclick="explainFormula()">📝 Formula | 公式</button>
             </div>
             <div class="coach-input-row">
                 <input type="text" class="coach-input" id="coachInput" 
-                    placeholder="Ask Theo..." onkeypress="if(event.key==='Enter')sendToCoach()">
-                <button class="coach-send" onclick="sendToCoach()">Send</button>
+                    placeholder="Ask Theo... | 问Theo..." onkeypress="if(event.key==='Enter')sendToCoach()">
+                <button class="coach-send" onclick="sendToCoach()">Send | 发送</button>
             </div>
         </div>
     </div>
@@ -2195,7 +2196,7 @@ function selectFormula(id) {
     
     showFormulaDetails(id);
     saveState();
-    showToast('Formula selected!', 'success');
+    showToast('Formula selected! | 公式已选择！', 'success');
 }
 
 function showFormulaDetails(id) {
@@ -2242,7 +2243,7 @@ function selectNovel(index) {
     document.getElementById('toPage3Btn').disabled = false;
     
     saveState();
-    showToast(`Selected: ${Novels[index].title}`, 'success');
+    showToast(`Selected: ${Novels[index].title} | 已选择：${Novels[index].titleZh}`, 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -2670,7 +2671,7 @@ function saveSettings() {
     State.apiKey = document.getElementById('apiKey').value;
     saveState();
     closeSettings();
-    showToast('Settings saved!', 'success');
+    showToast('Settings saved! | 设置已保存！', 'success');
 }
 
 function toggleTheme() {
@@ -2729,10 +2730,10 @@ async function downloadWord() {
         
         const blob = await Packer.toBlob(doc);
         saveAs(blob, `Literary_Analysis_${(novel?.title || 'Essay').replace(/\s+/g, '_')}.docx`);
-        showToast('Word document downloaded!', 'success');
+        showToast('Word document downloaded! | Word文档已下载！', 'success');
     } catch (error) {
         console.error('Export error:', error);
-        showToast('Error creating document. Try again.', 'error');
+        showToast('Error creating document. Try again. | 创建文档出错。请重试。', 'error');
     }
 }
 
@@ -2743,9 +2744,9 @@ function copyEssay() {
         .join('\n\n');
     
     navigator.clipboard.writeText(text).then(() => {
-        showToast('Essay copied!', 'success');
+        showToast('Essay copied! | 论文已复制！', 'success');
     }).catch(() => {
-        showToast('Could not copy.', 'error');
+        showToast('Could not copy. | 无法复制。', 'error');
     });
 }
 
@@ -2762,7 +2763,7 @@ function celebrate() {
         confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0 } });
         confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 1 } });
     }, 250);
-    showToast('🎉 Congratulations on completing your essay!', 'success');
+    showToast('🎉 Congratulations on completing your essay! | 祝贺你完成了论文！', 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
