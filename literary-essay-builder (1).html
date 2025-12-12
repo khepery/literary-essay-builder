@@ -1146,25 +1146,8 @@ body {
                         <p id="body1Instruction"></p>
                     </div>
                     
-                    <div class="example-box">
-                        <h4>💡 Example Guidance | 示例指导</h4>
-                        <p class="bilingual">
-                            <span class="en"><strong>Topic Sentence:</strong> Connect to your thesis point</span>
-                            <span class="zh"><strong>主题句：</strong>连接到你的论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Start with a clear claim that relates to your first supporting point from the thesis.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Evidence:</strong> Quote or reference from the text</span>
-                            <span class="zh"><strong>证据：</strong>文本的引用或参考</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Include specific examples, quotes, or references that support your topic sentence.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
-                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Don't just summarize—explain WHY this evidence matters and HOW it supports your argument.</p>
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
                     </div>
                     
                     <div class="form-group">
@@ -1183,25 +1166,8 @@ body {
                         <p id="body2Instruction"></p>
                     </div>
                     
-                    <div class="example-box">
-                        <h4>💡 Example Guidance | 示例指导</h4>
-                        <p class="bilingual">
-                            <span class="en"><strong>Topic Sentence:</strong> Connect to your second thesis point</span>
-                            <span class="zh"><strong>主题句：</strong>连接到你的第二个论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Build on your first paragraph by introducing your second supporting point.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Evidence:</strong> New examples from the text</span>
-                            <span class="zh"><strong>证据：</strong>文本的新例子</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Use different evidence than paragraph 1 to show the pattern throughout the work.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
-                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Show how this second point strengthens your overall argument.</p>
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
                     </div>
                     
                     <div class="form-group">
@@ -1220,25 +1186,8 @@ body {
                         <p id="body3Instruction"></p>
                     </div>
                     
-                    <div class="example-box">
-                        <h4>💡 Example Guidance | 示例指导</h4>
-                        <p class="bilingual">
-                            <span class="en"><strong>Topic Sentence:</strong> Connect to your final thesis point</span>
-                            <span class="zh"><strong>主题句：</strong>连接到你的最后论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Present your strongest or most significant supporting point last.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Evidence:</strong> Compelling examples from the text</span>
-                            <span class="zh"><strong>证据：</strong>文本中令人信服的例子</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Choose your most powerful evidence to leave a strong impression.</p>
-                        
-                        <p class="bilingual" style="margin-top: var(--space-md);">
-                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
-                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
-                        </p>
-                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Tie all three body paragraphs together to show the complete picture of your argument.</p>
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
                     </div>
                     
                     <div class="form-group">
@@ -1542,33 +1491,33 @@ const Novels = [
 const NovelResources = {
     0: { // Death on the Nile
         symbols: [
-            { name: 'The Nile River', meaning: 'Fate and inevitability—the flow of time catches up with characters.' },
-            { name: 'The Boat', meaning: 'Social entrapment—wealth cannot escape moral consequences.' },
-            { name: 'Pearls/Jewelry', meaning: 'Wealth, vanity, and the corrupting influence of possessions.' },
-            { name: 'The Desert Sun', meaning: 'Truth revealed—the harsh light exposes hidden secrets.' }
+            { name: 'The Nile River', nameZh: '尼罗河', meaning: 'Fate and inevitability—the flow of time catches up with characters.', meaningZh: '命运与不可避免——时间的流逝追赶着角色。' },
+            { name: 'The Boat', nameZh: '船只', meaning: 'Social entrapment—wealth cannot escape moral consequences.', meaningZh: '社会陷阱——财富无法逃避道德后果。' },
+            { name: 'Pearls/Jewelry', nameZh: '珍珠/珠宝', meaning: 'Wealth, vanity, and the corrupting influence of possessions.', meaningZh: '财富、虚荣和财物的腐蚀影响。' },
+            { name: 'The Desert Sun', nameZh: '沙漠阳光', meaning: 'Truth revealed—the harsh light exposes hidden secrets.', meaningZh: '真相揭露——刺眼的光芒暴露隐藏的秘密。' }
         ],
         devices: [
-            { name: 'Red Herring', desc: 'False clues mislead both detective and reader.' },
-            { name: 'Foreshadowing', desc: 'Subtle hints about violence become clear in retrospect.' },
-            { name: 'Dramatic Irony', desc: 'The audience knows information characters do not.' },
-            { name: 'Closed Setting', desc: 'The boat creates a limited cast of suspects, intensifying suspense.' }
+            { name: 'Red Herring', nameZh: '红鲱鱼（误导线索）', desc: 'False clues mislead both detective and reader.', descZh: '虚假线索误导侦探和读者。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Subtle hints about violence become clear in retrospect.', descZh: '关于暴力的微妙暗示在回顾时变得清晰。' },
+            { name: 'Dramatic Irony', nameZh: '戏剧性讽刺', desc: 'The audience knows information characters do not.', descZh: '观众知道角色不知道的信息。' },
+            { name: 'Closed Setting', nameZh: '封闭环境', desc: 'The boat creates a limited cast of suspects, intensifying suspense.', descZh: '船只创造了有限的嫌疑人，加剧了悬念。' }
         ],
         themes: [
-            { name: 'Jealousy & Obsession', desc: 'Romantic jealousy drives characters to extreme actions.' },
-            { name: 'Wealth & Consequences', desc: 'Money attracts danger and corrupts relationships.' },
-            { name: 'Appearance vs. Reality', desc: 'Surface charm masks darker intentions.' },
-            { name: 'Justice vs. Revenge', desc: 'Legal justice versus personal vengeance motives.' }
+            { name: 'Jealousy & Obsession', nameZh: '嫉妒与执念', desc: 'Romantic jealousy drives characters to extreme actions.', descZh: '浪漫的嫉妒驱使角色采取极端行动。' },
+            { name: 'Wealth & Consequences', nameZh: '财富与后果', desc: 'Money attracts danger and corrupts relationships.', descZh: '金钱吸引危险并腐蚀关系。' },
+            { name: 'Appearance vs. Reality', nameZh: '表象与现实', desc: 'Surface charm masks darker intentions.', descZh: '表面魅力掩盖更黑暗的意图。' },
+            { name: 'Justice vs. Revenge', nameZh: '正义与复仇', desc: 'Legal justice versus personal vengeance motives.', descZh: '法律正义与个人复仇动机的对比。' }
         ],
         characters: [
-            { name: 'Hercule Poirot', role: 'Detective who balances truth-seeking with compassion.' },
-            { name: 'Linnet Ridgeway', role: 'Wealthy victim whose privilege cannot protect her.' },
-            { name: 'Jacqueline de Bellefort', role: 'Jealous ex-fiancée consumed by betrayal.' },
-            { name: 'Simon Doyle', role: 'Charming but weak man caught between two women.' }
+            { name: 'Hercule Poirot', nameZh: '赫尔克里·波洛', role: 'Detective who balances truth-seeking with compassion.', roleZh: '平衡寻求真相与同情心的侦探。' },
+            { name: 'Linnet Ridgeway', nameZh: '林内特·里奇韦', role: 'Wealthy victim whose privilege cannot protect her.', roleZh: '特权无法保护她的富有受害者。' },
+            { name: 'Jacqueline de Bellefort', nameZh: '雅克琳·德·贝尔福', role: 'Jealous ex-fiancée consumed by betrayal.', roleZh: '被背叛吞噬的嫉妒前未婚妻。' },
+            { name: 'Simon Doyle', nameZh: '西蒙·道尔', role: 'Charming but weak man caught between two women.', roleZh: '迷人但软弱的男人被困在两个女人之间。' }
         ],
         conflicts: [
-            { type: 'Person vs. Person', desc: 'Jacqueline vs. Linnet—rivalry over Simon.' },
-            { type: 'Truth vs. Deception', desc: 'Poirot\'s pursuit of truth against elaborate lies.' },
-            { type: 'Love vs. Pride', desc: 'Characters struggle between genuine feeling and wounded ego.' }
+            { type: 'Person vs. Person', typeZh: '人与人', desc: 'Jacqueline vs. Linnet—rivalry over Simon.', descZh: '雅克琳对林内特——因西蒙而起的竞争。' },
+            { type: 'Truth vs. Deception', typeZh: '真相与欺骗', desc: 'Poirot\'s pursuit of truth against elaborate lies.', descZh: '波洛追求真相对抗精心编织的谎言。' },
+            { type: 'Love vs. Pride', typeZh: '爱与骄傲', desc: 'Characters struggle between genuine feeling and wounded ego.', descZh: '角色在真实感情和受伤自尊之间挣扎。' }
         ]
     },
     3: { // Lord of the Flies
@@ -2280,6 +2229,32 @@ const Examples = {
             en: "García Márquez's magical chronicle ultimately suggests that solitude—physical, emotional, existential—dooms both individuals and civilizations to repeat history's mistakes. The Buendías' apocalyptic end reminds us that breaking destructive cycles requires memory, connection, and the courage to choose a different path.",
             zh: "加西亚·马尔克斯的魔幻编年史最终表明，孤独——身体的、情感的、存在的——注定个人和文明重复历史的错误。布恩迪亚家族的启示录般的结局提醒我们，打破破坏性循环需要记忆、联系和选择不同道路的勇气。"
         }
+    },
+    body: {
+        default: {
+            en: "Start with a topic sentence connecting to your thesis. Then provide specific evidence (quote or reference) from the text. Finally, analyze HOW this evidence proves your thesis—don't just summarize, explain the significance.",
+            zh: "从连接到你论点的主题句开始。然后从文本中提供具体证据（引用或参考）。最后，分析这个证据如何证明你的论点——不要只是总结，要解释其意义。"
+        },
+        0: {  // Death on the Nile
+            en: "For Death on the Nile, examine how Christie uses the closed boat setting as a symbol of inescapable consequences. Your topic sentence might connect wealth to moral accountability. Evidence could reference the confined passenger list creating a 'locked room' mystery. Analysis should explain how the Nile's flow symbolizes fate catching up with characters—no amount of money can buy escape from justice.",
+            zh: "对于《尼罗河上的惨案》，考察克里斯蒂如何使用封闭的船只环境作为不可逃避后果的象征。你的主题句可能将财富与道德责任联系起来。证据可以参考封闭的乘客名单创造了一个'密室'谜团。分析应该解释尼罗河的流动如何象征命运追赶角色——再多的钱也买不到逃避正义的机会。"
+        },
+        1: {  // Order of the Phoenix
+            en: "For Order of the Phoenix, analyze how Rowling uses symbols like the phoenix itself or Umbridge's decrees to represent resistance versus authority. Topic sentence should link to your thesis about power or truth. Use specific scenes—perhaps Harry forming Dumbledore's Army or the phoenix's rebirth. Explain how these moments reveal that truth-telling becomes revolutionary when authority traffics in lies.",
+            zh: "对于《凤凰社》，分析罗琳如何使用凤凰本身或乌姆里奇的法令等符号来代表抵抗与权威。主题句应链接到你关于权力或真理的论点。使用具体场景——也许是哈利组建邓布利多军或凤凰的重生。解释这些时刻如何揭示当权威贩卖谎言时，说真话就成为革命。"
+        },
+        3: {  // Lord of the Flies
+            en: "For Lord of the Flies, focus on how Golding uses the conch shell, signal fire, or Lord of the Flies itself to reveal civilization's fragility. Topic sentence connects the symbol to your thesis about human nature. Quote or reference key moments—perhaps the conch's destruction or the pig's head. Analyze how the symbol's fate mirrors the boys' descent from order to savagery, proving that civilization is merely a thin veneer over darkness.",
+            zh: "对于《蝇王》，关注戈尔丁如何使用海螺壳、信号火或蝇王本身来揭示文明的脆弱性。主题句将符号与你关于人性的论点联系起来。引用或参考关键时刻——也许是海螺的毁灭或猪头。分析符号的命运如何反映男孩们从秩序到野蛮的下降，证明文明只是黑暗之上的薄纱。"
+        },
+        11: {  // Life of Pi
+            en: "For Life of Pi, examine how Martel uses the tiger Richard Parker, the lifeboat, or storytelling itself as literary devices. Your topic sentence should tie to your thesis about faith or survival. Reference specific survival moments or Pi's dual narratives. Analyze how these elements force readers to choose between stories—the 'better story' representing faith's power to transform brutal reality into bearable meaning.",
+            zh: "对于《少年派的奇幻漂流》，考察马特尔如何使用老虎理查德·帕克、救生艇或讲故事本身作为文学手法。你的主题句应该与你关于信仰或生存的论点联系起来。参考具体的生存时刻或派的双重叙述。分析这些元素如何迫使读者在故事之间做出选择——'更好的故事'代表信仰将残酷现实转化为可承受意义的力量。"
+        },
+        14: {  // The Great Gatsby
+            en: "For The Great Gatsby, analyze Fitzgerald's use of the green light, the eyes of Dr. T.J. Eckleburg, or the Valley of Ashes. Topic sentence links the symbol to your thesis about the American Dream. Use Nick's observations or key party scenes as evidence. Explain how these symbols reveal the emptiness behind wealth—the green light forever receding, representing dreams that cannot be recaptured, ultimately exposing the American Dream as a beautiful illusion.",
+            zh: "对于《了不起的盖茨比》，分析菲茨杰拉德对绿光、T·J·埃克尔堡医生的眼睛或灰烬谷的使用。主题句将符号与你关于美国梦的论点联系起来。使用尼克的观察或关键派对场景作为证据。解释这些符号如何揭示财富背后的空虚——绿光永远后退，代表无法重现的梦想，最终将美国梦暴露为美丽的幻觉。"
+        }
     }
 };
 
@@ -2455,39 +2430,44 @@ function setupResearchPage() {
     
     const resources = NovelResources[State.selectedNovel] || DefaultResources;
     
-    // Populate tabs
+    // Populate tabs with bilingual support
     document.getElementById('info-symbols').innerHTML = resources.symbols.map(s => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>🔮 ${s.name}</h4>
+            <h4>🔮 ${s.name}${s.nameZh ? ` | ${s.nameZh}` : ''}</h4>
             <p>${s.meaning}</p>
+            ${s.meaningZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${s.meaningZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-devices').innerHTML = resources.devices.map(d => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>✨ ${d.name}</h4>
+            <h4>✨ ${d.name}${d.nameZh ? ` | ${d.nameZh}` : ''}</h4>
             <p>${d.desc}</p>
+            ${d.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${d.descZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-themes').innerHTML = resources.themes.map(t => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>💡 ${t.name}</h4>
+            <h4>💡 ${t.name}${t.nameZh ? ` | ${t.nameZh}` : ''}</h4>
             <p>${t.desc}</p>
+            ${t.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${t.descZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-characters').innerHTML = resources.characters.map(c => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>👤 ${c.name}</h4>
+            <h4>👤 ${c.name}${c.nameZh ? ` | ${c.nameZh}` : ''}</h4>
             <p>${c.role}</p>
+            ${c.roleZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${c.roleZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-conflicts').innerHTML = resources.conflicts.map(c => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>⚡ ${c.type}</h4>
+            <h4>⚡ ${c.type}${c.typeZh ? ` | ${c.typeZh}` : ''}</h4>
             <p>${c.desc}</p>
+            ${c.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${c.descZh}</p>` : ''}
         </div>
     `).join('');
 }
@@ -2548,6 +2528,8 @@ function setupIntroPage() {
    ═══════════════════════════════════════════════════════════════════════════ */
 function setupBodyPage() {
     const formula = Formulas[State.selectedFormula];
+    const novelIndex = State.selectedNovel;
+    const bodyEx = Examples.body[novelIndex] || Examples.body.default;
     
     if (formula) {
         document.getElementById('bodyRoadmap').innerHTML = `
@@ -2560,6 +2542,39 @@ function setupBodyPage() {
             if (instruction) instruction.textContent = step;
         });
     }
+    
+    // Display novel-specific body paragraph guidance
+    const bodyGuidanceBoxes = document.querySelectorAll('.body-paragraph-guidance');
+    bodyGuidanceBoxes.forEach(box => {
+        if (bodyEx.en && bodyEx.zh) {
+            box.innerHTML = `
+                <h4>💡 Example Guidance | 示例指导</h4>
+                <p class="bilingual">
+                    <span class="en"><strong>Novel-Specific Guidance:</strong></span>
+                    <span class="zh"><strong>针对小说的指导：</strong></span>
+                </p>
+                <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">
+                    <span class="en">${bodyEx.en}</span>
+                </p>
+                <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary); opacity: 0.85;">
+                    <span class="zh">${bodyEx.zh}</span>
+                </p>
+                <hr style="margin: var(--space-md) 0; border: none; border-top: 1px solid var(--border-light);">
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Topic Sentence:</strong> Connect to your thesis point</span>
+                    <span class="zh"><strong>主题句：</strong>连接到你的论点</span>
+                </p>
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Evidence:</strong> Quote or reference from the text</span>
+                    <span class="zh"><strong>证据：</strong>文本的引用或参考</span>
+                </p>
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
+                    <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
+                </p>
+            `;
+        }
+    });
     
     // Restore saved content
     ['body1', 'body2', 'body3'].forEach(field => {
