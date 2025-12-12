@@ -120,11 +120,12 @@ body {
 
 .nav-step {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 60px;
+    height: 48px;
+    border-radius: var(--radius-sm);
     background: var(--bg-secondary);
     border: 2px solid var(--border-light);
     color: var(--text-muted);
@@ -132,6 +133,19 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
+}
+
+.step-num {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.step-label {
+    font-size: 0.6rem;
+    line-height: 1.1;
+    text-align: center;
+    margin-top: 2px;
+    display: block;
 }
 
 .nav-step:hover { border-color: var(--primary-500); color: var(--primary-500); }
@@ -764,7 +778,9 @@ body {
 @media (max-width: 768px) {
     .nav-title { display: none; }
     .nav-steps { gap: 1px; }
-    .nav-step { width: 28px; height: 28px; font-size: 0.7rem; }
+    .nav-step { width: 44px; height: 38px; font-size: 0.65rem; }
+    .step-num { font-size: 0.8rem; }
+    .step-label { font-size: 0.5rem; margin-top: 1px; }
     
     .formula-grid, .novel-grid { grid-template-columns: 1fr; }
     
@@ -789,13 +805,34 @@ body {
         </a>
         
         <div class="nav-steps">
-            <button class="nav-step active" onclick="goToPage(1)" title="Start">1</button>
-            <button class="nav-step" onclick="goToPage(2)" title="Novel">2</button>
-            <button class="nav-step" onclick="goToPage(3)" title="Research">3</button>
-            <button class="nav-step" onclick="goToPage(4)" title="Introduction">4</button>
-            <button class="nav-step" onclick="goToPage(5)" title="Body">5</button>
-            <button class="nav-step" onclick="goToPage(6)" title="Conclusion">6</button>
-            <button class="nav-step" onclick="goToPage(7)" title="Export">7</button>
+            <button class="nav-step active" onclick="goToPage(1)" title="Start">
+                <span class="step-num">1</span>
+                <span class="step-label">Start<br>开始</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(2)" title="Novel">
+                <span class="step-num">2</span>
+                <span class="step-label">Novel<br>小说</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(3)" title="Research">
+                <span class="step-num">3</span>
+                <span class="step-label">Research<br>研究</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(4)" title="Introduction">
+                <span class="step-num">4</span>
+                <span class="step-label">Intro<br>引言</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(5)" title="Body">
+                <span class="step-num">5</span>
+                <span class="step-label">Body<br>正文</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(6)" title="Conclusion">
+                <span class="step-num">6</span>
+                <span class="step-label">End<br>结尾</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(7)" title="Export">
+                <span class="step-num">7</span>
+                <span class="step-label">Export<br>导出</span>
+            </button>
         </div>
         
         <div class="nav-actions">
@@ -872,7 +909,7 @@ body {
                 <div class="page-navigation">
                     <div></div>
                     <button class="btn btn-primary btn-lg" onclick="goToPage(2)" id="toPage2Btn" disabled>
-                        Select Novel →
+                        Select Novel → | 选择小说 →
                     </button>
                 </div>
             </div>
@@ -892,9 +929,9 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(1)">← Back</button>
+                    <button class="btn btn-secondary" onclick="goToPage(1)">← Back | ← 返回</button>
                     <button class="btn btn-primary btn-lg" onclick="goToPage(3)" id="toPage3Btn" disabled>
-                        View Resources →
+                        View Resources → | 查看资源 →
                     </button>
                 </div>
             </div>
@@ -926,8 +963,8 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(2)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(4)">Write Introduction →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(2)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(4)">Write Introduction → | 写引言 →</button>
                 </div>
             </div>
             
@@ -939,6 +976,58 @@ body {
                         <p class="card-subtitle bilingual">
                             <span class="en">Your introduction has 3 parts: Hook, Background, and Thesis Statement.</span>
                             <span class="zh">你的引言有3个部分：开篇钩子、背景信息和论点陈述。</span>
+                        </p>
+                    </div>
+                    
+                    <!-- EDUCATIONAL INTRODUCTION PANEL -->
+                    <div class="example-box info">
+                        <p class="bilingual">
+                            <span class="en">Your thesis should be <strong>arguable</strong>—that is, something that you think is true about the text, but which is not a simple matter of fact. It must be complex enough to develop through evidence and arguments across the course of your essay.</span>
+                            <span class="zh">你的论点应该是<strong>可论证的</strong>——也就是说，你认为关于文本的真实内容，但不是简单的事实。它必须足够复杂，以便通过证据和论点在整篇文章中发展。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="section-guide">
+                        <h4>📐 Thesis Formula | 论点公式</h4>
+                        <p style="font-size: 1.1rem; margin: var(--space-md) 0;">
+                            <strong>Thesis = Observation + Analysis + Significance</strong><br>
+                            <span class="zh" style="font-size: 0.95rem;">论点 = 观察 + 分析 + 意义</span>
+                        </p>
+                        
+                        <ul style="margin-left: var(--space-lg);">
+                            <li class="bilingual" style="margin-bottom: var(--space-sm);">
+                                <span class="en"><strong>Observation:</strong> Usually regarding the form or structure of the literature. This can be a pattern, like recurring literary devices. Example: "I noticed the poems use symbols such as the lover's longing"</span>
+                                <span class="zh"><strong>观察：</strong>通常关于文学的形式或结构。这可以是一种模式，如重复出现的文学手法。例如："我注意到诗歌使用了恋人渴望等符号"</span>
+                            </li>
+                            <li class="bilingual" style="margin-bottom: var(--space-sm);">
+                                <span class="en"><strong>Analysis:</strong> You could also call this an opinion. This explains what you think your observations show or mean. "I think these recurring symbols all represent the human soul's desire." This is where your debatable argument appears.</span>
+                                <span class="zh"><strong>分析：</strong>你也可以称之为观点。这解释了你认为你的观察显示或意味着什么。"我认为这些重复出现的符号都代表人类灵魂的渴望。"这是你可辩论的论点出现的地方。</span>
+                            </li>
+                            <li class="bilingual">
+                                <span class="en"><strong>Significance:</strong> This explains what the significance or relevance of the interpretation might be. Why should readers care? "I think these recurring symbols all show the human soul's desire to connect with God." This is where your argument gets more specific.</span>
+                                <span class="zh"><strong>意义：</strong>这解释了解释的重要性或相关性可能是什么。为什么读者应该关心？"我认为这些重复出现的符号都显示了人类灵魂与上帝连接的渴望。"这是你的论点变得更具体的地方。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box warning">
+                        <h4>⚖️ What is the difference? | 有什么区别？</h4>
+                        
+                        <div style="background: var(--error-light); padding: var(--space-md); border-radius: var(--radius-sm); margin: var(--space-md) 0;">
+                            <p><strong>❌ Weak Thesis:</strong></p>
+                            <p style="font-style: italic;">"The works of ecstatic love poets Rumi, Hafiz, and Kabir use symbols such as a lover's longing and the Tavern of Ruin to illustrate the human soul's desire to connect with God."</p>
+                            <p class="zh" style="font-size: 0.85rem; margin-top: var(--space-xs);">较弱的论点：简单陈述事实</p>
+                        </div>
+                        
+                        <div style="background: var(--success-light); padding: var(--space-md); border-radius: var(--radius-sm);">
+                            <p><strong>✅ Strong Thesis:</strong></p>
+                            <p style="font-style: italic;">"The ecstatic love poets Rumi, Hafiz, and Kabir <mark style="background: #ffeb3b;">consistently employ</mark> symbols such as the lover's longing and the Tavern of Ruin to reveal a shared pattern: <mark style="background: #ffeb3b;">the soul's pursuit of divine union</mark>, <mark style="background: #ffeb3b;">a pursuit that both elevates personal experience</mark> and <mark style="background: #ffeb3b;">challenges conventional religious authority</mark>."</p>
+                            <p class="zh" style="font-size: 0.85rem; margin-top: var(--space-xs);">强有力的论点：具体、可辩论、有意义</p>
+                        </div>
+                        
+                        <p style="margin-top: var(--space-md);" class="bilingual">
+                            <span class="en"><strong>Notice:</strong> The strong thesis makes specific, arguable claims (highlighted). It's not just describing—it's arguing a complex interpretation.</span>
+                            <span class="zh"><strong>注意：</strong>强有力的论点提出了具体的、可辩论的主张（已突出显示）。它不仅仅是描述——而是论证一个复杂的解释。</span>
                         </p>
                     </div>
                     
@@ -1017,16 +1106,22 @@ body {
                         </div>
                     </div>
                     
+                    <div style="text-align: center; margin-top: var(--space-md);">
+                        <button class="btn btn-secondary" onclick="downloadThesis()">
+                            📥 Download Thesis | 下载论点
+                        </button>
+                    </div>
+                    
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('introduction')">
-                            🦉 Ask Theo for Feedback
+                            🦉 Ask Theo for Feedback | 向Theo请求反馈
                         </button>
                     </div>
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(3)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(5)">Write Body Paragraphs →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(3)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(5)">Write Body Paragraphs → | 写正文段落 →</button>
                 </div>
             </div>
             
@@ -1051,6 +1146,10 @@ body {
                         <p id="body1Instruction"></p>
                     </div>
                     
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
+                    </div>
+                    
                     <div class="form-group">
                         <textarea class="form-textarea" id="body1Input" rows="10" 
                             placeholder="Write your first body paragraph. Start with a topic sentence..."
@@ -1065,6 +1164,10 @@ body {
                     <div class="section-guide" style="margin-top: var(--space-xl);">
                         <h4 id="body2Guide">📌 Body Paragraph 2</h4>
                         <p id="body2Instruction"></p>
+                    </div>
+                    
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
                     </div>
                     
                     <div class="form-group">
@@ -1083,6 +1186,10 @@ body {
                         <p id="body3Instruction"></p>
                     </div>
                     
+                    <div class="example-box body-paragraph-guidance">
+                        <!-- Will be populated by setupBodyPage() with novel-specific guidance -->
+                    </div>
+                    
                     <div class="form-group">
                         <textarea class="form-textarea" id="body3Input" rows="10" 
                             placeholder="Write your third body paragraph..."
@@ -1095,14 +1202,14 @@ body {
                     
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('body')">
-                            🦉 Ask Theo for Body Feedback
+                            🦉 Ask Theo for Body Feedback | 向Theo请求正文反馈
                         </button>
                     </div>
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(4)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(6)">Write Conclusion →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(4)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(6)">Write Conclusion → | 写结论 →</button>
                 </div>
             </div>
             
@@ -1150,14 +1257,14 @@ body {
                     
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('conclusion')">
-                            🦉 Ask Theo for Conclusion Feedback
+                            🦉 Ask Theo for Conclusion Feedback | 向Theo请求结论反馈
                         </button>
                     </div>
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(5)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(7)">Review & Export →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(5)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(7)">Review & Export → | 审查和导出 →</button>
                 </div>
             </div>
             
@@ -1183,26 +1290,26 @@ body {
                 
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">📤 Export Options</h2>
+                        <h2 class="card-title">📤 Export Options | 导出选项</h2>
                     </div>
                     
                     <div class="example-box success">
-                        <p><strong>📄 Format:</strong> Times New Roman, 12pt, Black, Double-spaced</p>
+                        <p><strong>📄 Format | 格式:</strong> Times New Roman, 12pt, Black, Double-spaced | 双倍行距</p>
                     </div>
                     
                     <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
                         <button class="btn btn-primary btn-lg" onclick="downloadWord()">
-                            📥 Download Word Document
+                            📥 Download Word Document | 下载Word文档
                         </button>
-                        <button class="btn btn-secondary" onclick="copyEssay()">📋 Copy Essay</button>
-                        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
-                        <button class="btn btn-secondary" onclick="startOver()">🔄 Start Over</button>
+                        <button class="btn btn-secondary" onclick="copyEssay()">📋 Copy Essay | 复制论文</button>
+                        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print | 打印</button>
+                        <button class="btn btn-secondary" onclick="startOver()">🔄 Start Over | 重新开始</button>
                     </div>
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(6)">← Back</button>
-                    <button class="btn btn-gold btn-lg" onclick="celebrate()">🎊 I'm Done!</button>
+                    <button class="btn btn-secondary" onclick="goToPage(6)">← Back | ← 返回</button>
+                    <button class="btn btn-gold btn-lg" onclick="celebrate()">🎊 I'm Done! | 完成了！</button>
                 </div>
             </div>
             
@@ -1216,8 +1323,8 @@ body {
         <div class="coach-header">
             <div class="coach-avatar">🦉</div>
             <div class="coach-info">
-                <h4>Theo the Essay Coach</h4>
-                <p>I guide, I don't give answers!</p>
+                <h4>Theo the Essay Coach | 论文教练Theo</h4>
+                <p>I guide, I don't give answers! | 我引导，不给答案！</p>
             </div>
             <button class="coach-close" onclick="toggleCoach()">×</button>
         </div>
@@ -1225,19 +1332,20 @@ body {
         <div class="coach-messages" id="coachMessages">
             <div class="coach-message assistant">
                 <p>👋 Hello! I'm <strong>Theo</strong>, your essay writing coach! I'll help you with hints, grammar checks, and formula guidance. Remember—I guide, I don't write for you!</p>
+                <p class="zh" style="font-size: 0.9em; margin-top: 8px; opacity: 0.85;">你好！我是<strong>Theo</strong>，你的论文写作教练！我会给你提示、语法检查和公式指导。记住——我引导，不为你写作！</p>
             </div>
         </div>
         
         <div class="coach-input-area">
             <div class="coach-actions">
-                <button class="coach-action-btn" onclick="askForHint()">💡 Hint</button>
-                <button class="coach-action-btn" onclick="checkGrammar()">✏️ Grammar</button>
-                <button class="coach-action-btn" onclick="explainFormula()">📝 Formula</button>
+                <button class="coach-action-btn" onclick="askForHint()">💡 Hint | 提示</button>
+                <button class="coach-action-btn" onclick="checkGrammar()">✏️ Grammar | 语法</button>
+                <button class="coach-action-btn" onclick="explainFormula()">📝 Formula | 公式</button>
             </div>
             <div class="coach-input-row">
                 <input type="text" class="coach-input" id="coachInput" 
-                    placeholder="Ask Theo..." onkeypress="if(event.key==='Enter')sendToCoach()">
-                <button class="coach-send" onclick="sendToCoach()">Send</button>
+                    placeholder="Ask Theo... | 问Theo..." onkeypress="if(event.key==='Enter')sendToCoach()">
+                <button class="coach-send" onclick="sendToCoach()">Send | 发送</button>
             </div>
         </div>
     </div>
@@ -1245,10 +1353,10 @@ body {
     <!-- Settings Modal -->
     <div class="modal-overlay" id="settingsModal">
         <div class="modal-content">
-            <h3>⚙️ API Settings</h3>
+            <h3>⚙️ API Settings | API设置</h3>
             
             <div class="form-group">
-                <label class="form-label">AI Provider</label>
+                <label class="form-label">AI Provider | AI提供商</label>
                 <select class="form-select" id="apiProvider">
                     <option value="groq">Groq (Free & Fast)</option>
                     <option value="openai">OpenAI</option>
@@ -1257,16 +1365,16 @@ body {
             </div>
             
             <div class="form-group">
-                <label class="form-label">API Key</label>
+                <label class="form-label">API Key | API密钥</label>
                 <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key...">
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-xs);">
-                    Stored locally only. Never sent to our servers.
+                    Stored locally only. Never sent to our servers. | 仅本地存储。绝不发送到我们的服务器。
                 </p>
             </div>
             
             <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+                <button class="btn btn-secondary" onclick="closeSettings()">Cancel | 取消</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save | 保存</button>
             </div>
         </div>
     </div>
@@ -1383,143 +1491,498 @@ const Novels = [
 const NovelResources = {
     0: { // Death on the Nile
         symbols: [
-            { name: 'The Nile River', meaning: 'Fate and inevitability—the flow of time catches up with characters.' },
-            { name: 'The Boat', meaning: 'Social entrapment—wealth cannot escape moral consequences.' },
-            { name: 'Pearls/Jewelry', meaning: 'Wealth, vanity, and the corrupting influence of possessions.' }
+            { name: 'The Nile River', nameZh: '尼罗河', meaning: 'Fate and inevitability—the flow of time catches up with characters.', meaningZh: '命运与不可避免——时间的流逝追赶着角色。' },
+            { name: 'The Boat', nameZh: '船只', meaning: 'Social entrapment—wealth cannot escape moral consequences.', meaningZh: '社会陷阱——财富无法逃避道德后果。' },
+            { name: 'Pearls/Jewelry', nameZh: '珍珠/珠宝', meaning: 'Wealth, vanity, and the corrupting influence of possessions.', meaningZh: '财富、虚荣和财物的腐蚀影响。' },
+            { name: 'The Desert Sun', nameZh: '沙漠阳光', meaning: 'Truth revealed—the harsh light exposes hidden secrets.', meaningZh: '真相揭露——刺眼的光芒暴露隐藏的秘密。' }
         ],
         devices: [
-            { name: 'Red Herring', desc: 'False clues mislead both detective and reader.' },
-            { name: 'Foreshadowing', desc: 'Subtle hints about violence become clear in retrospect.' },
-            { name: 'Dramatic Irony', desc: 'The audience knows information characters do not.' }
+            { name: 'Red Herring', nameZh: '红鲱鱼（误导线索）', desc: 'False clues mislead both detective and reader.', descZh: '虚假线索误导侦探和读者。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Subtle hints about violence become clear in retrospect.', descZh: '关于暴力的微妙暗示在回顾时变得清晰。' },
+            { name: 'Dramatic Irony', nameZh: '戏剧性讽刺', desc: 'The audience knows information characters do not.', descZh: '观众知道角色不知道的信息。' },
+            { name: 'Closed Setting', nameZh: '封闭环境', desc: 'The boat creates a limited cast of suspects, intensifying suspense.', descZh: '船只创造了有限的嫌疑人，加剧了悬念。' }
         ],
         themes: [
-            { name: 'Jealousy & Obsession', desc: 'Romantic jealousy drives characters to extreme actions.' },
-            { name: 'Wealth & Consequences', desc: 'Money attracts danger and corrupts relationships.' },
-            { name: 'Appearance vs. Reality', desc: 'Surface charm masks darker intentions.' }
+            { name: 'Jealousy & Obsession', nameZh: '嫉妒与执念', desc: 'Romantic jealousy drives characters to extreme actions.', descZh: '浪漫的嫉妒驱使角色采取极端行动。' },
+            { name: 'Wealth & Consequences', nameZh: '财富与后果', desc: 'Money attracts danger and corrupts relationships.', descZh: '金钱吸引危险并腐蚀关系。' },
+            { name: 'Appearance vs. Reality', nameZh: '表象与现实', desc: 'Surface charm masks darker intentions.', descZh: '表面魅力掩盖更黑暗的意图。' },
+            { name: 'Justice vs. Revenge', nameZh: '正义与复仇', desc: 'Legal justice versus personal vengeance motives.', descZh: '法律正义与个人复仇动机的对比。' }
         ],
         characters: [
-            { name: 'Hercule Poirot', role: 'Detective who balances truth-seeking with compassion.' },
-            { name: 'Linnet Ridgeway', role: 'Wealthy victim whose privilege cannot protect her.' },
-            { name: 'Jacqueline de Bellefort', role: 'Jealous ex-fiancée consumed by betrayal.' }
+            { name: 'Hercule Poirot', nameZh: '赫尔克里·波洛', role: 'Detective who balances truth-seeking with compassion.', roleZh: '平衡寻求真相与同情心的侦探。' },
+            { name: 'Linnet Ridgeway', nameZh: '林内特·里奇韦', role: 'Wealthy victim whose privilege cannot protect her.', roleZh: '特权无法保护她的富有受害者。' },
+            { name: 'Jacqueline de Bellefort', nameZh: '雅克琳·德·贝尔福', role: 'Jealous ex-fiancée consumed by betrayal.', roleZh: '被背叛吞噬的嫉妒前未婚妻。' },
+            { name: 'Simon Doyle', nameZh: '西蒙·道尔', role: 'Charming but weak man caught between two women.', roleZh: '迷人但软弱的男人被困在两个女人之间。' }
         ],
         conflicts: [
-            { type: 'Person vs. Person', desc: 'Jacqueline vs. Linnet—rivalry over Simon.' },
-            { type: 'Truth vs. Deception', desc: 'Poirot\'s pursuit of truth against elaborate lies.' }
+            { type: 'Person vs. Person', typeZh: '人与人', desc: 'Jacqueline vs. Linnet—rivalry over Simon.', descZh: '雅克琳对林内特——因西蒙而起的竞争。' },
+            { type: 'Truth vs. Deception', typeZh: '真相与欺骗', desc: 'Poirot\'s pursuit of truth against elaborate lies.', descZh: '波洛追求真相对抗精心编织的谎言。' },
+            { type: 'Love vs. Pride', typeZh: '爱与骄傲', desc: 'Characters struggle between genuine feeling and wounded ego.', descZh: '角色在真实感情和受伤自尊之间挣扎。' }
         ]
     },
     3: { // Lord of the Flies
         symbols: [
-            { name: 'The Conch Shell', meaning: 'Civilization, democratic order—its destruction signals collapse.' },
-            { name: 'The Lord of the Flies', meaning: 'The beast within humanity; evil is internal, not external.' },
-            { name: 'Piggy\'s Glasses', meaning: 'Intellect and reason—their theft represents reason\'s defeat.' },
-            { name: 'The Signal Fire', meaning: 'Hope for rescue and connection to civilization.' }
+            { name: 'The Conch Shell', nameZh: '海螺壳', meaning: 'Civilization, democratic order—its destruction signals collapse.', meaningZh: '文明、民主秩序——它的毁灭标志着崩溃。' },
+            { name: 'The Lord of the Flies', nameZh: '蝇王', meaning: 'The beast within humanity; evil is internal, not external.', meaningZh: '人性中的野兽；邪恶来自内部而非外部。' },
+            { name: 'Piggy\'s Glasses', nameZh: '猪崽子的眼镜', meaning: 'Intellect and reason—their theft represents reason\'s defeat.', meaningZh: '智慧和理性——它们的被盗代表理性的失败。' },
+            { name: 'The Signal Fire', nameZh: '信号火', meaning: 'Hope for rescue and connection to civilization.', meaningZh: '获救的希望和与文明的联系。' }
         ],
         devices: [
-            { name: 'Allegory', desc: 'The island represents the world; boys represent society.' },
-            { name: 'Symbolism', desc: 'Objects carry deeper meanings about civilization vs. savagery.' },
-            { name: 'Foreshadowing', desc: 'Roger throwing stones hints at later violence.' },
-            { name: 'Irony', desc: 'The "rescuing" naval officer is also waging war.' }
+            { name: 'Allegory', nameZh: '寓言', desc: 'The island represents the world; boys represent society.', descZh: '岛屿代表世界；男孩代表社会。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Objects carry deeper meanings about civilization vs. savagery.', descZh: '物体承载着关于文明与野蛮的更深层含义。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Roger throwing stones hints at later violence.', descZh: '罗杰扔石头暗示后来的暴力。' },
+            { name: 'Irony', nameZh: '讽刺', desc: 'The "rescuing" naval officer is also waging war.', descZh: '"营救"的海军军官也在发动战争。' }
         ],
         themes: [
-            { name: 'Civilization vs. Savagery', desc: 'How easily the veneer of civilization collapses.' },
-            { name: 'Innocence & Evil', desc: 'Children are not inherently innocent; evil exists within all.' },
-            { name: 'Power & Leadership', desc: 'Democratic vs. authoritarian leadership styles.' },
-            { name: 'Fear of the Unknown', desc: 'Fear as a tool of control and catalyst for violence.' }
+            { name: 'Civilization vs. Savagery', nameZh: '文明与野蛮', desc: 'How easily the veneer of civilization collapses.', descZh: '文明的外表如此容易崩溃。' },
+            { name: 'Innocence & Evil', nameZh: '纯真与邪恶', desc: 'Children are not inherently innocent; evil exists within all.', descZh: '儿童并非天生纯真；邪恶存在于所有人之中。' },
+            { name: 'Power & Leadership', nameZh: '权力与领导', desc: 'Democratic vs. authoritarian leadership styles.', descZh: '民主与专制领导风格的对比。' },
+            { name: 'Fear of the Unknown', nameZh: '对未知的恐惧', desc: 'Fear as a tool of control and catalyst for violence.', descZh: '恐惧作为控制工具和暴力催化剂。' }
         ],
         characters: [
-            { name: 'Ralph', role: 'Represents civilization, democracy, rational leadership.' },
-            { name: 'Jack', role: 'Represents savagery, dictatorship, dark impulses.' },
-            { name: 'Piggy', role: 'Represents intellect, science, rational thinking.' },
-            { name: 'Simon', role: 'Represents spirituality, natural goodness, prophetic insight.' }
+            { name: 'Ralph', nameZh: '拉尔夫', role: 'Represents civilization, democracy, rational leadership.', roleZh: '代表文明、民主、理性领导。' },
+            { name: 'Jack', nameZh: '杰克', role: 'Represents savagery, dictatorship, dark impulses.', roleZh: '代表野蛮、独裁、黑暗冲动。' },
+            { name: 'Piggy', nameZh: '猪崽子', role: 'Represents intellect, science, rational thinking.', roleZh: '代表智慧、科学、理性思考。' },
+            { name: 'Simon', nameZh: '西蒙', role: 'Represents spirituality, natural goodness, prophetic insight.', roleZh: '代表灵性、天生善良、预言洞察力。' }
         ],
         conflicts: [
-            { type: 'Person vs. Person', desc: 'Ralph vs. Jack for leadership.' },
-            { type: 'Person vs. Self', desc: 'Each boy struggles with capacity for violence.' },
-            { type: 'Order vs. Chaos', desc: 'Gradual breakdown of rules and society.' }
+            { type: 'Person vs. Person', typeZh: '人与人', desc: 'Ralph vs. Jack for leadership.', descZh: '拉尔夫对杰克争夺领导权。' },
+            { type: 'Person vs. Self', typeZh: '人与自我', desc: 'Each boy struggles with capacity for violence.', descZh: '每个男孩都在与暴力能力作斗争。' },
+            { type: 'Order vs. Chaos', typeZh: '秩序与混乱', desc: 'Gradual breakdown of rules and society.', descZh: '规则和社会的逐渐崩溃。' }
         ]
     },
     6: { // To Kill a Mockingbird
         symbols: [
-            { name: 'The Mockingbird', meaning: 'Innocence destroyed by evil—"sin to kill a mockingbird."' },
-            { name: 'Boo Radley\'s House', meaning: 'Fear of the unknown; prejudice based on rumors.' },
-            { name: 'The Tree Knothole', meaning: 'Connection between innocence (children) and isolation (Boo).' }
+            { name: 'The Mockingbird', nameZh: '知更鸟', meaning: 'Innocence destroyed by evil—"sin to kill a mockingbird."', meaningZh: '被邪恶摧毁的纯真——"杀死知更鸟是罪过。"' },
+            { name: 'Boo Radley\'s House', nameZh: '布·拉德利的房子', meaning: 'Fear of the unknown; prejudice based on rumors.', meaningZh: '对未知的恐惧；基于谣言的偏见。' },
+            { name: 'The Tree Knothole', nameZh: '树洞', meaning: 'Connection between innocence (children) and isolation (Boo).', meaningZh: '纯真（儿童）与孤立（布）之间的联系。' },
+            { name: 'The Courthouse', nameZh: '法院', meaning: 'Symbol of justice and its failures in racist society.', meaningZh: '正义及其在种族主义社会中失败的象征。' }
         ],
         devices: [
-            { name: 'First-Person Child Narrator', desc: 'Scout\'s innocence highlights adult hypocrisy.' },
-            { name: 'Symbolism', desc: 'The mockingbird represents innocent victims.' },
-            { name: 'Irony', desc: 'A town that values "Christian" morality commits injustice.' }
+            { name: 'First-Person Child Narrator', nameZh: '第一人称儿童叙述者', desc: 'Scout\'s innocence highlights adult hypocrisy.', descZh: '斯库特的纯真突显成人的虚伪。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'The mockingbird represents innocent victims.', descZh: '知更鸟代表无辜的受害者。' },
+            { name: 'Irony', nameZh: '讽刺', desc: 'A town that values "Christian" morality commits injustice.', descZh: '一个重视"基督教"道德的城镇犯下不公正。' },
+            { name: 'Coming-of-Age', nameZh: '成长', desc: 'Children\'s loss of innocence as they witness injustice.', descZh: '儿童在目睹不公正时失去纯真。' }
         ],
         themes: [
-            { name: 'Racial Injustice', desc: 'Systemic racism in the American South.' },
-            { name: 'Loss of Innocence', desc: 'Children confronting evil in their community.' },
-            { name: 'Moral Courage', desc: 'Standing for what\'s right despite opposition.' },
-            { name: 'Empathy', desc: '"Walk in another\'s shoes" as moral education.' }
+            { name: 'Racial Injustice', nameZh: '种族不公', desc: 'Systemic racism in the American South.', descZh: '美国南方的系统性种族主义。' },
+            { name: 'Loss of Innocence', nameZh: '失去纯真', desc: 'Children confronting evil in their community.', descZh: '儿童在社区中面对邪恶。' },
+            { name: 'Moral Courage', nameZh: '道德勇气', desc: 'Standing for what\'s right despite opposition.', descZh: '尽管有反对仍坚持正确。' },
+            { name: 'Empathy', nameZh: '同理心', desc: '"Walk in another\'s shoes" as moral education.', descZh: '"站在别人的角度"作为道德教育。' }
         ],
         characters: [
-            { name: 'Scout Finch', role: 'Narrator whose innocence illuminates adult failures.' },
-            { name: 'Atticus Finch', role: 'Moral compass; defends justice against racism.' },
-            { name: 'Tom Robinson', role: 'Innocent victim of racial prejudice—a "mockingbird."' },
-            { name: 'Boo Radley', role: 'Misunderstood recluse; another "mockingbird."' }
+            { name: 'Scout Finch', nameZh: '斯库特·芬奇', role: 'Narrator whose innocence illuminates adult failures.', roleZh: '叙述者，她的纯真照亮成人的失败。' },
+            { name: 'Atticus Finch', nameZh: '阿提克斯·芬奇', role: 'Moral compass; defends justice against racism.', roleZh: '道德指南针；捍卫正义对抗种族主义。' },
+            { name: 'Tom Robinson', nameZh: '汤姆·罗宾逊', role: 'Innocent victim of racial prejudice—a "mockingbird."', roleZh: '种族偏见的无辜受害者——一只"知更鸟"。' },
+            { name: 'Boo Radley', nameZh: '布·拉德利', role: 'Misunderstood recluse; another "mockingbird."', roleZh: '被误解的隐士；另一只"知更鸟"。' }
         ],
         conflicts: [
-            { type: 'Justice vs. Prejudice', desc: 'Tom\'s trial against the racist system.' },
-            { type: 'Innocence vs. Experience', desc: 'Children learning about human evil.' }
+            { type: 'Justice vs. Prejudice', typeZh: '正义与偏见', desc: 'Tom\'s trial against the racist system.', descZh: '汤姆对抗种族主义制度的审判。' },
+            { type: 'Innocence vs. Experience', typeZh: '纯真与经验', desc: 'Children learning about human evil.', descZh: '儿童了解人类邪恶。' },
+            { type: 'Individual vs. Society', typeZh: '个人与社会', desc: 'Atticus standing alone against town prejudice.', descZh: '阿提克斯独自对抗城镇偏见。' }
         ]
     },
     13: { // 1984
         symbols: [
-            { name: 'Big Brother', meaning: 'Totalitarian surveillance and cult of personality.' },
-            { name: 'The Telescreen', meaning: 'Constant surveillance; destruction of private life.' },
-            { name: 'Room 101', meaning: 'Ultimate torture—facing one\'s worst fear.' },
-            { name: 'Newspeak', meaning: 'Language control as thought control.' }
+            { name: 'Big Brother', nameZh: '老大哥', meaning: 'Totalitarian surveillance and cult of personality.', meaningZh: '极权监控和个人崇拜。' },
+            { name: 'The Telescreen', nameZh: '电幕', meaning: 'Constant surveillance; destruction of private life.', meaningZh: '持续监控；私人生活的毁灭。' },
+            { name: 'Room 101', nameZh: '101室', meaning: 'Ultimate torture—facing one\'s worst fear.', meaningZh: '终极酷刑——面对最大的恐惧。' },
+            { name: 'Newspeak', nameZh: '新话', meaning: 'Language control as thought control.', meaningZh: '语言控制作为思想控制。' }
         ],
         devices: [
-            { name: 'Dystopian Setting', desc: 'Nightmarish future extrapolated from present trends.' },
-            { name: 'Irony', desc: 'Ministry names mean the opposite of their function.' },
-            { name: 'Psychological Realism', desc: 'Detailed exploration of Winston\'s breakdown.' }
+            { name: 'Dystopian Setting', nameZh: '反乌托邦背景', desc: 'Nightmarish future extrapolated from present trends.', descZh: '从当前趋势推断的噩梦般的未来。' },
+            { name: 'Irony', nameZh: '讽刺', desc: 'Ministry names mean the opposite of their function.', descZh: '部门名称与其功能相反。' },
+            { name: 'Psychological Realism', nameZh: '心理现实主义', desc: 'Detailed exploration of Winston\'s breakdown.', descZh: '对温斯顿崩溃的详细探索。' },
+            { name: 'Propaganda', nameZh: '宣传', desc: 'Manipulation of truth through slogans and altered history.', descZh: '通过口号和篡改历史来操纵真相。' }
         ],
         themes: [
-            { name: 'Totalitarianism', desc: 'Complete state control over every aspect of life.' },
-            { name: 'Language & Thought', desc: 'Controlling language to limit thought.' },
-            { name: 'Reality & Truth', desc: '"Who controls the past controls the future."' },
-            { name: 'Psychological Manipulation', desc: 'Breaking individuals through fear and torture.' }
+            { name: 'Totalitarianism', nameZh: '极权主义', desc: 'Complete state control over every aspect of life.', descZh: '国家对生活各个方面的完全控制。' },
+            { name: 'Language & Thought', nameZh: '语言与思想', desc: 'Controlling language to limit thought.', descZh: '控制语言以限制思想。' },
+            { name: 'Reality & Truth', nameZh: '现实与真相', desc: '"Who controls the past controls the future."', descZh: '"谁控制过去，谁就控制未来。"' },
+            { name: 'Psychological Manipulation', nameZh: '心理操纵', desc: 'Breaking individuals through fear and torture.', descZh: '通过恐惧和酷刑摧毁个人。' }
         ],
         characters: [
-            { name: 'Winston Smith', role: 'Individual crushed by totalitarianism.' },
-            { name: 'Julia', role: 'Instinctive rather than intellectual rebellion.' },
-            { name: 'O\'Brien', role: 'True believer who represents Party\'s seductive power.' }
+            { name: 'Winston Smith', nameZh: '温斯顿·史密斯', role: 'Individual crushed by totalitarianism.', roleZh: '被极权主义压垮的个人。' },
+            { name: 'Julia', nameZh: '朱莉娅', role: 'Instinctive rather than intellectual rebellion.', roleZh: '本能而非理智的反叛。' },
+            { name: 'O\'Brien', nameZh: '奥布莱恩', role: 'True believer who represents Party\'s seductive power.', roleZh: '代表党的诱惑力量的真正信徒。' },
+            { name: 'Big Brother', nameZh: '老大哥', role: 'Omnipresent leader figure—may not exist but controls all.', roleZh: '无所不在的领袖形象——可能不存在但控制一切。' }
         ],
         conflicts: [
-            { type: 'Individual vs. State', desc: 'Winston\'s thoughts vs. Party\'s control.' },
-            { type: 'Truth vs. Propaganda', desc: 'Reality vs. manufactured "truth."' }
+            { type: 'Individual vs. State', typeZh: '个人与国家', desc: 'Winston\'s thoughts vs. Party\'s control.', descZh: '温斯顿的思想对抗党的控制。' },
+            { type: 'Truth vs. Propaganda', typeZh: '真相与宣传', desc: 'Reality vs. manufactured "truth."', descZh: '现实对抗制造的"真相"。' },
+            { type: 'Freedom vs. Control', typeZh: '自由与控制', desc: 'Human desire for autonomy vs. total surveillance.', descZh: '人类对自主的渴望对抗全面监控。' }
         ]
     },
     14: { // The Great Gatsby
         symbols: [
-            { name: 'The Green Light', meaning: 'Gatsby\'s dreams; the American Dream\'s promise and impossibility.' },
-            { name: 'The Valley of Ashes', meaning: 'The dark underside of wealth; moral decay.' },
-            { name: 'Doctor Eckleburg\'s Eyes', meaning: 'God\'s judgment or its absence; moral blindness.' }
+            { name: 'The Green Light', nameZh: '绿光', meaning: 'Gatsby\'s dreams; the American Dream\'s promise and impossibility.', meaningZh: '盖茨比的梦想；美国梦的承诺和不可能。' },
+            { name: 'The Valley of Ashes', nameZh: '灰烬谷', meaning: 'The dark underside of wealth; moral decay.', meaningZh: '财富的阴暗面；道德败坏。' },
+            { name: 'Doctor Eckleburg\'s Eyes', nameZh: '埃克尔堡医生的眼睛', meaning: 'God\'s judgment or its absence; moral blindness.', meaningZh: '上帝的审判或其缺席；道德盲目。' },
+            { name: 'Gatsby\'s Mansion', nameZh: '盖茨比的豪宅', meaning: 'Wealth built on illusion to attract Daisy.', meaningZh: '建立在幻觉之上以吸引黛西的财富。' }
         ],
         devices: [
-            { name: 'First-Person Peripheral Narrator', desc: 'Nick observes rather than participates.' },
-            { name: 'Symbolism', desc: 'Objects carry profound thematic weight.' },
-            { name: 'Irony', desc: 'Gatsby\'s dream is doomed from the start.' }
+            { name: 'First-Person Peripheral Narrator', nameZh: '第一人称旁观叙述者', desc: 'Nick observes rather than participates.', descZh: '尼克观察而非参与。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Objects carry profound thematic weight.', descZh: '物体承载深刻的主题分量。' },
+            { name: 'Irony', nameZh: '讽刺', desc: 'Gatsby\'s dream is doomed from the start.', descZh: '盖茨比的梦想从一开始就注定失败。' },
+            { name: 'Flashback', nameZh: '倒叙', desc: 'Past gradually revealed to explain present tragedy.', descZh: '过去逐渐揭示以解释现在的悲剧。' }
         ],
         themes: [
-            { name: 'The American Dream', desc: 'Promise and corruption of upward mobility.' },
-            { name: 'Wealth & Class', desc: 'Old money vs. new money; class immobility.' },
-            { name: 'Illusion vs. Reality', desc: 'Gap between dream and actuality.' },
-            { name: 'Moral Decay', desc: 'Carelessness beneath wealth\'s surface.' }
+            { name: 'The American Dream', nameZh: '美国梦', desc: 'Promise and corruption of upward mobility.', descZh: '向上流动的承诺和腐败。' },
+            { name: 'Wealth & Class', nameZh: '财富与阶级', desc: 'Old money vs. new money; class immobility.', descZh: '旧钱对新钱；阶级固化。' },
+            { name: 'Illusion vs. Reality', nameZh: '幻觉与现实', desc: 'Gap between dream and actuality.', descZh: '梦想与现实之间的差距。' },
+            { name: 'Moral Decay', nameZh: '道德败坏', desc: 'Carelessness beneath wealth\'s surface.', descZh: '财富表面之下的粗心大意。' }
         ],
         characters: [
-            { name: 'Jay Gatsby', role: 'American Dream\'s romantic hope and fatal flaw.' },
-            { name: 'Nick Carraway', role: 'Moral center who judges the wealthy.' },
-            { name: 'Daisy Buchanan', role: 'Careless cruelty of the elite.' },
-            { name: 'Tom Buchanan', role: 'Old money\'s brutality and entitlement.' }
+            { name: 'Jay Gatsby', nameZh: '杰伊·盖茨比', role: 'American Dream\'s romantic hope and fatal flaw.', roleZh: '美国梦的浪漫希望和致命缺陷。' },
+            { name: 'Nick Carraway', nameZh: '尼克·卡拉威', role: 'Moral center who judges the wealthy.', roleZh: '判断富人的道德中心。' },
+            { name: 'Daisy Buchanan', nameZh: '黛西·布坎南', role: 'Careless cruelty of the elite.', roleZh: '精英的粗心残酷。' },
+            { name: 'Tom Buchanan', nameZh: '汤姆·布坎南', role: 'Old money\'s brutality and entitlement.', roleZh: '旧钱的残暴和特权。' }
         ],
         conflicts: [
-            { type: 'Dream vs. Reality', desc: 'Gatsby\'s vision vs. corrupt reality.' },
-            { type: 'Past vs. Present', desc: 'Gatsby trying to recreate the past.' }
+            { type: 'Dream vs. Reality', typeZh: '梦想与现实', desc: 'Gatsby\'s vision vs. corrupt reality.', descZh: '盖茨比的愿景对抗腐败的现实。' },
+            { type: 'Past vs. Present', typeZh: '过去与现在', desc: 'Gatsby trying to recreate the past.', descZh: '盖茨比试图重现过去。' },
+            { type: 'Old Money vs. New Money', typeZh: '旧钱与新钱', desc: 'Class distinctions despite equal wealth.', descZh: '尽管财富相等但阶级区别明显。' }
+        ]
+    },
+    1: { // The Order of the Phoenix
+        symbols: [
+            { name: 'The Phoenix', nameZh: '凤凰', meaning: 'Rebirth and resilience—rising from ashes of defeat.', meaningZh: '重生与韧性——从失败的灰烬中崛起。' },
+            { name: 'The Room of Requirement', nameZh: '有求必应屋', meaning: 'Hidden strength and resourcefulness in adversity.', meaningZh: '逆境中隐藏的力量和机智。' },
+            { name: 'Umbridge\'s Quill', nameZh: '乌姆里奇的羽毛笔', meaning: 'Authoritarian cruelty disguised as order.', meaningZh: '伪装成秩序的威权残酷。' },
+            { name: 'The Prophecy', nameZh: '预言', meaning: 'Fate vs. choice—destiny shaped by decisions.', meaningZh: '命运与选择——由决定塑造的命运。' }
+        ],
+        devices: [
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Dreams and visions hint at future tragedy.', descZh: '梦境和幻象暗示未来的悲剧。' },
+            { name: 'Allegory', nameZh: '寓言', desc: 'Ministry corruption parallels real-world authoritarianism.', descZh: '魔法部腐败平行现实世界的威权主义。' },
+            { name: 'Dramatic Irony', nameZh: '戏剧性讽刺', desc: 'Readers know Voldemort\'s return before officials accept it.', descZh: '读者在官员接受之前就知道伏地魔的回归。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Objects and creatures represent broader themes of resistance.', descZh: '物品和生物代表更广泛的抵抗主题。' }
+        ],
+        themes: [
+            { name: 'Authority vs. Rebellion', nameZh: '权威与反抗', desc: 'Challenging corrupt systems and unjust rules.', descZh: '挑战腐败制度和不公正规则。' },
+            { name: 'Propaganda & Truth', nameZh: '宣传与真相', desc: 'Media manipulation vs. reality.', descZh: '媒体操纵与现实。' },
+            { name: 'Loss & Grief', nameZh: '失去与悲伤', desc: 'Processing trauma and continuing despite loss.', descZh: '处理创伤并在失去后继续前进。' },
+            { name: 'Coming of Age', nameZh: '成长', desc: 'Taking responsibility and confronting difficult truths.', descZh: '承担责任并面对困难的真相。' }
+        ],
+        characters: [
+            { name: 'Harry Potter', nameZh: '哈利·波特', role: 'Reluctant leader learning to channel anger productively.', roleZh: '不情愿的领袖学习建设性地引导愤怒。' },
+            { name: 'Dolores Umbridge', nameZh: '多洛雷斯·乌姆里奇', role: 'Bureaucratic evil—cruelty within legal authority.', roleZh: '官僚邪恶——法律权威内的残酷。' },
+            { name: 'Sirius Black', nameZh: '小天狼星布莱克', role: 'Reckless mentor whose impulsiveness leads to tragedy.', roleZh: '鲁莽的导师，其冲动导致悲剧。' },
+            { name: 'Luna Lovegood', nameZh: '卢娜·洛夫古德', role: 'Represents acceptance and seeing truth others miss.', roleZh: '代表接纳和看到他人错过的真相。' }
+        ],
+        conflicts: [
+            { type: 'Truth vs. Denial', typeZh: '真相与否认', desc: 'Ministry denying Voldemort\'s return despite evidence.', descZh: '魔法部尽管有证据仍否认伏地魔的回归。' },
+            { type: 'Individual vs. Institution', typeZh: '个人与机构', desc: 'Students resisting Ministry control at Hogwarts.', descZh: '学生抵制魔法部对霍格沃茨的控制。' },
+            { type: 'Isolation vs. Community', typeZh: '孤立与社区', desc: 'Harry\'s anger versus need for friendship support.', descZh: '哈利的愤怒与对友谊支持的需求。' }
+        ]
+    },
+    2: { // Wuthering Heights
+        symbols: [
+            { name: 'The Moors', nameZh: '荒原', meaning: 'Wild, untamed nature reflecting passionate emotions.', meaningZh: '狂野、未驯服的自然反映热情的情感。' },
+            { name: 'Wuthering Heights (house)', nameZh: '呼啸山庄（房子）', meaning: 'Chaos, violence, and raw emotion.', meaningZh: '混乱、暴力和原始情感。' },
+            { name: 'Thrushcross Grange', nameZh: '画眉田庄', meaning: 'Civilization, refinement, and social order.', meaningZh: '文明、优雅和社会秩序。' },
+            { name: 'Ghosts', nameZh: '幽灵', meaning: 'Past that haunts and cannot be escaped.', meaningZh: '困扰且无法逃脱的过去。' }
+        ],
+        devices: [
+            { name: 'Frame Narrative', nameZh: '框架叙事', desc: 'Story within story creates distance and perspective.', descZh: '故事中的故事创造距离和视角。' },
+            { name: 'Gothic Elements', nameZh: '哥特式元素', desc: 'Supernatural, dark settings, psychological horror.', descZh: '超自然、黑暗环境、心理恐怖。' },
+            { name: 'Unreliable Narrators', nameZh: '不可靠的叙述者', desc: 'Multiple perspectives create ambiguity.', descZh: '多重视角创造模糊性。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Natural elements mirror emotional landscapes.', descZh: '自然元素反映情感景观。' }
+        ],
+        themes: [
+            { name: 'Destructive Love', nameZh: '破坏性的爱', desc: 'Passion that ruins rather than fulfills.', descZh: '毁灭而非实现的激情。' },
+            { name: 'Revenge & Cycles', nameZh: '复仇与循环', desc: 'Violence perpetuated across generations.', descZh: '跨代代延续的暴力。' },
+            { name: 'Nature vs. Civilization', nameZh: '自然与文明', desc: 'Wild instinct versus social constraint.', descZh: '野性本能与社会约束。' },
+            { name: 'Social Class', nameZh: '社会阶级', desc: 'Class barriers destroying relationships.', descZh: '阶级障碍破坏关系。' }
+        ],
+        characters: [
+            { name: 'Heathcliff', nameZh: '希刺克厉夫', role: 'Outsider transformed by love and revenge into monster.', roleZh: '被爱和复仇转变成怪物的局外人。' },
+            { name: 'Catherine Earnshaw', nameZh: '凯瑟琳·恩肖', role: 'Torn between passion and social ambition.', roleZh: '在激情和社会野心之间挣扎。' },
+            { name: 'Edgar Linton', nameZh: '埃德加·林顿', role: 'Represents civilized society but lacks passion.', roleZh: '代表文明社会但缺乏激情。' },
+            { name: 'Nelly Dean', nameZh: '内莉·迪恩', role: 'Narrator whose judgments shape reader perspective.', roleZh: '叙述者，其判断塑造读者视角。' }
+        ],
+        conflicts: [
+            { type: 'Love vs. Social Status', typeZh: '爱情与社会地位', desc: 'Catherine choosing Edgar over Heathcliff.', descZh: '凯瑟琳选择埃德加而非希刺克厉夫。' },
+            { type: 'Revenge vs. Forgiveness', typeZh: '复仇与宽恕', desc: 'Heathcliff\'s lifelong vengeance cycle.', descZh: '希刺克厉夫终生的复仇循环。' },
+            { type: 'Past vs. Future', typeZh: '过去与未来', desc: 'Next generation breaking free from inherited hatred.', descZh: '下一代摆脱继承的仇恨。' }
+        ]
+    },
+    4: { // Jane Eyre
+        symbols: [
+            { name: 'Fire', nameZh: '火', meaning: 'Passion, destruction, and transformation.', meaningZh: '激情、毁灭和转变。' },
+            { name: 'The Red Room', nameZh: '红房间', meaning: 'Imprisonment, trauma, and awakening.', meaningZh: '囚禁、创伤和觉醒。' },
+            { name: 'Thornfield Hall', nameZh: '桑菲尔德庄园', meaning: 'Hidden secrets and moral corruption.', meaningZh: '隐藏的秘密和道德腐败。' },
+            { name: 'Bertha Mason', nameZh: '伯莎·梅森', meaning: 'Suppressed passion and Victorian woman\'s fate.', meaningZh: '被压抑的激情和维多利亚时代女性的命运。' }
+        ],
+        devices: [
+            { name: 'First-Person Narration', nameZh: '第一人称叙述', desc: 'Jane\'s voice creates intimacy and reliability.', descZh: '简的声音创造亲密和可靠性。' },
+            { name: 'Gothic Elements', nameZh: '哥特式元素', desc: 'Mystery, supernatural hints, dark secrets.', descZh: '神秘、超自然暗示、黑暗秘密。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Natural elements reflect Jane\'s emotional state.', descZh: '自然元素反映简的情感状态。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Dreams and omens hint at revelations.', descZh: '梦境和预兆暗示揭示。' }
+        ],
+        themes: [
+            { name: 'Independence & Equality', nameZh: '独立与平等', desc: 'Woman asserting selfhood in patriarchal society.', descZh: '女性在父权社会中主张自我。' },
+            { name: 'Social Class', nameZh: '社会阶级', desc: 'Challenging rigid Victorian hierarchy.', descZh: '挑战严格的维多利亚等级制度。' },
+            { name: 'Morality & Integrity', nameZh: '道德与正直', desc: 'Maintaining principles despite hardship.', descZh: '尽管困难仍保持原则。' },
+            { name: 'Love & Respect', nameZh: '爱与尊重', desc: 'Seeking partnership based on mutual equality.', descZh: '寻求基于相互平等的伙伴关系。' }
+        ],
+        characters: [
+            { name: 'Jane Eyre', nameZh: '简·爱', role: 'Principled woman demanding dignity and autonomy.', roleZh: '要求尊严和自主的有原则女性。' },
+            { name: 'Edward Rochester', nameZh: '爱德华·罗切斯特', role: 'Flawed man who must humble himself to deserve love.', roleZh: '必须谦卑自己才配得到爱的有缺陷男人。' },
+            { name: 'St. John Rivers', nameZh: '圣约翰·里弗斯', role: 'Cold religious duty versus warm human connection.', roleZh: '冷酷的宗教义务与温暖的人际联系。' },
+            { name: 'Bertha Mason', nameZh: '伯莎·梅森', role: 'The "madwoman"—suppressed female rage and sexuality.', roleZh: '"疯女人"——被压抑的女性愤怒和性。' }
+        ],
+        conflicts: [
+            { type: 'Independence vs. Love', typeZh: '独立与爱情', desc: 'Jane choosing self-respect over romantic desire.', descZh: '简选择自尊而非浪漫欲望。' },
+            { type: 'Passion vs. Principle', typeZh: '激情与原则', desc: 'Balancing emotion with moral integrity.', descZh: '平衡情感与道德正直。' },
+            { type: 'Equality vs. Convention', typeZh: '平等与传统', desc: 'Challenging gender and class hierarchies.', descZh: '挑战性别和阶级等级。' }
+        ]
+    },
+    5: { // The Picture of Dorian Gray
+        symbols: [
+            { name: 'The Portrait', nameZh: '肖像', meaning: 'Hidden corruption—external beauty hiding internal decay.', meaningZh: '隐藏的腐败——外在美丽掩盖内在堕落。' },
+            { name: 'The Yellow Book', nameZh: '黄皮书', meaning: 'Hedonistic philosophy corrupting innocence.', meaningZh: '享乐主义哲学腐蚀纯真。' },
+            { name: 'Opium Dens', nameZh: '鸦片馆', meaning: 'Escape and moral degradation.', meaningZh: '逃避和道德堕落。' },
+            { name: 'Sibyl Vane\'s Death', nameZh: '西比尔·韦恩之死', meaning: 'Art destroying life; aesthetics over humanity.', meaningZh: '艺术毁灭生命；美学高于人性。' }
+        ],
+        devices: [
+            { name: 'Gothic Symbolism', nameZh: '哥特式象征主义', desc: 'Portrait as supernatural manifestation of conscience.', descZh: '肖像作为良心的超自然表现。' },
+            { name: 'Aestheticism', nameZh: '唯美主义', desc: 'Art for art\'s sake philosophy explored and critiqued.', descZh: '为艺术而艺术的哲学被探索和批评。' },
+            { name: 'Dramatic Irony', nameZh: '戏剧性讽刺', desc: 'Readers see Dorian\'s corruption while society sees beauty.', descZh: '读者看到道林的腐败，而社会看到美丽。' },
+            { name: 'Epigrams', nameZh: '警句', desc: 'Witty paradoxes revealing moral ambiguities.', descZh: '揭示道德模糊性的机智悖论。' }
+        ],
+        themes: [
+            { name: 'Art vs. Morality', nameZh: '艺术与道德', desc: 'Can beauty exist without ethics?', descZh: '美丽能否不经道德而存在？' },
+            { name: 'Surface vs. Reality', nameZh: '表面与现实', desc: 'External appearance versus internal truth.', descZh: '外在外观与内在真相。' },
+            { name: 'Corruption of Innocence', nameZh: '纯真的腐化', desc: 'Influence destroying purity.', descZh: '影响摧毁纯洁。' },
+            { name: 'Hedonism & Consequences', nameZh: '享乐主义与后果', desc: 'Living for pleasure leads to spiritual death.', descZh: '为享乐而活导致精神死亡。' }
+        ],
+        characters: [
+            { name: 'Dorian Gray', nameZh: '道林·格雷', role: 'Beautiful youth corrupted by vanity and hedonism.', roleZh: '被虚荣和享乐主义腐蚀的美丽青年。' },
+            { name: 'Lord Henry Wotton', nameZh: '亨利·沃顿勋爵', role: 'Cynical aesthete who corrupts through philosophy.', roleZh: '通过哲学腐蚀他人的愤世嫉俗的唯美主义者。' },
+            { name: 'Basil Hallward', nameZh: '巴兹尔·霍尔沃德', role: 'Artist whose admiration enables Dorian\'s vanity.', roleZh: '其钦佩助长道林虚荣的艺术家。' },
+            { name: 'Sibyl Vane', nameZh: '西比尔·韦恩', role: 'Innocent victim of Dorian\'s aesthetic cruelty.', roleZh: '道林美学残酷的无辜受害者。' }
+        ],
+        conflicts: [
+            { type: 'Beauty vs. Morality', typeZh: '美丽与道德', desc: 'Eternal youth at the cost of the soul.', descZh: '以灵魂为代价的永恒青春。' },
+            { type: 'Appearance vs. Reality', typeZh: '外表与现实', desc: 'Portrait reveals hidden corruption.', descZh: '肖像揭示隐藏的腐败。' },
+            { type: 'Conscience vs. Desire', typeZh: '良心与欲望', desc: 'Dorian\'s struggle with guilt and pleasure.', descZh: '道林与内疚和快乐的斗争。' }
+        ]
+    },
+    7: { // Frankenstein
+        symbols: [
+            { name: 'Fire', nameZh: '火', meaning: 'Knowledge—both enlightening and destructive.', meaningZh: '知识——既启蒙又破坏。' },
+            { name: 'Light and Darkness', nameZh: '光明与黑暗', meaning: 'Discovery vs. ignorance, hope vs. despair.', meaningZh: '发现与无知，希望与绝望。' },
+            { name: 'The Monster', nameZh: '怪物', meaning: 'Consequence of unchecked ambition.', meaningZh: '不受约束的野心的后果。' },
+            { name: 'Arctic Setting', nameZh: '北极背景', meaning: 'Isolation, desolation, and death.', meaningZh: '孤立、荒凉和死亡。' }
+        ],
+        devices: [
+            { name: 'Frame Narrative', nameZh: '框架叙事', desc: 'Multiple narrators create layered perspectives.', descZh: '多个叙述者创造分层视角。' },
+            { name: 'Gothic Elements', nameZh: '哥特式元素', desc: 'Horror, sublime nature, psychological terror.', descZh: '恐怖、崇高自然、心理恐怖。' },
+            { name: 'Allusion', nameZh: '典故', desc: 'Paradise Lost parallels—creation and fall.', descZh: '《失乐园》平行——创造和堕落。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Victor\'s warnings hint at tragic outcome.', descZh: '维克多的警告暗示悲惨结局。' }
+        ],
+        themes: [
+            { name: 'Dangerous Knowledge', nameZh: '危险的知识', desc: 'Science without ethics leads to destruction.', descZh: '没有道德的科学导致毁灭。' },
+            { name: 'Responsibility', nameZh: '责任', desc: 'Creator\'s duty to creation.', descZh: '创造者对创造物的责任。' },
+            { name: 'Isolation & Rejection', nameZh: '孤立与拒绝', desc: 'Loneliness creating monsters.', descZh: '孤独创造怪物。' },
+            { name: 'Nature vs. Nurture', nameZh: '天性与教养', desc: 'Is evil inherent or created by society?', descZh: '邪恶是固有的还是社会创造的？' }
+        ],
+        characters: [
+            { name: 'Victor Frankenstein', nameZh: '维克多·弗兰肯斯坦', role: 'Ambitious scientist who abandons his creation.', roleZh: '抛弃其创造物的雄心勃勃的科学家。' },
+            { name: 'The Creature', nameZh: '生物', role: 'Intelligent being made monstrous by rejection.', roleZh: '因拒绝而变得可怕的智能生物。' },
+            { name: 'Robert Walton', nameZh: '罗伯特·沃尔顿', role: 'Frame narrator whose ambition mirrors Victor\'s.', roleZh: '野心与维克多相似的框架叙述者。' },
+            { name: 'Elizabeth Lavenza', nameZh: '伊丽莎白·拉文扎', role: 'Innocent victim of Victor\'s recklessness.', roleZh: '维克多鲁莽行为的无辜受害者。' }
+        ],
+        conflicts: [
+            { type: 'Ambition vs. Responsibility', typeZh: '野心与责任', desc: 'Victor\'s pursuit vs. consequences.', descZh: '维克多的追求与后果。' },
+            { type: 'Creator vs. Creation', typeZh: '创造者与创造物', desc: 'Victor fleeing the creature\'s revenge.', descZh: '维克多逃避生物的复仇。' },
+            { type: 'Society vs. Outsider', typeZh: '社会与局外人', desc: 'Creature rejected because of appearance.', descZh: '生物因外表而被拒绝。' }
+        ]
+    },
+    8: { // The Count of Monte Cristo
+        symbols: [
+            { name: 'The Prison', nameZh: '监狱', meaning: 'Injustice and transformation through suffering.', meaningZh: '通过苦难实现不公正和转变。' },
+            { name: 'The Treasure', nameZh: '宝藏', meaning: 'Means to power and revenge.', meaningZh: '通往权力和复仇的手段。' },
+            { name: 'The Island', nameZh: '岛屿', meaning: 'Rebirth and new identity.', meaningZh: '重生和新身份。' },
+            { name: 'Poison', nameZh: '毒药', meaning: 'Subtle, patient revenge—destructive knowledge.', meaningZh: '微妙、耐心的复仇——破坏性知识。' }
+        ],
+        devices: [
+            { name: 'Dramatic Irony', nameZh: '戏剧性讽刺', desc: 'Readers know Monte Cristo\'s identity while victims don\'t.', descZh: '读者知道基督山的身份而受害者不知道。' },
+            { name: 'Parallel Plots', nameZh: '平行情节', desc: 'Multiple revenge schemes interweave.', descZh: '多个复仇计划交织在一起。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Early mentions of characters\' weaknesses predict downfalls.', descZh: '早期提到角色的弱点预示堕落。' },
+            { name: 'Disguise/Deception', nameZh: '伪装/欺骗', desc: 'Monte Cristo\'s many identities drive plot.', descZh: '基督山的多重身份推动情节。' }
+        ],
+        themes: [
+            { name: 'Revenge & Justice', nameZh: '复仇与正义', desc: 'Personal vengeance versus divine justice.', descZh: '个人复仇与神圣正义。' },
+            { name: 'Transformation', nameZh: '转变', desc: 'From innocent sailor to calculating avenger.', descZh: '从无辜水手到精于算计的复仇者。' },
+            { name: 'Hope & Despair', nameZh: '希望与绝望', desc: '"Wait and hope"—patient endurance.', descZh: '"等待和希望"——耐心的忍耐。' },
+            { name: 'Power of Knowledge', nameZh: '知识的力量', desc: 'Education as tool for reinvention.', descZh: '教育作为重塑的工具。' }
+        ],
+        characters: [
+            { name: 'Edmond Dantès', nameZh: '爱德蒙·唐泰斯', role: 'Innocent man transformed into avenging count.', roleZh: '转变为复仇伯爵的无辜男人。' },
+            { name: 'Abbé Faria', nameZh: '法利亚神父', role: 'Mentor who provides knowledge and treasure.', roleZh: '提供知识和宝藏的导师。' },
+            { name: 'Fernand Mondego', nameZh: '费尔南·蒙德戈', role: 'Jealous friend turned treacherous enemy.', roleZh: '嫉妒的朋友变成背信弃义的敌人。' },
+            { name: 'Mercédès', nameZh: '梅塞苔丝', role: 'Lost love representing what revenge costs.', roleZh: '失去的爱代表复仇的代价。' }
+        ],
+        conflicts: [
+            { type: 'Justice vs. Revenge', typeZh: '正义与复仇', desc: 'Whether Dantès has right to punish.', descZh: '唐泰斯是否有权惩罚。' },
+            { type: 'Past vs. Present', typeZh: '过去与现在', desc: 'Old identity versus new persona.', descZh: '旧身份与新人格。' },
+            { type: 'Mercy vs. Vengeance', typeZh: '怜悯与复仇', desc: 'Learning forgiveness after destruction.', descZh: '在毁灭之后学习宽恕。' }
+        ]
+    },
+    9: { // Pride and Prejudice
+        symbols: [
+            { name: 'Pemberley Estate', nameZh: '彭伯利庄园', meaning: 'True worth beneath proud exterior.', meaningZh: '骄傲外表下的真正价值。' },
+            { name: 'Letters', nameZh: '信件', meaning: 'Truth revealed through written word.', meaningZh: '通过书面文字揭示真相。' },
+            { name: 'The Entailment', nameZh: '限定继承', meaning: 'Social constraints on women.', meaningZh: '对女性的社会约束。' },
+            { name: 'Dancing', nameZh: '跳舞', meaning: 'Social interaction and compatibility.', meaningZh: '社交互动和兼容性。' }
+        ],
+        devices: [
+            { name: 'Irony', nameZh: '讽刺', desc: 'Gap between appearance and reality, expectation and outcome.', descZh: '外表与现实、期望与结果之间的差距。' },
+            { name: 'Free Indirect Discourse', nameZh: '自由间接叙述', desc: 'Narrator blends with Elizabeth\'s perspective.', descZh: '叙述者与伊丽莎白的视角融合。' },
+            { name: 'Satire', nameZh: '讽刺', desc: 'Mocking social pretensions and follies.', descZh: '嘲笑社会虚伪和愚蠢。' },
+            { name: 'Dialogue', nameZh: '对话', desc: 'Character revealed through witty conversation.', descZh: '通过机智对话揭示角色。' }
+        ],
+        themes: [
+            { name: 'Pride & Prejudice', nameZh: '傲慢与偏见', desc: 'How assumptions blind us to truth.', descZh: '假设如何使我们对真相视而不见。' },
+            { name: 'Marriage & Economics', nameZh: '婚姻与经济', desc: 'Love versus financial security.', descZh: '爱情与经济保障。' },
+            { name: 'Class & Social Mobility', nameZh: '阶级与社会流动', desc: 'Rigid hierarchy versus individual merit.', descZh: '僵化等级与个人价值。' },
+            { name: 'Self-Knowledge', nameZh: '自我认识', desc: 'Growth through recognizing own flaws.', descZh: '通过认识自己的缺陷而成长。' }
+        ],
+        characters: [
+            { name: 'Elizabeth Bennet', nameZh: '伊丽莎白·班纳特', role: 'Intelligent woman learning to overcome prejudice.', roleZh: '学习克服偏见的聪明女性。' },
+            { name: 'Fitzwilliam Darcy', nameZh: '菲茨威廉·达西', role: 'Proud man learning humility and respect.', roleZh: '学习谦逊和尊重的骄傲男人。' },
+            { name: 'Jane Bennet', nameZh: '简·班纳特', role: 'Represents genuine goodness and patience.', roleZh: '代表真正的善良和耐心。' },
+            { name: 'Mr. Collins', nameZh: '柯林斯先生', role: 'Satirical portrait of obsequious foolishness.', roleZh: '奉承愚蠢的讽刺画像。' }
+        ],
+        conflicts: [
+            { type: 'First Impressions vs. Truth', typeZh: '第一印象与真相', desc: 'Elizabeth and Darcy misjudging each other.', descZh: '伊丽莎白和达西互相误判。' },
+            { type: 'Love vs. Economics', typeZh: '爱情与经济', desc: 'Romantic desire versus practical necessity.', descZh: '浪漫欲望与实际需要。' },
+            { type: 'Individual vs. Society', typeZh: '个人与社会', desc: 'Personal choice versus social expectation.', descZh: '个人选择与社会期望。' }
+        ]
+    },
+    10: { // Old Goriot
+        symbols: [
+            { name: 'The Boarding House', nameZh: '寄宿公寓', meaning: 'Microcosm of Parisian society—all classes intersecting.', meaningZh: '巴黎社会的缩影——所有阶级交汇。' },
+            { name: 'Goriot\'s Fortune', nameZh: '高老头的财富', meaning: 'Paternal love exploited and consumed.', meaningZh: '被剥削和消耗的父爱。' },
+            { name: 'The Cemetery', nameZh: '墓地', meaning: 'Loneliness even in death—love unreturned.', meaningZh: '即使在死亡中也孤独——爱未得到回报。' },
+            { name: 'Fine Clothes', nameZh: '华服', meaning: 'Surface appearances masking moral bankruptcy.', meaningZh: '掩盖道德破产的表面外观。' }
+        ],
+        devices: [
+            { name: 'Realism', nameZh: '现实主义', desc: 'Detailed social observation and psychological depth.', descZh: '详细的社会观察和心理深度。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Objects represent broader social critique.', descZh: '物品代表更广泛的社会批判。' },
+            { name: 'Parallel Plots', nameZh: '平行情节', desc: 'Goriot\'s sacrifice mirrors Rastignac\'s corruption.', descZh: '高老头的牺牲反映拉斯蒂涅克的腐化。' },
+            { name: 'Social Commentary', nameZh: '社会评论', desc: 'Critique of post-Revolution materialism.', descZh: '对革命后物质主义的批判。' }
+        ],
+        themes: [
+            { name: 'Parental Love', nameZh: '父母之爱', desc: 'Self-sacrificing devotion exploited by ungrateful children.', descZh: '被忘恩负义的孩子剥削的自我牺牲奉献。' },
+            { name: 'Social Climbing', nameZh: '社会攀登', desc: 'Corruption necessary for success.', descZh: '成功所需的腐败。' },
+            { name: 'Money & Morality', nameZh: '金钱与道德', desc: 'Wealth destroying human relationships.', descZh: '财富破坏人际关系。' },
+            { name: 'Innocence Lost', nameZh: '失去纯真', desc: 'Rastignac\'s transformation from idealist to cynic.', descZh: '拉斯蒂涅克从理想主义者到愤世嫉俗者的转变。' }
+        ],
+        characters: [
+            { name: 'Père Goriot', nameZh: '高老头', role: 'Tragic father consumed by love for ungrateful daughters.', roleZh: '被对忘恩负义女儿的爱所吞噬的悲剧父亲。' },
+            { name: 'Eugène de Rastignac', nameZh: '欧也纳·德·拉斯蒂涅克', role: 'Ambitious youth learning society\'s corrupt rules.', roleZh: '学习社会腐败规则的雄心勃勃的青年。' },
+            { name: 'Vautrin', nameZh: '伏脱冷', role: 'Criminal mentor offering cynical worldview.', roleZh: '提供愤世嫉俗世界观的犯罪导师。' },
+            { name: 'Delphine/Anastasie', nameZh: '德尔芬/阿纳斯塔西', role: 'Selfish daughters exploiting father\'s love.', roleZh: '剥削父爱的自私女儿。' }
+        ],
+        conflicts: [
+            { type: 'Love vs. Exploitation', typeZh: '爱与剥削', desc: 'Goriot\'s devotion versus daughters\' greed.', descZh: '高老头的奉献与女儿的贪婪。' },
+            { type: 'Idealism vs. Cynicism', typeZh: '理想主义与愤世嫉俗', desc: 'Rastignac choosing ambition over morality.', descZh: '拉斯蒂涅克选择野心而非道德。' },
+            { type: 'Family vs. Society', typeZh: '家庭与社会', desc: 'Personal loyalty versus social advancement.', descZh: '个人忠诚与社会进步。' }
+        ]
+    },
+    11: { // Life of Pi
+        symbols: [
+            { name: 'The Tiger (Richard Parker)', nameZh: '老虎（理查德·帕克）', meaning: 'Survival instinct, primal nature, will to live.', meaningZh: '生存本能、原始天性、生存意志。' },
+            { name: 'The Lifeboat', nameZh: '救生艇', meaning: 'Fragile boundary between civilization and chaos.', meaningZh: '文明与混乱之间脆弱的边界。' },
+            { name: 'The Ocean', nameZh: '海洋', meaning: 'God\'s mystery—beautiful, dangerous, unknowable.', meaningZh: '上帝的奥秘——美丽、危险、不可知。' },
+            { name: 'The Island', nameZh: '岛屿', meaning: 'Seductive escape that ultimately cannot sustain life.', meaningZh: '诱人的逃避但最终无法维持生命。' }
+        ],
+        devices: [
+            { name: 'Unreliable Narration', nameZh: '不可靠叙述', desc: 'Multiple versions of story question truth.', descZh: '故事的多个版本质疑真相。' },
+            { name: 'Allegory', nameZh: '寓言', desc: 'Tiger represents aspects of human nature.', descZh: '老虎代表人性的方面。' },
+            { name: 'Frame Narrative', nameZh: '框架叙事', desc: 'Story within story about storytelling itself.', descZh: '关于讲故事本身的故事中的故事。' },
+            { name: 'Magical Realism', nameZh: '魔幻现实主义', desc: 'Fantastic elements blended with harsh reality.', descZh: '幻想元素与严酷现实融合。' }
+        ],
+        themes: [
+            { name: 'Faith & Survival', nameZh: '信仰与生存', desc: 'Belief as tool for endurance.', descZh: '信仰作为忍耐的工具。' },
+            { name: 'Storytelling & Truth', nameZh: '讲故事与真相', desc: 'Which story we choose to believe matters.', descZh: '我们选择相信哪个故事很重要。' },
+            { name: 'Nature & Civilization', nameZh: '自然与文明', desc: 'Human versus animal instincts.', descZh: '人类与动物本能。' },
+            { name: 'Suffering & Meaning', nameZh: '苦难与意义', desc: 'Finding purpose in hardship.', descZh: '在困难中找到目的。' }
+        ],
+        characters: [
+            { name: 'Pi Patel', nameZh: '派·帕特尔', role: 'Resourceful survivor balancing faith and pragmatism.', roleZh: '平衡信仰和实用主义的足智多谋的幸存者。' },
+            { name: 'Richard Parker', nameZh: '理查德·帕克', role: 'Tiger giving Pi purpose and will to survive.', roleZh: '给派目的和生存意志的老虎。' },
+            { name: 'The Author', nameZh: '作者', role: 'Seeker trying to understand Pi\'s story.', roleZh: '试图理解派故事的探寻者。' },
+            { name: 'Pi\'s Father', nameZh: '派的父亲', role: 'Rationalist who teaches harsh reality.', roleZh: '教授严酷现实的理性主义者。' }
+        ],
+        conflicts: [
+            { type: 'Survival vs. Humanity', typeZh: '生存与人性', desc: 'Maintaining civilization alone at sea.', descZh: '在海上独自维持文明。' },
+            { type: 'Faith vs. Reason', typeZh: '信仰与理性', desc: 'Multiple religions versus scientific skepticism.', descZh: '多种宗教与科学怀疑论。' },
+            { type: 'Truth vs. Fiction', typeZh: '真相与虚构', desc: 'Which version of events is "real"?', descZh: '哪个版本的事件是"真实的"？' }
+        ]
+    },
+    12: { // The Outsiders
+        symbols: [
+            { name: 'Sunsets', nameZh: '日落', meaning: 'Common humanity across social divides.', meaningZh: '跨越社会鸿沟的共同人性。' },
+            { name: 'Greasers vs. Socs', nameZh: '油头仔与富家子', meaning: 'Class warfare and identity.', meaningZh: '阶级战争和身份。' },
+            { name: 'Johnny\'s Switch Blade', nameZh: '约翰尼的弹簧刀', meaning: 'Violence and vulnerability.', meaningZh: '暴力和脆弱。' },
+            { name: 'Gone with the Wind', nameZh: '《乱世佳人》', meaning: 'Escape through literature and shared culture.', meaningZh: '通过文学和共享文化逃避。' }
+        ],
+        devices: [
+            { name: 'First-Person Narration', nameZh: '第一人称叙述', desc: 'Ponyboy\'s voice creates authenticity.', descZh: '庞尼博伊的声音创造真实性。' },
+            { name: 'Symbolism', nameZh: '象征主义', desc: 'Objects bridge opposing groups.', descZh: '物品连接对立团体。' },
+            { name: 'Foreshadowing', nameZh: '伏笔', desc: 'Early violence hints at tragedy.', descZh: '早期暴力暗示悲剧。' },
+            { name: 'Allusion', nameZh: '典故', desc: 'Robert Frost poem about fleeting innocence.', descZh: '罗伯特·弗罗斯特关于短暂纯真的诗。' }
+        ],
+        themes: [
+            { name: 'Class Conflict', nameZh: '阶级冲突', desc: 'Economic divisions creating violence.', descZh: '经济分裂造成暴力。' },
+            { name: 'Loyalty & Brotherhood', nameZh: '忠诚与兄弟情', desc: 'Found family among outcasts.', descZh: '在局外人中找到的家庭。' },
+            { name: 'Loss of Innocence', nameZh: '失去纯真', desc: 'Violence forcing premature maturity.', descZh: '暴力迫使过早成熟。' },
+            { name: 'Empathy Across Divides', nameZh: '跨越鸿沟的同理心', desc: 'Recognizing shared humanity.', descZh: '认识到共同的人性。' }
+        ],
+        characters: [
+            { name: 'Ponyboy Curtis', nameZh: '庞尼博伊·柯蒂斯', role: 'Sensitive narrator who sees beyond stereotypes.', roleZh: '看到刻板印象之外的敏感叙述者。' },
+            { name: 'Johnny Cade', nameZh: '约翰尼·凯德', role: 'Abused youth whose death symbolizes lost innocence.', roleZh: '其死亡象征失去纯真的受虐青年。' },
+            { name: 'Dallas Winston', nameZh: '达拉斯·温斯顿', role: 'Hardened by life but capable of loyalty.', roleZh: '被生活磨砺但能够忠诚。' },
+            { name: 'Cherry Valance', nameZh: '樱桃·瓦兰斯', role: 'Soc who recognizes common ground with greasers.', roleZh: '认识到与油头仔共同点的富家子。' }
+        ],
+        conflicts: [
+            { type: 'Class Warfare', typeZh: '阶级战争', desc: 'Greasers vs. Socs—economic resentment.', descZh: '油头仔对富家子——经济怨恨。' },
+            { type: 'Innocence vs. Experience', typeZh: '纯真与经验', desc: 'Boys forced to grow up through violence.', descZh: '男孩被迫通过暴力长大。' },
+            { type: 'Individual vs. Stereotype', typeZh: '个人与刻板印象', desc: 'Seeing people beyond group identity.', descZh: '看到群体身份之外的人。' }
+        ]
+    },
+    15: { // 100 Years of Solitude
+        symbols: [
+            { name: 'Ice', nameZh: '冰', meaning: 'Discovery, memory, and modernity entering Macondo.', meaningZh: '发现、记忆和现代性进入马孔多。' },
+            { name: 'Yellow Butterflies', nameZh: '黄蝴蝶', meaning: 'Passion, magic, and doomed love.', meaningZh: '激情、魔法和注定的爱情。' },
+            { name: 'The Manuscript', nameZh: '手稿', meaning: 'Fate predetermined—life as written text.', meaningZh: '预定的命运——生命作为书面文本。' },
+            { name: 'Macondo', nameZh: '马孔多', meaning: 'Isolated world—cyclical history and human nature.', meaningZh: '孤立的世界——循环历史和人性。' }
+        ],
+        devices: [
+            { name: 'Magical Realism', nameZh: '魔幻现实主义', desc: 'Supernatural treated as mundane reality.', descZh: '超自然被视为平凡现实。' },
+            { name: 'Cyclical Structure', nameZh: '循环结构', desc: 'Repeated names and patterns across generations.', descZh: '跨代重复的名字和模式。' },
+            { name: 'Hyperbole', nameZh: '夸张', desc: 'Exaggeration highlighting emotional truth.', descZh: '夸张突出情感真相。' },
+            { name: 'Prophecy', nameZh: '预言', desc: 'Manuscript predicting and determining events.', descZh: '预测和决定事件的手稿。' }
+        ],
+        themes: [
+            { name: 'Solitude', nameZh: '孤独', desc: 'Isolation—physical, emotional, existential.', descZh: '孤立——身体的、情感的、存在的。' },
+            { name: 'Cyclical Time', nameZh: '循环时间', desc: 'History repeating despite human effort.', descZh: '尽管人类努力历史仍在重复。' },
+            { name: 'Memory & Forgetting', nameZh: '记忆与遗忘', desc: 'How societies erase uncomfortable pasts.', descZh: '社会如何抹去不舒服的过去。' },
+            { name: 'Progress & Decline', nameZh: '进步与衰落', desc: 'Civilization bringing corruption alongside advancement.', descZh: '文明在进步的同时带来腐败。' }
+        ],
+        characters: [
+            { name: 'José Arcadio Buendía', nameZh: '何塞·阿尔卡迪奥·布恩迪亚', role: 'Founder whose curiosity drives isolation.', roleZh: '其好奇心驱使孤立的创始人。' },
+            { name: 'Úrsula Iguarán', nameZh: '乌尔苏拉·伊瓜兰', role: 'Matriarch trying to break family curse.', roleZh: '试图打破家族诅咒的女族长。' },
+            { name: 'Colonel Aureliano Buendía', nameZh: '奥雷连诺·布恩迪亚上校', role: 'Revolutionary who forgets why he fights.', roleZh: '忘记为何战斗的革命者。' },
+            { name: 'Remedios the Beauty', nameZh: '美人蕾梅黛丝', role: 'Innocence so pure it transcends reality.', roleZh: '纯真到超越现实。' }
+        ],
+        conflicts: [
+            { type: 'Modernity vs. Tradition', typeZh: '现代性与传统', desc: 'Outside world intruding on isolated paradise.', descZh: '外部世界侵入孤立的天堂。' },
+            { type: 'Love vs. Solitude', typeZh: '爱与孤独', desc: 'Passion unable to overcome family curse.', descZh: '激情无法克服家族诅咒。' },
+            { type: 'Memory vs. Oblivion', typeZh: '记忆与遗忘', desc: 'Insomnia plague versus forgetting past.', descZh: '失眠瘟疫与遗忘过去。' }
         ]
     }
 };
@@ -1536,47 +1999,500 @@ const DefaultResources = {
 /* ═══════════════════════════════════════════════════════════════════════════
    AI COACH SYSTEM PROMPT
    ═══════════════════════════════════════════════════════════════════════════ */
-const COACH_PROMPT = `You are Theo, a friendly literary essay writing coach. Your role is to GUIDE students, not write for them.
+const COACH_PROMPT = `You are Theo, a focused literary essay writing coach. Your ONLY purpose is to provide coaching, guidance, hints, grammar checks, and formula explanations.
 
-RULES:
-1. NEVER write content for the student—only give hints and guidance
-2. NEVER provide thesis statements, topic sentences, or essay content
-3. When asked to check grammar, point out issues but don't rewrite sentences
-4. Help explain formulas and structures without providing examples that could be copied
-5. Ask guiding questions to help students think critically
-6. Be encouraging but honest about weaknesses
-7. Keep responses concise (under 100 words when possible)
-8. Use emojis sparingly to be friendly
+STRICT RULES:
+1. ONLY respond to: coaching requests, guidance questions, hints, grammar checks, formula explanations
+2. REFUSE general chat, small talk, or unrelated topics with: "I only help with essay writing tasks. Ask me about your hook, thesis, body paragraphs, conclusion, grammar, or formulas."
+3. NEVER write content for students—only give targeted hints
+4. NEVER provide complete thesis statements, topic sentences, or essay content
+5. Keep ALL responses under 75 words—be concise and specific
+6. When checking grammar: point out 2-3 specific issues, don't rewrite
+7. For formula help: explain the component they're asking about only
+8. For hints: ask 1-2 guiding questions, don't give answers
 
-When evaluating work, consider:
-- Purpose: Does it make an arguable claim?
-- Focus: Is it specific enough?
-- Scope: Can it be supported in the essay length?
+THESIS QUALITY CHECKLIST (when student asks for thesis help/guidance):
+Check these 7 criteria and point out 2-3 issues if present:
+✓ Is it a complete sentence, not a question or fragment? | 它是完整的句子，不是问句或片段吗？
+✓ Is it arguable, not a statement of fact? | 它是可论证的，不是事实陈述吗？
+✓ Is it neither too broad nor too specific for the essay's scope? | 它既不太宽泛也不太具体，适合论文的范围吗？
+✓ Does it avoid vague words like "good," "bad," or "some"? | 它避免了模糊词如"好"、"坏"或"一些"吗？
+✓ Does it provide a roadmap for the essay, indicating direction of evidence? | 它提供了路线图给论文，指明证据的方向吗？
+✓ Is it debatable? Does it invite argument with textual evidence? | 它是可辩论的吗？它邀请论证并用文本证据支持吗？
+✓ Does it indicate significance—why readers should care? | 它表明了意义——读者为什么应该关心吗？
 
-FORBIDDEN:
+RESPONSE PRIORITY:
+1. Grammar check → Point out issues
+2. Thesis guidance → Check quality criteria (2-3 issues)
+3. Formula question → Explain specific part
+4. Hint request → Ask guiding questions
+5. Feedback → Give 2-3 specific points
+6. Anything else → Redirect to essay tasks
+
+FORBIDDEN PHRASES:
 - "Here's a better version..."
 - "You should write..."
-- "Try this thesis: ..."
-- Writing more than one sentence of example content`;
+- "Try this: ..."
+- Any full sentence examples
+- Small talk or general conversation`;
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EXAMPLES FOR EACH SECTION (Dynamic based on novel)
+   EXAMPLES FOR EACH SECTION (Bilingual, dynamic based on novel)
    ═══════════════════════════════════════════════════════════════════════════ */
 const Examples = {
     hook: {
-        default: "What happens when the thin veneer of civilization is stripped away? This question haunts readers as they delve into the dark corners of human nature explored in literature.",
-        3: "What happens when children are left to govern themselves, free from adult supervision and societal rules? William Golding's disturbing answer reveals uncomfortable truths about human nature.",
-        14: "In the glittering excess of the 1920s, one man believed he could buy back the past. His green light beckoned across the water, a symbol of hope that would prove tragically elusive."
+        default: {
+            en: "What happens when the thin veneer of civilization is stripped away? This question haunts readers as they delve into the dark corners of human nature explored in literature.",
+            zh: "当文明的薄纱被剥去时会发生什么？这个问题困扰着读者，当他们深入探索文学中人性的阴暗角落时。"
+        },
+        0: {  // Death on the Nile
+            en: "Can wealth buy happiness—or does it merely attract danger? When a golden heiress cruises down the Nile, paradise becomes a deadly trap where jealousy proves more dangerous than any weapon.",
+            zh: "财富能买到幸福吗——还是它只会招来危险？当一位富有的女继承人沿尼罗河航行时，天堂变成了致命的陷阱，嫉妒比任何武器都更危险。"
+        },
+        1: {  // Order of the Phoenix
+            en: "What happens when those in power refuse to acknowledge the truth? In a world where authority lies and propaganda reigns, teenagers must choose between blind obedience and dangerous rebellion.",
+            zh: "当掌权者拒绝承认真相时会发生什么？在一个权威撒谎、宣传盛行的世界里，青少年必须在盲目服从和危险反抗之间做出选择。"
+        },
+        2: {  // Wuthering Heights
+            en: "Can love survive beyond the grave, or does it transform into something darker? On the windswept moors of Yorkshire, passion becomes a force of destruction that haunts two families for generations.",
+            zh: "爱能在坟墓之外存活吗，还是会转化为更黑暗的东西？在约克郡荒凉的荒原上，激情成为一种破坏力量，困扰两个家族数代人。"
+        },
+        3: {  // Lord of the Flies
+            en: "What happens when children are left to govern themselves, free from adult supervision and societal rules? William Golding's disturbing answer reveals uncomfortable truths about human nature.",
+            zh: "当孩子们被留下自我管理，摆脱成人监督和社会规则时会发生什么？威廉·戈尔丁令人不安的答案揭示了关于人性的不舒服真相。"
+        },
+        4: {  // Jane Eyre
+            en: "Can a poor, plain governess find love and independence in Victorian England's rigid class system? Jane Eyre's journey from orphaned child to self-assured woman challenges every social convention of her time.",
+            zh: "一个贫穷、相貌平平的家庭教师能在维多利亚时代英格兰严格的阶级制度中找到爱情和独立吗？简·爱从孤儿到自信女性的旅程挑战了她那个时代的每一个社会习俗。"
+        },
+        5: {  // Picture of Dorian Gray
+            en: "What price would you pay for eternal youth and beauty? When a beautiful portrait captures a young man's soul, his life of hedonistic pleasure leads to a terrifying moral decay hidden from the world's eyes.",
+            zh: "你会为永恒的青春和美丽付出什么代价？当一幅美丽的肖像捕捉到一个年轻人的灵魂时，他享乐主义的生活导致了隐藏在世人眼中的可怕道德堕落。"
+        },
+        6: {  // To Kill a Mockingbird
+            en: "How do children learn about injustice in a world where adults fail to practice what they preach? Through a child's eyes, a Southern town's moral courage—and cowardice—comes into stark relief.",
+            zh: "在一个成年人言行不一的世界里，孩子们如何了解不公正？通过一个孩子的眼睛，一个南方小镇的道德勇气和懦弱形成鲜明对比。"
+        },
+        7: {  // Frankenstein
+            en: "What happens when humanity plays God? A young scientist's ambition to create life unleashes a monster that forces us to question who the real monster truly is—creator or creation?",
+            zh: "当人类扮演上帝时会发生什么？一位年轻科学家创造生命的野心释放出一个怪物，迫使我们质疑谁才是真正的怪物——创造者还是被造物？"
+        },
+        8: {  // Count of Monte Cristo
+            en: "How far would you go for revenge? When an innocent man is imprisoned for crimes he didn't commit, his transformation from sailor to count becomes a masterclass in patient, calculated vengeance.",
+            zh: "你会为了复仇走多远？当一个无辜的人因他没有犯下的罪行而入狱时，他从水手到伯爵的转变成为耐心、精心策划的复仇的大师课。"
+        },
+        9: {  // Pride and Prejudice
+            en: "Can first impressions be trusted, or do they blind us to deeper truths? In Regency England's marriage market, pride and prejudice must give way to understanding before love can flourish.",
+            zh: "第一印象可以信任吗，还是它们让我们看不到更深的真相？在摄政时期英格兰的婚姻市场上，骄傲和偏见必须让位于理解，爱情才能繁荣。"
+        },
+        10: {  // Old Goriot
+            en: "What happens when parental love knows no bounds? In post-Revolutionary Paris, a father's self-sacrificing devotion exposes the cruelty of ambition and the corrosive power of wealth.",
+            zh: "当父爱无限时会发生什么？在革命后的巴黎，一位父亲的自我牺牲奉献揭示了野心的残酷和财富的腐蚀力量。"
+        },
+        11: {  // Life of Pi
+            en: "Which story do you choose to believe—the one that uplifts or the one that merely survives? Stranded at sea with a Bengal tiger, a boy's faith becomes the difference between life and madness.",
+            zh: "你选择相信哪个故事——那个振奋人心的还是那个仅仅生存的？与一只孟加拉虎被困在海上，一个男孩的信仰成为生命与疯狂之间的差异。"
+        },
+        12: {  // The Outsiders
+            en: "Can you see beyond social labels to recognize our shared humanity? When rival gangs clash in 1960s Oklahoma, three deaths force teenagers to confront the cost of loyalty and the power of empathy.",
+            zh: "你能超越社会标签看到我们共同的人性吗？当对立帮派在1960年代的俄克拉荷马州发生冲突时，三人死亡迫使青少年面对忠诚的代价和同理心的力量。"
+        },
+        13: {  // 1984
+            en: "What happens when a government controls not just your actions but your thoughts? In Oceania's totalitarian nightmare, even the past becomes a weapon, and truth itself becomes a revolutionary act.",
+            zh: "当政府不仅控制你的行为，还控制你的思想时会发生什么？在大洋洲的极权主义噩梦中，甚至过去也成为武器，真理本身成为革命行为。"
+        },
+        14: {  // The Great Gatsby
+            en: "In the glittering excess of the 1920s, one man believed he could buy back the past. His green light beckoned across the water, a symbol of hope that would prove tragically elusive.",
+            zh: "在1920年代的灿烂奢华中，一个人相信他可以买回过去。他的绿光在水面上召唤，一个希望的象征，却被证明是悲剧性地难以捉摸。"
+        },
+        15: {  // 100 Years of Solitude
+            en: "Can a family—or a civilization—escape the cycle of its own mistakes? In the magical town of Macondo, seven generations of the Buendía family repeat history's patterns until time itself runs out.",
+            zh: "一个家庭——或一个文明——能逃脱自己错误的循环吗？在神奇的马孔多镇，布恩迪亚家族的七代人重复历史的模式，直到时间本身耗尽。"
+        }
     },
     background: {
-        default: "The novel explores complex themes through its characters and setting, challenging readers to examine fundamental questions about human nature. Published during a significant period in literary history, it continues to resonate with contemporary audiences.",
-        3: "Published in 1954, Lord of the Flies follows a group of British schoolboys stranded on an uninhabited island after a plane crash. What begins as an adventure quickly descends into chaos as the boys' attempt at self-governance collapses into violence and tribal warfare.",
-        14: "F. Scott Fitzgerald's 1925 masterpiece captures the decadence and disillusionment of the Jazz Age through narrator Nick Carraway's eyes. Set in the fictional towns of West Egg and East Egg on Long Island, the novel traces the mysterious millionaire Jay Gatsby's pursuit of his lost love, Daisy Buchanan."
+        default: {
+            en: "The novel explores complex themes through its characters and setting, challenging readers to examine fundamental questions about human nature. Published during a significant period in literary history, it continues to resonate with contemporary audiences.",
+            zh: "这部小说通过其人物和背景探索复杂的主题，挑战读者审视关于人性的根本问题。在文学史上的一个重要时期出版，它继续与当代观众产生共鸣。"
+        },
+        0: {
+            en: "Agatha Christie's 1937 mystery follows detective Hercule Poirot on a luxury Nile cruise where a wealthy heiress, Linnet Ridgeway, is murdered. The confined setting of the steamer becomes a pressure cooker of jealousy, revenge, and deception as Poirot must unravel a complex web of motives among the passengers.",
+            zh: "阿加莎·克里斯蒂1937年的悬疑小说讲述了侦探赫尔克里·波洛在尼罗河豪华游轮上的故事，一位富有的女继承人林内特·里奇韦被谋杀。轮船的封闭环境成为嫉妒、复仇和欺骗的压力锅，波洛必须揭开乘客之间复杂的动机网络。"
+        },
+        1: {
+            en: "J.K. Rowling's 2003 fifth installment follows Harry Potter's turbulent fifth year at Hogwarts, where the Ministry of Magic denies Voldemort's return and installs the tyrannical Dolores Umbridge as a teacher. Harry must form Dumbledore's Army to teach defensive magic while grappling with prophetic visions and the loss of his godfather Sirius Black.",
+            zh: "J·K·罗琳2003年的第五部作品讲述了哈利·波特在霍格沃茨动荡的第五年，魔法部否认伏地魔的回归，并安插暴君多洛雷斯·乌姆里奇为教师。哈利必须组建邓布利多军来教授防御魔法，同时与预言幻象和教父小天狼星布莱克的失去搏斗。"
+        },
+        2: {
+            en: "Emily Brontë's 1847 Gothic masterpiece spans two generations on the Yorkshire moors, following the destructive passion between Heathcliff and Catherine Earnshaw. The narrative, told through multiple perspectives, reveals how childhood love transforms into obsessive revenge that consumes not just the lovers but their entire families.",
+            zh: "艾米莉·勃朗特1847年的哥特式杰作跨越约克郡荒原的两代人，讲述了希斯克利夫和凯瑟琳·恩肖之间的破坏性激情。通过多重视角讲述的叙述揭示了童年的爱如何转化为强迫性的复仇，不仅消耗了恋人，还消耗了他们的整个家庭。"
+        },
+        3: {
+            en: "Published in 1954, Lord of the Flies follows a group of British schoolboys stranded on an uninhabited island after a plane crash. What begins as an adventure quickly descends into chaos as the boys' attempt at self-governance collapses into violence and tribal warfare.",
+            zh: "出版于1954年，《蝇王》讲述了一群英国学童在飞机失事后被困在无人居住的岛上的故事。从冒险开始的故事迅速陷入混乱，男孩们的自治尝试崩溃成暴力和部落战争。"
+        },
+        4: {
+            en: "Charlotte Brontë's 1847 novel traces Jane Eyre's journey from abused orphan to independent woman. Working as a governess at Thornfield Hall, Jane falls for the brooding Mr. Rochester, but their romance is shattered by the revelation of his mad wife hidden in the attic. The novel champions female agency, moral integrity, and equality in love.",
+            zh: "夏洛蒂·勃朗特1847年的小说追踪了简·爱从受虐孤儿到独立女性的旅程。在桑菲尔德庄园担任家庭教师时，简爱上了忧郁的罗切斯特先生，但他们的浪漫被阁楼中隐藏的疯妻子的揭露粉碎了。这部小说倡导女性能动性、道德完整性和爱情中的平等。"
+        },
+        5: {
+            en: "Oscar Wilde's 1890 philosophical novel tells the story of Dorian Gray, a beautiful young man who wishes his portrait would age instead of him. As Dorian descends into hedonistic excess and moral corruption, his portrait bears the marks of his sins while he remains eternally youthful—until the final reckoning.",
+            zh: "奥斯卡·王尔德1890年的哲学小说讲述了道林·格雷的故事，一个美丽的年轻人希望他的肖像会代替他衰老。随着道林陷入享乐主义的过度和道德腐败，他的肖像承载着他的罪恶印记，而他保持永恒的青春——直到最后的清算。"
+        },
+        6: {
+            en: "Harper Lee's 1960 classic, set in 1930s Alabama, follows Scout Finch as her father, lawyer Atticus Finch, defends a black man falsely accused of rape. Through Scout's innocent eyes, the novel exposes the deep-rooted racism of the American South and explores themes of moral courage, justice, and growing up.",
+            zh: "哈珀·李1960年的经典作品，背景设定在1930年代的阿拉巴马州，讲述了斯库特·芬奇的故事，她的父亲、律师阿提克斯·芬奇为一名被错误指控强奸的黑人辩护。通过斯库特天真的眼睛，小说揭露了美国南方根深蒂固的种族主义，探索了道德勇气、正义和成长的主题。"
+        },
+        7: {
+            en: "Mary Shelley's 1818 Gothic novel tells of Victor Frankenstein, a young scientist who creates a living creature through forbidden experiments. Abandoned by his creator, the intelligent but hideous Creature seeks acceptance, but rejection drives him to violence. The novel questions the ethics of scientific ambition and the responsibilities of creation.",
+            zh: "玛丽·雪莱1818年的哥特式小说讲述了维克多·弗兰肯斯坦的故事，一位年轻的科学家通过禁忌实验创造了一个活生生的生物。被创造者遗弃后，聪明但丑陋的生物寻求接受，但拒绝驱使他诉诸暴力。小说质疑科学野心的伦理和创造的责任。"
+        },
+        8: {
+            en: "Alexandre Dumas's 1844 epic adventure follows Edmond Dantès, a young sailor betrayed by jealous rivals and wrongly imprisoned for 14 years. After a daring escape and discovering a vast treasure, he reinvents himself as the mysterious Count of Monte Cristo to exact elaborate revenge on those who destroyed his life.",
+            zh: "亚历山大·仲马1844年的史诗冒险小说讲述了爱德蒙·唐泰斯的故事，一个年轻水手被嫉妒的对手背叛，被错误监禁了14年。经过大胆逃脱并发现巨大宝藏后，他将自己重塑为神秘的基督山伯爵，对那些摧毁他生活的人进行精心复仇。"
+        },
+        9: {
+            en: "Jane Austen's 1813 novel of manners follows Elizabeth Bennet, a witty and independent woman navigating Regency England's marriage market. Her initial prejudice against the proud Mr. Darcy gradually transforms into love as both characters overcome their flaws. The novel satirizes class consciousness while celebrating personal growth and mutual respect.",
+            zh: "简·奥斯汀1813年的礼仪小说讲述了伊丽莎白·贝内特的故事，一个机智独立的女性在摄政时期英格兰的婚姻市场中航行。她对骄傲的达西先生的最初偏见逐渐转化为爱，因为两个角色都克服了他们的缺陷。小说讽刺阶级意识，同时庆祝个人成长和相互尊重。"
+        },
+        10: {
+            en: "Honoré de Balzac's 1835 novel depicts post-Revolutionary Paris through the story of Père Goriot, a retired pasta merchant who bankrupts himself providing dowries for his two ungrateful daughters. Paralleling his tragedy is young Eugène de Rastignac's moral education as he learns the corrupt rules of Parisian high society.",
+            zh: "奥诺雷·德·巴尔扎克1835年的小说通过高老头的故事描绘了革命后的巴黎，一个退休的面食商人破产为两个忘恩负义的女儿提供嫁妆。与他的悲剧平行的是年轻的欧仁·德·拉斯蒂涅的道德教育，他学习巴黎上流社会的腐败规则。"
+        },
+        11: {
+            en: "Yann Martel's 2001 novel tells the story of Piscine 'Pi' Patel, an Indian boy who survives 227 days stranded at sea on a lifeboat with a Bengal tiger named Richard Parker. The novel explores faith, survival, and storytelling itself, ultimately asking readers which version of Pi's incredible journey they choose to believe.",
+            zh: "扬·马特尔2001年的小说讲述了印度男孩皮辛'派'帕特尔的故事，他在救生艇上与一只名叫理查德·帕克的孟加拉虎一起在海上漂流了227天。小说探索信仰、生存和讲故事本身，最终要求读者选择相信派不可思议旅程的哪个版本。"
+        },
+        12: {
+            en: "S.E. Hinton's 1967 novel, written when she was just 16, follows Ponyboy Curtis, a 14-year-old 'greaser' in 1960s Oklahoma. When violence between the working-class greasers and wealthy 'Socs' escalates, three deaths force Ponyboy to see beyond social divisions. The novel pioneered young adult literature with its authentic teenage voice.",
+            zh: "S·E·欣顿1967年的小说，写于她只有16岁时，讲述了1960年代俄克拉荷马州14岁'油头仔'庞尼博伊·柯蒂斯的故事。当工人阶级油头仔和富有的'社会人'之间的暴力升级时，三人死亡迫使庞尼博伊看到社会分裂之外的东西。这部小说以其真实的青少年声音开创了青少年文学。"
+        },
+        13: {
+            en: "George Orwell's 1949 dystopian masterpiece envisions a totalitarian future where the Party, led by Big Brother, controls every aspect of citizens' lives. Winston Smith works at the Ministry of Truth rewriting history, but his secret rebellion and doomed love affair with Julia lead to his psychological destruction in the infamous Room 101.",
+            zh: "乔治·奥威尔1949年的反乌托邦杰作设想了一个极权主义的未来，党在老大哥的领导下控制公民生活的每一个方面。温斯顿·史密斯在真理部工作改写历史，但他与朱莉娅的秘密反抗和注定失败的恋情导致他在臭名昭著的101室中心理毁灭。"
+        },
+        14: {
+            en: "F. Scott Fitzgerald's 1925 masterpiece captures the decadence and disillusionment of the Jazz Age through narrator Nick Carraway's eyes. Set in the fictional towns of West Egg and East Egg on Long Island, the novel traces the mysterious millionaire Jay Gatsby's pursuit of his lost love, Daisy Buchanan.",
+            zh: "F·斯科特·菲茨杰拉德1925年的杰作通过叙述者尼克·卡拉威的眼睛捕捉了爵士时代的颓废和幻灭。背景设定在长岛虚构的西卵和东卵镇，小说追踪了神秘百万富翁杰伊·盖茨比对他失去的爱黛西·布坎南的追求。"
+        },
+        15: {
+            en: "Gabriel García Márquez's 1967 masterpiece chronicles seven generations of the Buendía family in the magical town of Macondo, from its founding to its apocalyptic end. Blending magical realism with historical allegory, the novel explores solitude, repetition, and the cyclical nature of time as the family repeatedly lives out the same patterns.",
+            zh: "加夫列尔·加西亚·马尔克斯1967年的杰作编年史记录了马孔多魔幻小镇布恩迪亚家族的七代人，从其建立到其启示录般的结束。将魔幻现实主义与历史寓言融合，小说探索孤独、重复和时间的循环性质，因为家族反复过着相同的模式。"
+        }
     },
     conclusion: {
-        default: "Through masterful use of literary devices, the author reveals profound truths about the human condition. The themes explored remain relevant today, challenging readers to examine their own assumptions about society and morality.",
-        3: "Golding's allegory ultimately suggests that civilization is merely a fragile construct, easily shattered when fear and power corrupt leadership. The novel's disturbing conclusion—rescue by a naval officer conducting war—implies that adult society is no less savage than the boys' island kingdom.",
-        14: "Fitzgerald's masterpiece ultimately reveals the American Dream as a beautiful illusion, forever receding like Gatsby's green light. The tragedy lies not in Gatsby's death but in the emptiness of a society where wealth cannot buy happiness and the past cannot be recaptured."
+        default: {
+            en: "Guide: Restate your thesis in fresh words. Synthesize your main points from body paragraphs. Explain the broader significance—why this interpretation matters to readers today. Avoid introducing new evidence or simply summarizing.",
+            zh: "指南：用新的语言重述你的论点。综合你正文段落的主要观点。解释更广泛的意义——为什么这种解释对今天的读者很重要。避免引入新证据或简单总结。"
+        },
+        0: {
+            en: "Guide: Focus on wealth's inability to escape moral consequences. Reference the closed boat setting and the Nile's symbolic flow. Connect to broader theme of justice and fate. Modern relevance: wealth and privilege cannot buy immunity from accountability.",
+            zh: "指南：关注财富无法逃避道德后果。参考封闭的船只环境和尼罗河的象征性流动。连接到正义和命运的更广泛主题。现代相关性：财富和特权不能买到免于问责的豁免权。"
+        },
+        1: {
+            en: "Guide: Emphasize authority vs. resistance theme. Reference the phoenix symbol (rebirth/hope) and Umbridge's oppressive decrees. Synthesize points about truth-telling as revolutionary act. Significance: parallels to modern propaganda, importance of standing against corrupt authority.",
+            zh: "指南：强调权威与抵抗主题。参考凤凰符号（重生/希望）和乌姆里奇的压迫性法令。综合关于说真话作为革命行为的观点。意义：与现代宣传的相似之处，反对腐败权威的重要性。"
+        },
+        2: {
+            en: "Guide: Focus on destructive passion vs. possibility of redemption. Reference Heathcliff's revenge and its consequences. Note the ending (Hareton and Cathy breaking the cycle). Broader significance: cycles of hatred can be broken through understanding and love.",
+            zh: "指南：关注破坏性激情与救赎可能性。参考希刺克厉夫的复仇及其后果。注意结局（哈里顿和凯茜打破循环）。更广泛的意义：仇恨的循环可以通过理解和爱来打破。"
+        },
+        3: {
+            en: "Guide: Synthesize civilization's fragility theme. Reference key symbols (conch destruction, signal fire's demise). Connect to human nature's darkness. Modern relevance: the novel's ending (rescued by warship) suggests adult society mirrors boys' savagery—war, power, corruption persist.",
+            zh: "指南：综合文明脆弱性主题。参考关键符号（海螺毁灭、信号火熄灭）。连接到人性的黑暗。现代相关性：小说的结局（被军舰救援）表明成年社会反映男孩们的野蛮——战争、权力、腐败持续存在。"
+        },
+        4: {
+            en: "Guide: Emphasize equality in love—passion + principle. Reference Jane's declaration of independence ('I am no bird'). Connect to feminist themes of autonomy. Significance: timeless assertion of female dignity and the need for mutual respect in relationships.",
+            zh: "指南：强调爱情中的平等——激情+原则。参考简的独立宣言（'我不是鸟'）。连接到女性主义的自主主题。意义：对女性尊严的永恒主张以及关系中相互尊重的需要。"
+        },
+        5: {
+            en: "Guide: Focus on beauty without morality leads to spiritual death. Reference the portrait's destruction and Dorian's fate. Theme: consequences of actions cannot be escaped. Broader message: art vs. life, hedonism vs. ethics, appearance vs. reality.",
+            zh: "指南：关注没有道德的美丽导致精神死亡。参考肖像的毁灭和道林的命运。主题：行为后果无法逃避。更广泛的信息：艺术与生活、享乐主义与道德、外表与现实。"
+        },
+        6: {
+            en: "Guide: Synthesize courage and justice themes. Reference Atticus's moral example and Scout's growth from innocence to understanding. Connect to prejudice and doing what's right. Significance: seeing beyond prejudice, standing for justice even in defeat—lessons that transcend time and place.",
+            zh: "指南：综合勇气和正义主题。参考阿提克斯的道德榜样和斯库特从天真到理解的成长。连接到偏见和做正确的事。意义：看到偏见之外，即使失败也要为正义而战——超越时间和地点的教训。"
+        },
+        7: {
+            en: "Guide: Focus on scientific ambition without ethics creates monsters. Reference the Creature's rejection and Victor's abandonment. Key insight: creators bear responsibility. Broader theme: true monstrosity lies in abandonment/rejection, not appearance. Modern relevance to technological ethics.",
+            zh: "指南：关注没有道德的科学野心创造怪物。参考生物的拒绝和维克多的遗弃。关键见解：创造者要承担责任。更广泛的主题：真正的怪物性在于遗弃/拒绝，而不是外表。与技术伦理的现代相关性。"
+        },
+        8: {
+            en: "Guide: Question whether revenge satisfies. Reference Monte Cristo's elaborate vengeance and its hollow outcome. Quote: 'Wait and Hope'—wisdom vs. revenge. Connect to justice/mercy being more powerful than retribution. Universal theme about forgiveness and patience.",
+            zh: "指南：质疑复仇是否令人满意。参考基督山伯爵精心策划的复仇及其空洞的结果。引用：'等待和希望'——智慧与复仇。连接到正义/仁慈比报复更强大。关于宽恕和耐心的普遍主题。"
+        },
+        9: {
+            en: "Guide: Emphasize mutual transformation—both Elizabeth and Darcy must overcome pride and prejudice. Reference first impressions vs. true character. Central message: genuine love requires growth, humility, and respect. Modern relevance: looking beyond surface to recognize true worth.",
+            zh: "指南：强调相互转变——伊丽莎白和达西都必须克服骄傲和偏见。参考第一印象与真实性格。核心信息：真正的爱情需要成长、谦逊和尊重。现代相关性：看穿表面认识真正的价值。"
+        },
+        10: {
+            en: "Guide: Focus on corrosive effects of ambition and ingratitude. Reference Goriot's abandonment by his daughters. Critique society where money determines worth, love becomes commodity. Tragic message about parental sacrifice and filial responsibility.",
+            zh: "指南：关注野心和忘恩负义的腐蚀性影响。参考高老头被女儿们抛弃。批判金钱决定价值、爱成为商品的社会。关于父母牺牲和子女责任的悲剧信息。"
+        },
+        11: {
+            en: "Guide: Emphasize faith (religious, spiritual, or in stories) as difference between surviving and living. Reference Pi's dual narratives—which story do you prefer? Message: stories we believe shape who we become. Broader significance about meaning-making and hope.",
+            zh: "指南：强调信仰（宗教的、精神的或对故事的）作为生存和生活之间的差异。参考派的双重叙述——你更喜欢哪个故事？信息：我们相信的故事塑造了我们成为的人。关于意义创造和希望的更广泛意义。"
+        },
+        12: {
+            en: "Guide: Synthesize social divisions harm everyone. Reference Ponyboy's realization 'things are rough all over.' Connect to empathy bridging divides. Significance: seeing past labels (Greasers vs. Socs) to recognize shared humanity—choice to understand rather than judge.",
+            zh: "指南：综合社会分裂伤害每个人。参考庞尼博伊的认识'到处都很艰难'。连接到同理心弥合鸿沟。意义：看穿标签（油头仔与社会人）认识共同的人性——选择理解而不是评判。"
+        },
+        13: {
+            en: "Guide: Emphasize eternal warning about totalitarian control. Reference language control, history rewriting, surveillance normalization. Winston's fate: broken spirit shows danger. Significance: freedom depends on independent thought and accurate memory—defending truth at all costs.",
+            zh: "指南：强调关于极权控制的永恒警告。参考语言控制、历史改写、监视正常化。温斯顿的命运：破碎的精神显示危险。意义：自由取决于独立思考和准确记忆——不惜一切代价捍卫真理。"
+        },
+        14: {
+            en: "Guide: Focus on American Dream as beautiful illusion. Reference green light (forever receding), Valley of Ashes. Gatsby's death represents tragedy of empty wealth. Message: past cannot be recaptured, money cannot buy happiness. Timeless critique of materialism.",
+            zh: "指南：关注美国梦作为美丽的幻觉。参考绿光（永远后退）、灰烬谷。盖茨比的死亡代表空洞财富的悲剧。信息：过去无法重现，金钱买不到幸福。对物质主义的永恒批判。"
+        },
+        15: {
+            en: "Guide: Synthesize solitude theme—physical, emotional, existential. Reference Buendía family's patterns and apocalyptic end. Central message: solitude dooms repetition of history's mistakes. Breaking cycles requires memory, connection, courage to choose different path.",
+            zh: "指南：综合孤独主题——身体的、情感的、存在的。参考布恩迪亚家族的模式和启示录般的结局。核心信息：孤独注定重复历史的错误。打破循环需要记忆、联系、选择不同道路的勇气。"
+        }
+    },
+    body: {
+        default: {
+            bp1: {
+                en: "Start with a topic sentence connecting to your <strong>first main point</strong> from thesis. Then provide <strong>specific evidence</strong> (quote or reference) from the text. Finally, analyze HOW this evidence proves your thesis—don't just summarize, explain the significance. Based on the thesis statement, provide a main idea suggestion for this paragraph in the form of a phrase no longer than 8 words.",
+                zh: "从连接到你论点的<strong>第一个主要观点</strong>的主题句开始。然后从文本中提供<strong>具体证据</strong>（引用或参考）。最后，分析这个证据如何证明你的论点——不要只是总结，要解释其意义。根据论文陈述，以不超过8个词的短语形式为这一段落提供主要观点建议。"
+            },
+            bp2: {
+                en: "Your <strong>second body paragraph</strong> should develop your argument further with <strong>new evidence</strong>. Connect to a different aspect of your thesis. Use <strong>textual quotes</strong> and explain how they deepen the reader's understanding of your claim.",
+                zh: "你的<strong>第二个主体段落</strong>应该用<strong>新证据</strong>进一步发展你的论点。连接到你论点的不同方面。使用<strong>文本引用</strong>并解释它们如何加深读者对你主张的理解。"
+            },
+            bp3: {
+                en: "Your <strong>third body paragraph</strong> should clinch your argument. Tie together previous points and show the <strong>broader significance</strong>. Use your strongest evidence to prove why your thesis matters beyond just this text.",
+                zh: "你的<strong>第三个主体段落</strong>应该敲定你的论点。将前面的观点联系起来并展示<strong>更广泛的意义</strong>。使用你最强的证据来证明为什么你的论点不仅仅对这个文本重要。"
+            }
+        },
+        0: {  // Death on the Nile
+            bp1: {
+                en: "Focus on <strong>the closed boat setting</strong> as symbol of <strong>inescapable consequences</strong>. Topic sentence: Connect the confined space to moral accountability. Evidence: Reference the <strong>limited passenger list</strong> creating a 'locked room' mystery where escape is impossible. Analysis: Explain how <strong>wealth cannot buy immunity</strong> from justice when trapped in confined moral space. Main idea (8 words max): Wealth powerless against justice in confined setting.",
+                zh: "关注<strong>封闭的船只环境</strong>作为<strong>不可避免后果</strong>的象征。主题句：将封闭空间与道德责任联系起来。证据：参考<strong>有限的乘客名单</strong>创造了一个'密室'谜团，逃脱是不可能的。分析：解释<strong>财富买不到豁免权</strong>当被困在封闭的道德空间时。主要观点（最多8词）：在封闭环境中财富对正义无能为力。"
+            },
+            bp2: {
+                en: "Analyze <strong>the Nile River itself</strong> as symbol of <strong>fate and inevitability</strong>. Topic sentence: The river's flow represents time catching up with all characters. Evidence: Use scenes of <strong>the boat's journey downstream</strong>, moving inexorably toward revelation. Analysis: Show how <strong>the current symbolizes moral reckoning</strong>—no one can stop the river's flow, just as no one can escape consequences of their actions. Main idea (8 words max): Nile's flow symbolizes inevitable moral reckoning arriving.",
+                zh: "分析<strong>尼罗河本身</strong>作为<strong>命运和不可避免性</strong>的象征。主题句：河流的流动代表时间追赶所有角色。证据：使用<strong>船只顺流而下的旅程</strong>的场景，不可阻挡地走向揭示。分析：展示<strong>水流象征道德清算</strong>——没有人能停止河流的流动，就像没有人能逃避他们行为的后果。主要观点（最多8词）：尼罗河的流动象征不可避免的道德清算。"
+            },
+            bp3: {
+                en: "Examine <strong>pearls/jewelry</strong> as symbols of <strong>wealth's corrupting influence</strong>. Topic sentence: Material possessions motivate murder and moral decay. Evidence: Reference <strong>Linnet's jewels</strong> and the <strong>jealousy they inspire</strong> in other characters. Analysis: Prove that <strong>luxury breeds lethal envy</strong>—the very wealth meant to ensure happiness becomes the instrument of destruction. Broader significance: Critiques how possessions poison relationships. Main idea (8 words max): Wealth corrupts, turning luxury into lethal catalyst.",
+                zh: "考察<strong>珍珠/珠宝</strong>作为<strong>财富腐败影响</strong>的象征。主题句：物质财富激发谋杀和道德败坏。证据：参考<strong>林内特的珠宝</strong>和它们在其他角色中<strong>激发的嫉妒</strong>。分析：证明<strong>奢侈品滋生致命嫉妒</strong>——本意确保幸福的财富成为毁灭的工具。更广泛意义：批判财产如何毒害关系。主要观点（最多8词）：财富腐败，将奢侈变成致命催化剂。"
+            }
+        },
+        1: {  // Order of the Phoenix
+            bp1: {
+                en: "Analyze <strong>the phoenix symbol</strong> representing <strong>rebirth and resistance</strong>. Topic sentence: Connect phoenix's cycle of death/rebirth to resilience against tyranny. Evidence: Use <strong>Fawkes helping Harry</strong> in moments of crisis or <strong>phoenix tears healing wounds</strong>. Analysis: Explain how <strong>resistance rises from ashes of defeat</strong>—the Order embodies this renewal. Main idea (8 words max): Phoenix symbolizes resistance reborn from authoritarian defeat.",
+                zh: "分析<strong>凤凰符号</strong>代表<strong>重生和抵抗</strong>。主题句：将凤凰的死亡/重生循环与对抗暴政的韧性联系起来。证据：使用<strong>福克斯在危机时刻帮助哈利</strong>或<strong>凤凰的眼泪治愈伤口</strong>。分析：解释<strong>抵抗从失败的灰烬中升起</strong>——凤凰社体现这种更新。主要观点（最多8词）：凤凰象征从威权失败中重生的抵抗。"
+            },
+            bp2: {
+                en: "Examine <strong>Umbridge's decrees</strong> as literary device showing <strong>propaganda versus truth</strong>. Topic sentence: Ministry edicts represent how authority manufactures lies. Evidence: Reference <strong>Educational Decree Number Twenty-Four</strong> or <strong>banning The Quibbler</strong>. Analysis: Prove that <strong>truth-telling becomes revolutionary</strong> when government controls information—Harry's defiance through DA meetings challenges false narratives. Main idea (8 words max): Authoritarian decrees make truth-telling an act of rebellion.",
+                zh: "考察<strong>乌姆里奇的法令</strong>作为文学手法展示<strong>宣传与真相</strong>。主题句：部魔法部的法令代表权威如何制造谎言。证据：参考<strong>第二十四号教育令</strong>或<strong>禁止《唱唱反调》</strong>。分析：证明<strong>说真话成为革命</strong>当政府控制信息时——哈利通过DA会议的反抗挑战虚假叙事。主要观点（最多8词）：威权法令使说真话成为反叛行为。"
+            },
+            bp3: {
+                en: "Analyze <strong>the Room of Requirement</strong> as symbol of <strong>hope and hidden resistance</strong>. Topic sentence: Secret space represents sanctuary where truth survives tyranny. Evidence: Use <strong>DA meetings</strong> and how room <strong>appears only to those who truly need</strong> it. Analysis: Show that <strong>genuine need creates resistance</strong>—the room materializes resistance when authority tries to suppress it. Broader significance: Hope persists even under surveillance. Main idea (8 words max): Hidden spaces nurture hope resisting authoritarian control.",
+                zh: "分析<strong>有求必应屋</strong>作为<strong>希望和隐藏抵抗</strong>的象征。主题句：秘密空间代表真相在暴政下生存的庇护所。证据：使用<strong>DA会议</strong>以及房间<strong>只对真正需要的人出现</strong>。分析：展示<strong>真正的需要创造抵抗</strong>——当权威试图压制时，房间具体化抵抗。更广泛意义：即使在监视下希望也坚持。主要观点（最多8词）：隐藏空间培育抵抗威权控制的希望。"
+            }
+        },
+        2: {  // Wuthering Heights
+            bp1: {
+                en: "Focus on <strong>the moors</strong> as symbol of <strong>wild, destructive passion</strong>. Topic sentence: Connect untamed landscape to Heathcliff and Catherine's love. Evidence: Reference scenes of <strong>Catherine running across moors</strong> or <strong>moors as meeting place</strong>. Analysis: Explain how <strong>nature mirrors emotional storms</strong>—the moors' wildness reflects passion that cannot be civilized or contained. Main idea (8 words max): Wild moors symbolize uncontainable passionate destructive love.",
+                zh: "关注<strong>荒野</strong>作为<strong>狂野、毁灭性激情</strong>的象征。主题句：将未驯服的景观与希刺克厉夫和凯瑟琳的爱联系起来。证据：参考<strong>凯瑟琳穿越荒野奔跑</strong>或<strong>荒野作为会面地点</strong>的场景。分析：解释<strong>自然如何反映情感风暴</strong>——荒野的狂野反映无法被文明化或遏制的激情。主要观点（最多8词）：狂野荒野象征无法控制的激情毁灭性爱。"
+            },
+            bp2: {
+                en: "Analyze <strong>Heathcliff's ghost/Catherine's ghost</strong> as device representing <strong>revenge haunting the avenger</strong>. Topic sentence: Ghostly presences show how vengeance consumes the living. Evidence: Use <strong>Heathcliff's visions of Catherine</strong> or <strong>final scene with spectral lovers</strong>. Analysis: Prove that <strong>obsessive revenge transforms human into specter</strong>—Heathcliff becomes living ghost, haunted by what he destroyed. Main idea (8 words max): Ghosts reveal revenge transforms avenger into specter.",
+                zh: "分析<strong>希刺克厉夫的鬼魂/凯瑟琳的鬼魂</strong>作为代表<strong>复仇困扰复仇者</strong>的手法。主题句：鬼魂的存在展示复仇如何消耗生者。证据：使用<strong>希刺克厉夫对凯瑟琳的幻象</strong>或<strong>幽灵恋人的最后场景</strong>。分析：证明<strong>痴迷的复仇将人类变成幽灵</strong>——希刺克厉夫成为活着的鬼魂，被他摧毁的东西困扰。主要观点（最多8词）：鬼魂揭示复仇将复仇者变成幽灵。"
+            },
+            bp3: {
+                en: "Examine <strong>windows and doors</strong> as symbols of <strong>barriers between social classes and souls</strong>. Topic sentence: Physical barriers represent impossible social divides. Evidence: Reference <strong>Catherine locked out before death</strong> or <strong>Lockwood's window nightmare</strong>. Analysis: Show that <strong>love cannot cross class boundaries</strong> without destruction—windows that should connect instead separate and kill. Broader significance: Class rigidity destroys genuine feeling. Main idea (8 words max): Windows symbolize class barriers destroying transcendent love.",
+                zh: "考察<strong>窗户和门</strong>作为<strong>社会阶级和灵魂之间障碍</strong>的象征。主题句：物理障碍代表不可能的社会鸿沟。证据：参考<strong>凯瑟琳死前被锁在外面</strong>或<strong>洛克伍德的窗户噩梦</strong>。分析：展示<strong>爱无法跨越阶级界限</strong>而不毁灭——应该连接的窗户反而分离和杀死。更广泛意义：阶级僵化摧毁真诚的感情。主要观点（最多8词）：窗户象征阶级障碍摧毁超越性的爱。"
+            }
+        },
+        3: {  // Lord of the Flies
+            bp1: {
+                en: "Focus on <strong>the conch shell</strong> as symbol of <strong>democratic order and civilization</strong>. Topic sentence: Conch represents fragile rules holding society together. Evidence: Quote scenes where <strong>conch gives speaking rights</strong> or <strong>Jack's tribe rejects the conch</strong>. Analysis: Explain how <strong>destruction of conch = collapse of democracy</strong>—when symbol of order shatters, savagery prevails. Main idea (8 words max): Conch symbolizes democracy's fragile hold on civilization.",
+                zh: "关注<strong>海螺壳</strong>作为<strong>民主秩序和文明</strong>的象征。主题句：海螺代表维系社会的脆弱规则。证据：引用<strong>海螺赋予发言权</strong>或<strong>杰克的部落拒绝海螺</strong>的场景。分析：解释<strong>海螺的毁灭=民主的崩溃</strong>——当秩序的象征破碎时，野蛮占上风。主要观点（最多8词）：海螺象征民主对文明的脆弱控制。"
+            },
+            bp2: {
+                en: "Analyze <strong>the signal fire</strong> as device showing <strong>hope versus savagery</strong>. Topic sentence: Fire represents boys' connection to civilization and rescue. Evidence: Reference <strong>fire going out when hunters chase pig</strong> or <strong>ironic rescue by naval officer's fire</strong>. Analysis: Prove that <strong>letting fire die = embracing barbarism</strong>—prioritizing hunt over rescue signals moral descent. Main idea (8 words max): Signal fire symbolizes hope abandoned for savage instincts.",
+                zh: "分析<strong>信号火</strong>作为展示<strong>希望与野蛮</strong>的手法。主题句：火代表男孩与文明和救援的联系。证据：参考<strong>猎人追猪时火熄灭</strong>或<strong>海军军官的火讽刺性救援</strong>。分析：证明<strong>让火熄灭=拥抱野蛮</strong>——优先考虑狩猎而不是救援标志着道德下降。主要观点（最多8词）：信号火象征为野蛮本能放弃的希望。"
+            },
+            bp3: {
+                en: "Examine <strong>the Lord of the Flies (pig's head)</strong> as symbol of <strong>evil within human nature</strong>. Topic sentence: Rotting head embodies darkness inside all humans. Evidence: Use <strong>Simon's hallucination conversation</strong> with the head revealing <strong>'beast is within'</strong>. Analysis: Show that <strong>external monster is internal reality</strong>—the 'beast' boys fear is their own capacity for cruelty. Broader significance: Civilization merely masks savagery. Main idea (8 words max): Pig's head reveals beast dwells within humanity.",
+                zh: "考察<strong>蝇王（猪头）</strong>作为<strong>人性内邪恶</strong>的象征。主题句：腐烂的头颅体现所有人内心的黑暗。证据：使用<strong>西蒙与头颅的幻觉对话</strong>揭示<strong>'野兽在内心'</strong>。分析：展示<strong>外部怪物是内部现实</strong>——男孩们害怕的'野兽'是他们自己的残忍能力。更广泛意义：文明只是掩盖野蛮。主要观点（最多8词）：猪头揭示野兽居住在人性内。"
+            }
+        },
+        4: {  // Jane Eyre
+            bp1: {
+                en: "Focus on <strong>the red room</strong> as symbol of <strong>imprisonment and childhood trauma</strong>. Topic sentence: Red room represents oppression Jane must overcome. Evidence: Reference <strong>Jane locked in red room as punishment</strong> and her <strong>terror/rage experience</strong>. Analysis: Explain how <strong>red color symbolizes passion trapped</strong>—Jane's spirit confined by patriarchal authority from childhood. Main idea (8 words max): Red room symbolizes patriarchal imprisonment of female spirit.",
+                zh: "关注<strong>红房间</strong>作为<strong>囚禁和童年创伤</strong>的象征。主题句：红房间代表简必须克服的压迫。证据：参考<strong>简被锁在红房间作为惩罚</strong>和她的<strong>恐惧/愤怒经历</strong>。分析：解释<strong>红色象征被困的激情</strong>——简的精神从童年起就被父权权威禁锢。主要观点（最多8词）：红房间象征父权对女性精神的囚禁。"
+            },
+            bp2: {
+                en: "Analyze <strong>fire imagery throughout</strong> as device representing <strong>passion and female agency</strong>. Topic sentence: Fire symbolizes Jane's emotional intensity and independence. Evidence: Use <strong>Thornfield fire</strong> that <strong>Bertha sets</strong> or <strong>Jane's burning arguments with Rochester</strong>. Analysis: Prove that <strong>fire = female power refusing containment</strong>—both Jane and Bertha use fire to assert autonomy against male control. Main idea (8 words max): Fire represents uncontainable female passion and power.",
+                zh: "分析<strong>整体的火意象</strong>作为代表<strong>激情和女性能动性</strong>的手法。主题句：火象征简的情感强度和独立性。证据：使用<strong>桑菲尔德大火</strong>，<strong>伯莎放的火</strong>或<strong>简与罗切斯特的激烈争论</strong>。分析：证明<strong>火=拒绝遏制的女性力量</strong>——简和伯莎都用火来对抗男性控制主张自主权。主要观点（最多8词）：火代表无法遏制的女性激情和力量。"
+            },
+            bp3: {
+                en: "Examine <strong>Bertha Mason</strong> as symbol of <strong>consequences of suppressing female autonomy</strong>. Topic sentence: Bertha represents what happens when women are denied voice. Evidence: Reference <strong>Bertha locked in attic</strong> and her <strong>eventual destructive outburst</strong>. Analysis: Show that <strong>denied agency creates monsters</strong>—Bertha's madness results from imprisonment, warning of patriarchy's destructive power. Broader significance: Equality prevents human destruction. Main idea (8 words max): Bertha symbolizes destruction caused by suppressed autonomy.",
+                zh: "考察<strong>伯莎·梅森</strong>作为<strong>压制女性自主后果</strong>的象征。主题句：伯莎代表当女性被剥夺声音时会发生什么。证据：参考<strong>伯莎被锁在阁楼</strong>和她<strong>最终的破坏性爆发</strong>。分析：展示<strong>被剥夺的能动性创造怪物</strong>——伯莎的疯狂源于囚禁，警告父权制的破坏力量。更广泛意义：平等防止人类毁灭。主要观点（最多8词）：伯莎象征被压制自主造成的毁灭。"
+            }
+        },
+        5: {  // The Picture of Dorian Gray
+            bp1: {
+                en: "Focus on <strong>the portrait</strong> as symbol of <strong>hidden moral corruption</strong>. Topic sentence: Portrait reveals truth beauty conceals. Evidence: Reference <strong>portrait aging while Dorian stays young</strong> or <strong>portrait's grotesque transformation</strong>. Analysis: Explain how <strong>external beauty masks internal decay</strong>—the portrait exposes Victorian hypocrisy valuing appearance over virtue. Main idea (8 words max): Portrait exposes moral decay hidden behind youthful beauty.",
+                zh: "关注<strong>肖像</strong>作为<strong>隐藏的道德腐败</strong>的象征。主题句：肖像揭示美丽掩盖的真相。证据：参考<strong>道林保持年轻而肖像衰老</strong>或<strong>肖像的怪诞转变</strong>。分析：解释<strong>外在美掩盖内在衰败</strong>——肖像暴露维多利亚时代重视外表胜过美德的虚伪。主要观点（最多8词）：肖像暴露隐藏在年轻美丽背后的道德衰败。"
+            },
+            bp2: {
+                en: "Analyze <strong>the yellow book</strong> (French novel) as literary device of <strong>corrupting influence</strong>. Topic sentence: Book Lord Henry gives Dorian catalyzes moral decline. Evidence: Use <strong>Dorian's obsession with yellow book</strong> and how <strong>it shapes his hedonistic philosophy</strong>. Analysis: Prove that <strong>ideas without ethics poison minds</strong>—the book's amoral aestheticism enables Dorian's crimes without conscience. Main idea (8 words max): Yellow book symbolizes ideas corrupting without moral foundation.",
+                zh: "分析<strong>黄书</strong>（法国小说）作为<strong>腐蚀影响</strong>的文学手法。主题句：亨利勋爵给道林的书催化道德衰落。证据：使用<strong>道林对黄书的痴迷</strong>以及<strong>它如何塑造他的享乐主义哲学</strong>。分析：证明<strong>没有道德的思想毒害心灵</strong>——书的非道德唯美主义使道林的罪行没有良心。主要观点（最多8词）：黄书象征没有道德基础而腐蚀的思想。"
+            },
+            bp3: {
+                en: "Examine <strong>Dorian's death scene</strong> as symbol of <strong>beauty's inevitable corruption</strong>. Topic sentence: Final reversal reveals consequence of living for appearances. Evidence: Reference <strong>stabbing portrait results in Dorian's transformation</strong>—<strong>youth transferred back to canvas</strong>. Analysis: Show that <strong>denying reality destroys deceiver</strong>—beauty without substance cannot endure, ultimately consuming its possessor. Broader significance: Moral emptiness leads to self-destruction. Main idea (8 words max): Death reveals beauty without morality destroys its bearer.",
+                zh: "考察<strong>道林的死亡场景</strong>作为<strong>美的不可避免腐败</strong>的象征。主题句：最后的逆转揭示为外表而活的后果。证据：参考<strong>刺肖像导致道林的转变</strong>——<strong>青春转回画布</strong>。分析：展示<strong>否认现实摧毁欺骗者</strong>——没有实质的美无法持久，最终消耗其拥有者。更广泛意义：道德空虚导致自我毁灭。主要观点（最多8词）：死亡揭示没有道德的美摧毁其承载者。"
+            }
+        },
+        6: {  // To Kill a Mockingbird
+            bp1: {
+                en: "Focus on <strong>the mockingbird symbol</strong> representing <strong>innocence destroyed by prejudice</strong>. Topic sentence: Connect mockingbird to those harmed for their goodness. Evidence: Reference <strong>Tom Robinson's unjust conviction</strong> or <strong>Atticus's explanation: 'it's a sin to kill a mockingbird'</strong>. Analysis: Explain how <strong>society destroys innocent victims</strong> who only try to help—Tom and Boo represent mockingbirds killed by blind hatred. Main idea (8 words max): Mockingbird symbolizes innocence society destroys through prejudice.",
+                zh: "关注<strong>知更鸟符号</strong>代表<strong>被偏见摧毁的纯真</strong>。主题句：将知更鸟与因善良而受伤的人联系起来。证据：参考<strong>汤姆·罗宾逊的不公正定罪</strong>或<strong>阿提克斯的解释：'杀死知更鸟是罪过'</strong>。分析：解释<strong>社会摧毁无辜受害者</strong>那些只试图帮助的人——汤姆和布代表被盲目仇恨杀死的知更鸟。主要观点（最多8词）：知更鸟象征社会通过偏见摧毁的纯真。"
+            },
+            bp2: {
+                en: "Analyze <strong>the courthouse</strong> as symbol of <strong>justice system failing morality</strong>. Topic sentence: Courthouse represents where law conflicts with conscience. Evidence: Use <strong>trial scene where evidence proves Tom innocent</strong> yet <strong>jury convicts based on race</strong>. Analysis: Prove that <strong>institutions reflect society's prejudice</strong>—building meant for justice becomes site of injustice when racism prevails. Main idea (8 words max): Courthouse symbolizes justice corrupted by societal prejudice.",
+                zh: "分析<strong>法院</strong>作为<strong>司法系统道德失败</strong>的象征。主题句：法院代表法律与良心冲突的地方。证据：使用<strong>审判场景，证据证明汤姆无辜</strong>但<strong>陪审团基于种族定罪</strong>。分析：证明<strong>机构反映社会的偏见</strong>——本应伸张正义的建筑在种族主义盛行时成为不公正的场所。主要观点（最多8词）：法院象征被社会偏见腐蚀的正义。"
+            },
+            bp3: {
+                en: "Examine <strong>Boo Radley's house</strong> as symbol of <strong>courage hidden by fear</strong>. Topic sentence: Mysterious house conceals quiet heroism. Evidence: Reference <strong>children's initial terror</strong> contrasted with <strong>Boo's protective actions and final rescue</strong>. Analysis: Show that <strong>true courage operates in shadows</strong>—Boo embodies moral bravery without seeking recognition, proving heroism isn't performative. Broader significance: Judge character by actions, not appearances. Main idea (8 words max): Boo's house symbolizes unseen courage defying expectations.",
+                zh: "考察<strong>布·拉德利的房子</strong>作为<strong>被恐惧隐藏的勇气</strong>的象征。主题句：神秘的房子隐藏安静的英雄主义。证据：参考<strong>孩子们最初的恐惧</strong>与<strong>布的保护行动和最终救援</strong>形成对比。分析：展示<strong>真正的勇气在阴影中运作</strong>——布体现道德勇敢而不寻求认可，证明英雄主义不是表演性的。更广泛意义：通过行动而非外表评判品格。主要观点（最多8词）：布的房子象征超越期待的隐形勇气。"
+            }
+        },
+        7: {  // Frankenstein
+            bp1: {
+                en: "Focus on <strong>fire</strong> as symbol of <strong>dangerous knowledge</strong>. Topic sentence: Prometheus fire represents scientific ambition without ethics. Evidence: Reference <strong>Victor discovering creation secret</strong> or <strong>monster learning fire's dual nature</strong> (warmth/destruction). Analysis: Explain how <strong>knowledge empowers and destroys</strong>—like fire, scientific discovery without moral guidance burns creator and creation alike. Main idea (8 words max): Fire symbolizes dangerous knowledge destroying without ethical limits.",
+                zh: "关注<strong>火</strong>作为<strong>危险知识</strong>的象征。主题句：普罗米修斯之火代表没有道德的科学野心。证据：参考<strong>维克多发现创造的秘密</strong>或<strong>怪物学习火的双重性质</strong>（温暖/毁灭）。分析：解释<strong>知识赋予力量和毁灭</strong>——像火一样，没有道德指导的科学发现燃烧创造者和被创造物。主要观点（最多8词）：火象征没有道德限制而毁灭的危险知识。"
+            },
+            bp2: {
+                en: "Analyze <strong>the monster itself</strong> as literary device representing <strong>creator's responsibility</strong>. Topic sentence: Creature embodies consequences of abandoning one's creation. Evidence: Use <strong>monster's eloquent pleas for companionship</strong> contrasted with <strong>Victor's horrified rejection</strong>. Analysis: Prove that <strong>creators must nurture what they make</strong>—monster becomes evil only through neglect, showing nurture trumps nature. Main idea (8 words max): Monster symbolizes creator's responsibility abandoned with consequences.",
+                zh: "分析<strong>怪物本身</strong>作为代表<strong>创造者责任</strong>的文学手法。主题句：生物体现抛弃自己创造物的后果。证据：使用<strong>怪物雄辩地请求陪伴</strong>与<strong>维克多的恐惧拒绝</strong>形成对比。分析：证明<strong>创造者必须培养他们所创造的</strong>——怪物只因忽视而变恶，显示教养胜过天性。主要观点（最多8词）：怪物象征被抛弃的创造者责任及后果。"
+            },
+            bp3: {
+                en: "Examine <strong>Arctic setting</strong> as symbol of <strong>isolation and moral coldness</strong>. Topic sentence: Frozen wasteland represents emotional distance between creator and creation. Evidence: Reference <strong>Victor pursuing monster to Arctic</strong> and <strong>final confrontation in desolate ice</strong>. Analysis: Show that <strong>refusing human connection creates wasteland</strong>—both Victor and creature die in emotional Antarctica they've created through mutual hatred. Broader significance: Isolation is death for social beings. Main idea (8 words max): Arctic symbolizes fatal isolation caused by abandoning connection.",
+                zh: "考察<strong>北极环境</strong>作为<strong>孤立和道德冷漠</strong>的象征。主题句：冰冻荒原代表创造者与被创造物之间的情感距离。证据：参考<strong>维克多追逐怪物到北极</strong>和<strong>在荒凉冰中的最后对抗</strong>。分析：展示<strong>拒绝人类联系创造荒原</strong>——维克多和生物都死在他们通过相互仇恨创造的情感南极洲。更广泛意义：孤立对社会存在是死亡。主要观点（最多8词）：北极象征放弃联系造成的致命孤立。"
+            }
+        },
+        8: {  // The Count of Monte Cristo
+            bp1: {
+                en: "Focus on <strong>the Château d'If (prison)</strong> as symbol of <strong>transformative suffering</strong>. Topic sentence: Prison represents crucible forging Edmond's new identity. Evidence: Reference <strong>fourteen years of unjust imprisonment</strong> and <strong>education from Abbé Faria</strong>. Analysis: Explain how <strong>injustice creates vengeful transformation</strong>—innocent sailor becomes calculating count through suffering's alchemy. Main idea (8 words max): Prison symbolizes suffering transforming innocence into vengeance.",
+                zh: "关注<strong>伊夫堡（监狱）</strong>作为<strong>转变性痛苦</strong>的象征。主题句：监狱代表锻造爱德蒙新身份的坩埚。证据：参考<strong>十四年的不公正监禁</strong>和<strong>来自法里亚神父的教育</strong>。分析：解释<strong>不公创造复仇性转变</strong>——无辜水手通过痛苦的炼金术变成精于算计的伯爵。主要观点（最多8词）：监狱象征将纯真转变为复仇的痛苦。"
+            },
+            bp2: {
+                en: "Analyze <strong>the treasure</strong> as symbol of <strong>power for revenge</strong>. Topic sentence: Monte Cristo fortune enables elaborate vengeance scheme. Evidence: Use <strong>Edmond's calculated gifts and manipulations</strong> funded by <strong>limitless wealth</strong>. Analysis: Prove that <strong>money amplifies moral choices</strong>—treasure doesn't corrupt Edmond, it reveals his obsession with payback over redemption. Main idea (8 words max): Treasure symbolizes power enabling but not justifying revenge.",
+                zh: "分析<strong>宝藏</strong>作为<strong>复仇力量</strong>的象征。主题句：基督山财富使精心复仇计划成为可能。证据：使用<strong>爱德蒙精心计算的礼物和操纵</strong>由<strong>无限财富</strong>资助。分析：证明<strong>金钱放大道德选择</strong>——宝藏不腐蚀爱德蒙，它揭示他对报复胜过救赎的痴迷。主要观点（最多8词）：宝藏象征使复仇成为可能但不合理的力量。"
+            },
+            bp3: {
+                en: "Examine <strong>'Wait and Hope' motto</strong> as device representing <strong>mercy over vengeance</strong>. Topic sentence: Final message embodies lesson learned too late. Evidence: Reference <strong>Edmond's realization after innocent deaths</strong> and <strong>final words to Maximilian</strong>. Analysis: Show that <strong>revenge imprisons the avenger</strong>—only releasing hatred brings freedom, as Dumas's refrain suggests patience trumps payback. Broader significance: Forgiveness liberates, revenge enslaves. Main idea (8 words max): 'Wait and Hope' symbolizes mercy freeing from revenge.",
+                zh: "考察<strong>'等待和希望'座右铭</strong>作为代表<strong>仁慈胜过复仇</strong>的手法。主题句：最后的信息体现太晚学到的教训。证据：参考<strong>爱德蒙在无辜死亡后的觉悟</strong>和<strong>对马克西米利安的最后话语</strong>。分析：展示<strong>复仇囚禁复仇者</strong>——只有释放仇恨才能带来自由，正如杜马的叠句暗示耐心胜过报复。更广泛意义：宽恕解放，复仇奴役。主要观点（最多8词）：'等待和希望'象征从复仇中解放的仁慈。"
+            }
+        },
+        9: {  // Pride and Prejudice
+            bp1: {
+                en: "Focus on <strong>Pemberley estate</strong> as symbol of <strong>first impressions versus truth</strong>. Topic sentence: Darcy's home reveals character beyond pride. Evidence: Reference <strong>Elizabeth's visit to Pemberley</strong> and <strong>housekeeper's praise contradicting Elizabeth's prejudice</strong>. Analysis: Explain how <strong>seeing context changes judgment</strong>—beautiful estate and servant testimony force Elizabeth to reconsider hasty conclusions. Main idea (8 words max): Pemberley symbolizes truth replacing prejudiced first impressions.",
+                zh: "关注<strong>彭伯利庄园</strong>作为<strong>第一印象与真相</strong>的象征。主题句：达西的家揭示超越傲慢的品格。证据：参考<strong>伊丽莎白访问彭伯利</strong>和<strong>管家的赞美与伊丽莎白的偏见相矛盾</strong>。分析：解释<strong>看到背景改变判断</strong>——美丽的庄园和仆人的证词迫使伊丽莎白重新考虑仓促的结论。主要观点（最多8词）：彭伯利象征真相取代有偏见的第一印象。"
+            },
+            bp2: {
+                en: "Analyze <strong>letters (especially Darcy's letter)</strong> as device revealing <strong>truth through written honesty</strong>. Topic sentence: Written word allows truth to emerge without pride/prejudice interference. Evidence: Use <strong>Darcy's detailed letter explaining Wickham</strong> and <strong>Elizabeth's multiple readings discovering truth</strong>. Analysis: Prove that <strong>reflection enables growth</strong>—letter format forces honest accounting impossible in heated conversation, allowing transformation. Main idea (8 words max): Letters symbolize honest reflection enabling mutual transformation.",
+                zh: "分析<strong>信件（尤其是达西的信）</strong>作为通过<strong>书面诚实揭示真相</strong>的手法。主题句：书面文字允许真相在没有傲慢/偏见干扰的情况下浮现。证据：使用<strong>达西详细解释威克姆的信</strong>和<strong>伊丽莎白多次阅读发现真相</strong>。分析：证明<strong>反思使成长成为可能</strong>——信件格式迫使诚实的解释在激烈对话中不可能，允许转变。主要观点（最多8词）：信件象征诚实反思使相互转变成为可能。"
+            },
+            bp3: {
+                en: "Examine <strong>the entailment (inheritance law)</strong> as symbol of <strong>social constraints limiting women</strong>. Topic sentence: Property law represents women's economic vulnerability. Evidence: Reference <strong>Bennet estate entailed to Mr. Collins</strong> creating <strong>pressure for advantageous marriages</strong>. Analysis: Show that <strong>economic dependence shapes romantic choices</strong>—women must marry well or face poverty, making love a luxury only independence affords. Broader significance: Equality requires economic freedom. Main idea (8 words max): Entailment symbolizes economic constraints forcing strategic marriages.",
+                zh: "考察<strong>限定继承（继承法）</strong>作为<strong>限制女性的社会约束</strong>的象征。主题句：财产法代表女性的经济脆弱性。证据：参考<strong>班纳特庄园限定给柯林斯先生</strong>创造<strong>有利婚姻的压力</strong>。分析：展示<strong>经济依赖塑造浪漫选择</strong>——女性必须嫁得好或面临贫困，使爱成为只有独立才能负担的奢侈品。更广泛意义：平等需要经济自由。主要观点（最多8词）：限定继承象征迫使战略婚姻的经济约束。"
+            }
+        },
+        10: {  // Old Goriot
+            bp1: {
+                en: "Focus on <strong>money/francs</strong> as symbol of <strong>corruption replacing familial love</strong>. Topic sentence: Currency symbolizes how Paris values wealth over human bonds. Evidence: Reference <strong>Goriot selling possessions for daughters</strong> who <strong>take money but abandon him</strong>. Analysis: Explain how <strong>monetizing relationships destroys them</strong>—daughters' greed transforms paternal love into economic transaction, proving money corrupts natural affection. Main idea (8 words max): Money symbolizes greed corrupting love into transaction.",
+                zh: "关注<strong>金钱/法郎</strong>作为<strong>腐败取代家庭爱</strong>的象征。主题句：货币象征巴黎如何重视财富胜过人类纽带。证据：参考<strong>高老头为女儿出售财产</strong>，她们<strong>拿钱但抛弃他</strong>。分析：解释<strong>将关系货币化摧毁它们</strong>——女儿的贪婪将父爱转变为经济交易，证明金钱腐蚀自然情感。主要观点（最多8词）：金钱象征将爱腐蚀为交易的贪婪。"
+            },
+            bp2: {
+                en: "Analyze <strong>the boarding house (Maison Vauquer)</strong> as literary device representing <strong>social decline and isolation</strong>. Topic sentence: Decaying house mirrors residents' moral/social decay. Evidence: Use <strong>physical descriptions of shabby interior</strong> and <strong>collection of desperate social outcasts</strong>. Analysis: Prove that <strong>physical environment reflects spiritual bankruptcy</strong>—boarding house becomes microcosm of Paris's hollow society where everyone exploits everyone. Main idea (8 words max): Boarding house symbolizes social decay and isolation.",
+                zh: "分析<strong>寄宿公寓（伏盖公寓）</strong>作为代表<strong>社会衰落和孤立</strong>的文学手法。主题句：衰败的房子反映居民的道德/社会衰败。证据：使用<strong>破旧内部的物理描述</strong>和<strong>绝望的社会弃儿的聚集</strong>。分析：证明<strong>物理环境反映精神破产</strong>——寄宿公寓成为巴黎空洞社会的缩影，每个人都剥削每个人。主要观点（最多8词）：寄宿公寓象征社会衰败和孤立。"
+            },
+            bp3: {
+                en: "Examine <strong>Goriot's death scene</strong> as symbol of <strong>unconditional love betrayed</strong>. Topic sentence: Father dying alone represents love's tragic one-sidedness. Evidence: Reference <strong>Goriot calling for absent daughters</strong> with <strong>only students present at deathbed</strong>. Analysis: Show that <strong>selfless devotion enables exploitation</strong>—Goriot's Christ-like sacrifice for ungrateful children reveals how pure love is vulnerable to calculated selfishness. Broader significance: Love without reciprocity destroys the lover. Main idea (8 words max): Goriot's death symbolizes selfless love betrayed completely.",
+                zh: "考察<strong>高老头的死亡场景</strong>作为<strong>无条件的爱被背叛</strong>的象征。主题句：父亲孤独死去代表爱的悲惨单方面性。证据：参考<strong>高老头呼唤缺席的女儿</strong>，<strong>只有学生在临终床前</strong>。分析：展示<strong>无私的奉献使剥削成为可能</strong>——高老头对忘恩负义子女的基督般牺牲揭示纯粹的爱如何容易受到精于算计的自私的伤害。更广泛意义：没有互惠的爱摧毁爱者。主要观点（最多8词）：高老头的死象征无私的爱完全被背叛。"
+            }
+        },
+        11: {  // Life of Pi
+            bp1: {
+                en: "Focus on <strong>Richard Parker (the tiger)</strong> as symbol of <strong>survival instinct and primal nature</strong>. Topic sentence: Tiger represents animalistic will to live Pi must embrace. Evidence: Reference <strong>Pi's fear transforming to partnership</strong> and <strong>training/feeding routines creating bond</strong>. Analysis: Explain how <strong>survival requires accepting our animal self</strong>—Pi survives by acknowledging tiger within himself, showing faith doesn't deny nature but incorporates it. Main idea (8 words max): Tiger symbolizes primal survival instinct Pi must embrace.",
+                zh: "关注<strong>理查德·帕克（老虎）</strong>作为<strong>生存本能和原始天性</strong>的象征。主题句：老虎代表派必须拥抱的动物生存意志。证据：参考<strong>派的恐惧转变为伙伴关系</strong>和<strong>训练/喂养例程创造纽带</strong>。分析：解释<strong>生存需要接受我们的动物自我</strong>——派通过承认自己内心的老虎而生存，显示信仰不否认天性而是包容它。主要观点（最多8词）：老虎象征派必须拥抱的原始生存本能。"
+            },
+            bp2: {
+                en: "Analyze <strong>the lifeboat</strong> as literary device representing <strong>faith as vessel</strong>. Topic sentence: Boat symbolizes faith keeping Pi spiritually afloat amid despair. Evidence: Use <strong>physical boat's fragility</strong> contrasted with <strong>Pi's religious rituals maintaining hope</strong>. Analysis: Prove that <strong>faith transforms suffering into meaning</strong>—lifeboat is literal and metaphorical vessel, showing belief provides structure when reality offers only chaos. Main idea (8 words max): Lifeboat symbolizes faith sustaining hope through despair.",
+                zh: "分析<strong>救生艇</strong>作为代表<strong>信仰作为容器</strong>的文学手法。主题句：船象征信仰使派在绝望中精神上保持漂浮。证据：使用<strong>物理船的脆弱性</strong>与<strong>派的宗教仪式维持希望</strong>形成对比。分析：证明<strong>信仰将痛苦转化为意义</strong>——救生艇既是字面的也是隐喻的容器，显示信念在现实只提供混乱时提供结构。主要观点（最多8词）：救生艇象征通过绝望维持希望的信仰。"
+            },
+            bp3: {
+                en: "Examine <strong>storytelling itself (dual narratives)</strong> as device about <strong>choosing belief over despair</strong>. Topic sentence: Two versions force readers to choose faith or cynicism. Evidence: Reference <strong>animal story versus brutal human story</strong> and <strong>Pi asking 'which do you prefer?'</strong> Analysis: Show that <strong>stories we believe shape reality</strong>—choosing 'better story' isn't delusion but assertion that meaning-making defines human experience. Broader significance: Faith creates bearable reality. Main idea (8 words max): Dual stories symbolize faith choosing meaning over despair.",
+                zh: "考察<strong>讲故事本身（双重叙述）</strong>作为关于<strong>选择信仰胜过绝望</strong>的手法。主题句：两个版本迫使读者在信仰或犬儒主义之间做选择。证据：参考<strong>动物故事与残酷的人类故事</strong>和<strong>派问'你更喜欢哪个？'</strong>分析：展示<strong>我们相信的故事塑造现实</strong>——选择'更好的故事'不是妄想而是断言意义创造定义人类经验。更广泛意义：信仰创造可承受的现实。主要观点（最多8词）：双重故事象征信仰选择意义胜过绝望。"
+            }
+        },
+        12: {  // The Outsiders
+            bp1: {
+                en: "Focus on <strong>sunrises/sunsets</strong> as symbol of <strong>shared humanity across class</strong>. Topic sentence: Sky connects Greasers and Socs beyond social divisions. Evidence: Reference <strong>Ponyboy and Cherry watching same sunset</strong> realizing <strong>'things are rough all over'</strong>. Analysis: Explain how <strong>natural beauty reveals common ground</strong>—sunset belongs to everyone equally, proving beneath surface differences lie universal human experiences. Main idea (8 words max): Sunsets symbolize shared humanity transcending social divisions.",
+                zh: "关注<strong>日出/日落</strong>作为<strong>跨越阶级的共同人性</strong>的象征。主题句：天空在社会分歧之外连接油头党和社交名流。证据：参考<strong>波尼博伊和切丽观看同一日落</strong>意识到<strong>'到处都很艰难'</strong>。分析：解释<strong>自然之美揭示共同点</strong>——日落平等地属于每个人，证明在表面差异之下存在普遍的人类经验。主要观点（最多8词）：日落象征超越社会分歧的共同人性。"
+            },
+            bp2: {
+                en: "Analyze <strong>haircuts/grease</strong> as device representing <strong>identity and belonging</strong>. Topic sentence: Hair symbolizes tribal markers dividing groups. Evidence: Use <strong>Greasers' pride in long greasy hair</strong> versus <strong>Socs' short clean cuts</strong>, and <strong>Johnny/Pony cutting hair when hiding</strong>. Analysis: Prove that <strong>superficial markers create deadly divisions</strong>—hair becomes badge of identity worth fighting for, yet easily changed, showing divisions are constructed not natural. Main idea (8 words max): Hair symbolizes constructed divisions creating fatal conflicts.",
+                zh: "分析<strong>理发/油脂</strong>作为代表<strong>身份和归属</strong>的手法。主题句：头发象征分隔群体的部落标记。证据：使用<strong>油头党对长油腻头发的自豪</strong>与<strong>社交名流的短干净发型</strong>，以及<strong>约翰尼/波尼躲藏时剪头发</strong>。分析：证明<strong>表面标记创造致命分歧</strong>——头发成为值得为之战斗的身份徽章，但容易改变，显示分歧是建构的而非自然的。主要观点（最多8词）：头发象征创造致命冲突的建构分歧。"
+            },
+            bp3: {
+                en: "Examine <strong>the church fire</strong> as symbol of <strong>heroism transcending social class</strong>. Topic sentence: Rescue shows courage exists independent of gang affiliation. Evidence: Reference <strong>Pony and Johnny saving children</strong> despite being <strong>'hoods' society condemns</strong>. Analysis: Show that <strong>moral action defines character, not labels</strong>—burning church becomes site where Greasers prove their humanity, challenging society's prejudice. Broader significance: Judge by actions not appearances. Main idea (8 words max): Church fire symbolizes heroism transcending social labels.",
+                zh: "考察<strong>教堂火灾</strong>作为<strong>超越社会阶级的英雄主义</strong>的象征。主题句：救援展示勇气独立于帮派归属而存在。证据：参考<strong>波尼和约翰尼拯救儿童</strong>尽管是<strong>社会谴责的'流氓'</strong>。分析：展示<strong>道德行动定义品格，而非标签</strong>——燃烧的教堂成为油头党证明他们人性的场所，挑战社会的偏见。更广泛意义：通过行动而非外表判断。主要观点（最多8词）：教堂火灾象征超越社会标签的英雄主义。"
+            }
+        },
+        12: {  // The Outsiders
+            en: "For The Outsiders, analyze how Hinton uses sunrises, haircuts, and the church fire as symbols of shared humanity across class divisions. Topic sentence should connect to your thesis about social conflict or identity. Use Johnny's death or Ponyboy's realization as evidence. Explain how these symbols reveal that beneath surface differences, 'Greasers' and 'Socs' face the same struggles—violence divides, but compassion unites. Based on the thesis statement, provide a main idea suggestion for every paragraph in the form of a phrase no longer than 8 words.",
+            zh: "对于《局外人》，分析辛顿如何使用日出、理发和教堂火灾作为跨越阶级分歧的共同人性象征。主题句应连接到你关于社会冲突或身份的论点。使用约翰尼的死亡或波尼博伊的觉醒作为证据。解释这些符号如何揭示在表面差异之下，'油头党'和'社交名流'面临相同的斗争——暴力分裂，但同情团结。根据论文陈述，以不超过8个词的短语形式为每个段落提供主要观点建议。"
+        },
+        13: {  // 1984
+            bp1: {
+                en: "Focus on <strong>Big Brother</strong> as symbol of <strong>totalitarian surveillance and personality cult</strong>. Topic sentence: Omnipresent leader represents total control over citizens. Evidence: Reference <strong>'Big Brother is watching you' posters</strong> and <strong>Winston's job rewriting history</strong>. Analysis: Explain how <strong>constant surveillance eliminates private thought</strong>—when authority observes everything, authentic self cannot exist, creating docile population. Main idea (8 words max): Big Brother symbolizes surveillance destroying individual autonomy completely.",
+                zh: "关注<strong>老大哥</strong>作为<strong>极权监控和个人崇拜</strong>的象征。主题句：无处不在的领袖代表对公民的完全控制。证据：参考<strong>'老大哥在看着你'海报</strong>和<strong>温斯顿改写历史的工作</strong>。分析：解释<strong>持续监控消除私人思想</strong>——当权威观察一切时，真实自我无法存在，创造顺从的人口。主要观点（最多8词）：老大哥象征监控完全摧毁个人自主权。"
+            },
+            bp2: {
+                en: "Analyze <strong>telescreens</strong> as literary device representing <strong>technology as oppression tool</strong>. Topic sentence: Two-way screens eliminate privacy and enable thought control. Evidence: Use <strong>Winston's apartment telescreen watching him</strong> and <strong>inability to escape surveillance</strong>. Analysis: Prove that <strong>technology amplifies authoritarian power</strong>—telescreens invert technology's promise, using connectivity for control not liberation, warning of digital dystopia. Main idea (8 words max): Telescreens symbolize technology weaponized for totalitarian control.",
+                zh: "分析<strong>电幕</strong>作为代表<strong>技术作为压迫工具</strong>的文学手法。主题句：双向屏幕消除隐私并实现思想控制。证据：使用<strong>温斯顿公寓的电幕监视他</strong>和<strong>无法逃避监控</strong>。分析：证明<strong>技术放大威权力量</strong>——电幕颠倒技术的承诺，使用连接性进行控制而非解放，警告数字反乌托邦。主要观点（最多8词）：电幕象征被武器化用于极权控制的技术。"
+            },
+            bp3: {
+                en: "Examine <strong>Newspeak</strong> as symbol of <strong>language controlling thought</strong>. Topic sentence: Limiting vocabulary makes rebellion literally unthinkable. Evidence: Reference <strong>dictionary shrinking each year</strong> and <strong>'thoughtcrime' becoming impossible without words</strong>. Analysis: Show that <strong>destroying language destroys consciousness</strong>—when words for freedom don't exist, concept cannot form, proving language shapes reality. Broader significance: Protecting language protects freedom. Main idea (8 words max): Newspeak symbolizes language destruction eliminating rebellious thought.",
+                zh: "考察<strong>新话</strong>作为<strong>语言控制思想</strong>的象征。主题句：限制词汇使反叛在字面上变得不可想象。证据：参考<strong>词典每年缩小</strong>和<strong>'思想罪'在没有词语的情况下变得不可能</strong>。分析：展示<strong>破坏语言破坏意识</strong>——当自由的词语不存在时，概念无法形成，证明语言塑造现实。更广泛意义：保护语言保护自由。主要观点（最多8词）：新话象征语言破坏消除叛逆思想。"
+            }
+        },
+        14: {  // The Great Gatsby
+            bp1: {
+                en: "Focus on <strong>the green light</strong> as symbol of <strong>unattainable dreams</strong>. Topic sentence: Light across bay represents Gatsby's impossible longing. Evidence: Reference <strong>Gatsby reaching toward green light</strong> at <strong>Daisy's dock</strong> and <strong>its distance never closing</strong>. Analysis: Explain how <strong>pursuing past destroys present</strong>—green light symbolizes American Dream forever receding, proving some dreams shouldn't be chased because they belong to bygone eras. Main idea (8 words max): Green light symbolizes forever-receding unattainable American Dream.",
+                zh: "关注<strong>绿光</strong>作为<strong>无法实现的梦想</strong>的象征。主题句：海湾对面的光代表盖茨比不可能的渴望。证据：参考<strong>盖茨比伸向绿光</strong>在<strong>黛西的码头</strong>和<strong>其距离永远不会缩小</strong>。分析：解释<strong>追逐过去摧毁现在</strong>——绿光象征永远后退的美国梦，证明有些梦不应该追逐因为它们属于过去的时代。主要观点（最多8词）：绿光象征永远后退无法实现的美国梦。"
+            },
+            bp2: {
+                en: "Analyze <strong>the Valley of Ashes</strong> as literary device representing <strong>moral wasteland of capitalism</strong>. Topic sentence: Gray valley reveals emptiness beneath glamorous surface. Evidence: Use <strong>description of industrial waste</strong> where <strong>Wilson lives in poverty</strong> while Gatsby parties. Analysis: Prove that <strong>wealth requires creating poverty</strong>—Valley of Ashes is literal trash heap supporting East Egg luxury, exposing American Dream's dark underbelly. Main idea (8 words max): Valley symbolizes poverty enabling wealthy American Dream.",
+                zh: "分析<strong>灰烬谷</strong>作为代表<strong>资本主义道德荒原</strong>的文学手法。主题句：灰色山谷揭示迷人表面下的空虚。证据：使用<strong>工业废物的描述</strong>，<strong>威尔逊生活在贫困中</strong>而盖茨比举办派对。分析：证明<strong>财富需要创造贫困</strong>——灰烬谷是支持东卵奢华的字面垃圾堆，暴露美国梦的阴暗面。主要观点（最多8词）：山谷象征使富有美国梦成为可能的贫困。"
+            },
+            bp3: {
+                en: "Examine <strong>the eyes of Dr. T.J. Eckleburg</strong> as symbol of <strong>absent moral judgment</strong>. Topic sentence: Faded billboard represents God's withdrawal from materialistic society. Evidence: Reference <strong>billboard overlooking Valley of Ashes</strong> and <strong>Wilson believing eyes are God watching</strong>. Analysis: Show that <strong>when wealth replaces values, judgment disappears</strong>—faded eyes suggest divine abandonment of morally bankrupt society. Broader significance: Materialism creates spiritual void. Main idea (8 words max): Eckleburg's eyes symbolize moral judgment absent from society.",
+                zh: "考察<strong>T·J·埃克尔堡医生的眼睛</strong>作为<strong>缺席的道德判断</strong>的象征。主题句：褪色的广告牌代表上帝从物质主义社会撤退。证据：参考<strong>俯瞰灰烬谷的广告牌</strong>和<strong>威尔逊相信眼睛是上帝在看</strong>。分析：展示<strong>当财富取代价值时，判断消失</strong>——褪色的眼睛暗示神对道德破产社会的抛弃。更广泛意义：物质主义创造精神空虚。主要观点（最多8词）：埃克尔堡的眼睛象征社会缺失的道德判断。"
+            }
+        },
+        15: {  // 100 Years of Solitude
+            bp1: {
+                en: "Focus on <strong>yellow butterflies</strong> as symbol of <strong>love and impending fate</strong>. Topic sentence: Butterflies follow Mauricio, marking passion and doom. Evidence: Reference <strong>butterflies appearing with Mauricio Babilonia</strong> and <strong>their absence after his shooting</strong>. Analysis: Explain how <strong>beauty and destruction intertwine</strong>—butterflies represent magical realism where love brings inevitable tragedy, showing fate cannot be escaped. Main idea (8 words max): Yellow butterflies symbolize love marked by inevitable fate.",
+                zh: "关注<strong>黄蝴蝶</strong>作为<strong>爱和即将到来的命运</strong>的象征。主题句：蝴蝶跟随毛里西奥，标志着激情和厄运。证据：参考<strong>蝴蝶与毛里西奥·巴比伦一起出现</strong>和<strong>他被枪击后蝴蝶消失</strong>。分析：解释<strong>美与毁灭交织</strong>——蝴蝶代表魔幻现实主义，爱带来不可避免的悲剧，显示命运无法逃脱。主要观点（最多8词）：黄蝴蝶象征被不可避免命运标记的爱。"
+            },
+            bp2: {
+                en: "Analyze <strong>ice and insomnia plague</strong> as literary devices representing <strong>memory versus forgetting</strong>. Topic sentence: Miraculous ice shows wonder versus insomnia's memory loss. Evidence: Use <strong>Melquíades bringing ice</strong> and <strong>insomnia plague making family forget everything</strong>. Analysis: Prove that <strong>memory defines civilization</strong>—without remembering past, Buendías repeat mistakes eternally, showing history's cycles trap those who forget. Main idea (8 words max): Ice/insomnia symbolize memory essential for breaking cycles.",
+                zh: "分析<strong>冰和失眠瘟疫</strong>作为代表<strong>记忆与遗忘</strong>的文学手法。主题句：奇迹般的冰显示奇迹与失眠的记忆丧失。证据：使用<strong>梅尔基亚德斯带来冰</strong>和<strong>失眠瘟疫使家庭忘记一切</strong>。分析：证明<strong>记忆定义文明</strong>——没有记住过去，布恩迪亚家族永远重复错误，显示历史循环困住忘记的人。主要观点（最多8词）：冰/失眠象征打破循环必需的记忆。"
+            },
+            bp3: {
+                en: "Examine <strong>the apocalyptic wind/ending</strong> as symbol of <strong>solitude's ultimate consequence</strong>. Topic sentence: Final destruction represents isolation's logical conclusion. Evidence: Reference <strong>prophecy fulfilled</strong> with <strong>hurricane erasing Macondo</strong> after <strong>family's failure to connect</strong>. Analysis: Show that <strong>solitude breeds extinction</strong>—Buendías' emotional isolation across generations dooms them to cyclical repetition ending in apocalypse. Broader significance: Connection is survival; isolation is death. Main idea (8 words max): Apocalyptic wind symbolizes solitude ultimately destroying everything.",
+                zh: "考察<strong>启示录般的风/结局</strong>作为<strong>孤独的最终后果</strong>的象征。主题句：最后的毁灭代表孤立的逻辑结论。证据：参考<strong>预言实现</strong>，<strong>飓风抹去马孔多</strong>在<strong>家庭无法连接</strong>之后。分析：展示<strong>孤独滋生灭绝</strong>——布恩迪亚家族跨越几代的情感孤立注定他们陷入循环重复以启示录结束。更广泛意义：连接是生存；孤立是死亡。主要观点（最多8词）：启示录般的风象征孤独最终摧毁一切。"
+            }
+        }
     }
 };
 
@@ -1691,7 +2607,7 @@ function selectFormula(id) {
     
     showFormulaDetails(id);
     saveState();
-    showToast('Formula selected!', 'success');
+    showToast('Formula selected! | 公式已选择！', 'success');
 }
 
 function showFormulaDetails(id) {
@@ -1738,7 +2654,7 @@ function selectNovel(index) {
     document.getElementById('toPage3Btn').disabled = false;
     
     saveState();
-    showToast(`Selected: ${Novels[index].title}`, 'success');
+    showToast(`Selected: ${Novels[index].title} | 已选择：${Novels[index].titleZh}`, 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1752,39 +2668,44 @@ function setupResearchPage() {
     
     const resources = NovelResources[State.selectedNovel] || DefaultResources;
     
-    // Populate tabs
+    // Populate tabs with bilingual support
     document.getElementById('info-symbols').innerHTML = resources.symbols.map(s => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>🔮 ${s.name}</h4>
+            <h4>🔮 ${s.name}${s.nameZh ? ` | ${s.nameZh}` : ''}</h4>
             <p>${s.meaning}</p>
+            ${s.meaningZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${s.meaningZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-devices').innerHTML = resources.devices.map(d => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>✨ ${d.name}</h4>
+            <h4>✨ ${d.name}${d.nameZh ? ` | ${d.nameZh}` : ''}</h4>
             <p>${d.desc}</p>
+            ${d.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${d.descZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-themes').innerHTML = resources.themes.map(t => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>💡 ${t.name}</h4>
+            <h4>💡 ${t.name}${t.nameZh ? ` | ${t.nameZh}` : ''}</h4>
             <p>${t.desc}</p>
+            ${t.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${t.descZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-characters').innerHTML = resources.characters.map(c => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>👤 ${c.name}</h4>
+            <h4>👤 ${c.name}${c.nameZh ? ` | ${c.nameZh}` : ''}</h4>
             <p>${c.role}</p>
+            ${c.roleZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${c.roleZh}</p>` : ''}
         </div>
     `).join('');
     
     document.getElementById('info-conflicts').innerHTML = resources.conflicts.map(c => `
         <div class="example-box" style="margin-bottom: var(--space-md);">
-            <h4>⚡ ${c.type}</h4>
+            <h4>⚡ ${c.type}${c.typeZh ? ` | ${c.typeZh}` : ''}</h4>
             <p>${c.desc}</p>
+            ${c.descZh ? `<p class="zh" style="margin-top: 8px; opacity: 0.85;">${c.descZh}</p>` : ''}
         </div>
     `).join('');
 }
@@ -1804,9 +2725,25 @@ function setupIntroPage() {
     const novelIndex = State.selectedNovel;
     const formula = Formulas[State.selectedFormula];
     
-    // Set examples
-    document.getElementById('hookExample').textContent = Examples.hook[novelIndex] || Examples.hook.default;
-    document.getElementById('backgroundExample').textContent = Examples.background[novelIndex] || Examples.background.default;
+    // Set examples with bilingual support
+    const hookEx = Examples.hook[novelIndex] || Examples.hook.default;
+    const bgEx = Examples.background[novelIndex] || Examples.background.default;
+    
+    const hookEl = document.getElementById('hookExample');
+    const bgEl = document.getElementById('backgroundExample');
+    
+    if (hookEx.en && hookEx.zh) {
+        hookEl.innerHTML = `<span class="en">${hookEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${hookEx.zh}</span>`;
+    } else {
+        hookEl.textContent = hookEx;
+    }
+    
+    if (bgEx.en && bgEx.zh) {
+        bgEl.innerHTML = `<span class="en">${bgEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${bgEx.zh}</span>`;
+    } else {
+        bgEl.textContent = bgEx;
+    }
+    
     document.getElementById('thesisTemplate').textContent = formula ? formula.template : 'Select a formula first.';
     
     // Restore saved content
@@ -1829,6 +2766,8 @@ function setupIntroPage() {
    ═══════════════════════════════════════════════════════════════════════════ */
 function setupBodyPage() {
     const formula = Formulas[State.selectedFormula];
+    const novelIndex = State.selectedNovel;
+    const bodyEx = Examples.body[novelIndex] || Examples.body.default;
     
     if (formula) {
         document.getElementById('bodyRoadmap').innerHTML = `
@@ -1841,6 +2780,48 @@ function setupBodyPage() {
             if (instruction) instruction.textContent = step;
         });
     }
+    
+    // Display novel-specific body paragraph guidance (different for each paragraph)
+    const bodyGuidanceBoxes = document.querySelectorAll('.body-paragraph-guidance');
+    const paragraphs = ['bp1', 'bp2', 'bp3'];
+    
+    bodyGuidanceBoxes.forEach((box, index) => {
+        const bpKey = paragraphs[index];
+        const bpEx = bodyEx[bpKey];
+        
+        if (bpEx && bpEx.en && bpEx.zh) {
+            box.innerHTML = `
+                <h4>💡 Example Guidance | 示例指导</h4>
+                <p class="bilingual">
+                    <span class="en"><strong>Novel-Specific Guidance for Paragraph ${index + 1}:</strong></span>
+                    <span class="zh"><strong>第${index + 1}段的针对小说的指导：</strong></span>
+                </p>
+                <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">
+                    <span class="en">${bpEx.en}</span>
+                </p>
+                <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary); opacity: 0.85;">
+                    <span class="zh">${bpEx.zh}</span>
+                </p>
+                <hr style="margin: var(--space-md) 0; border: none; border-top: 1px solid var(--border-light);">
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Topic Sentence:</strong> Connect to your thesis point</span>
+                    <span class="zh"><strong>主题句：</strong>连接到你的论点</span>
+                </p>
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Evidence:</strong> Quote or reference from the text</span>
+                    <span class="zh"><strong>证据：</strong>文本的引用或参考</span>
+                </p>
+                <p class="bilingual" style="margin-top: var(--space-sm); font-style: italic; color: var(--text-secondary);">
+                    <span class="en">You must also include relevant quotations from secondary sources (you should have two)</span>
+                    <span class="zh">你还必须包含来自次要来源的相关引文（你应该有两个）</span>
+                </p>
+                <p class="bilingual" style="margin-top: var(--space-md);">
+                    <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
+                    <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
+                </p>
+            `;
+        }
+    });
     
     // Restore saved content
     ['body1', 'body2', 'body3'].forEach(field => {
@@ -1857,7 +2838,15 @@ function setupBodyPage() {
 function setupConclusionPage() {
     const novelIndex = State.selectedNovel;
     
-    document.getElementById('conclusionExample').textContent = Examples.conclusion[novelIndex] || Examples.conclusion.default;
+    const conclusionEx = Examples.conclusion[novelIndex] || Examples.conclusion.default;
+    const conclusionEl = document.getElementById('conclusionExample');
+    
+    if (conclusionEx.en && conclusionEx.zh) {
+        conclusionEl.innerHTML = `<span class="en">${conclusionEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${conclusionEx.zh}</span>`;
+    } else {
+        conclusionEl.textContent = conclusionEx;
+    }
+    
     document.getElementById('thesisReference').textContent = State.thesis || 'No thesis written yet.';
     
     if (State.conclusion) {
@@ -1962,6 +2951,47 @@ function updateWordCount(field) {
     else counter.classList.add('over');
 }
 
+function downloadThesis() {
+    const novel = Novels[State.selectedNovel];
+    const formula = Formulas[State.selectedFormula];
+    
+    const content = `
+Literary Thesis Statement
+文学论文陈述
+
+Novel: ${novel?.title} by ${novel?.author}
+小说：${novel?.titleZh}
+
+Formula Used: ${formula?.name} (${formula?.nameZh})
+使用的公式：
+
+Your Thesis:
+你的论点：
+${State.thesis || '[Not written yet]'}
+
+Formula Breakdown:
+公式分解：
+
+• Observation: What pattern or device do you notice?
+  观察：你注意到什么模式或手法？
+  
+• Analysis: What does this pattern reveal or mean?
+  分析：这种模式揭示或意味着什么？
+  
+• Significance: Why does this interpretation matter?
+  意义：为什么这种解释很重要？
+
+Body Paragraph Roadmap:
+正文段落路线图：
+
+${formula?.roadmap.map((r, i) => `Paragraph ${i+1}: ${r}`).join('\n')}
+    `.trim();
+    
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `Thesis_${novel?.title.replace(/\s+/g, '_')}.txt`);
+    showToast('Thesis downloaded! | 论点已下载！', 'success');
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    AI COACH
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -2020,21 +3050,46 @@ async function callAI(userMessage) {
         return "🦉 Please set your API key first! Click ⚙️ in the navigation.";
     }
     
-    // Build context
+    // Build detailed context with current page
     const novel = Novels[State.selectedNovel];
     const formula = Formulas[State.selectedFormula];
-    let context = `Student is writing about "${novel?.title || 'a novel'}"`;
-    if (formula) context += ` using the ${formula.name} formula.`;
-    if (State.thesis) context += ` Their thesis: "${State.thesis}"`;
+    const pageNames = ['', 'Start', 'Novel Selection', 'Research', 'Introduction', 'Body Paragraphs', 'Conclusion', 'Review'];
+    const currentPageName = pageNames[State.currentPage] || 'Unknown';
+    
+    let context = `CURRENT PAGE: ${currentPageName} (Page ${State.currentPage}/7)\n`;
+    context += `Novel: "${novel?.title || 'Not selected'}" by ${novel?.author || 'Unknown'}\n`;
+    
+    if (formula) {
+        context += `Formula: ${formula.name}\n`;
+        context += `Formula Template: ${formula.template}\n`;
+    }
+    
+    // Add current section content for context
+    if (State.currentPage === 4) {
+        context += `\nSTUDENT'S INTRODUCTION:\n`;
+        if (State.hook) context += `Hook (${countWords(State.hook)} words): "${State.hook.substring(0, 150)}..."\n`;
+        if (State.background) context += `Background (${countWords(State.background)} words): "${State.background.substring(0, 150)}..."\n`;
+        if (State.thesis) context += `Thesis (${countWords(State.thesis)} words): "${State.thesis}"\n`;
+    } else if (State.currentPage === 5) {
+        context += `\nSTUDENT'S BODY PARAGRAPHS:\n`;
+        if (State.thesis) context += `Thesis: "${State.thesis}"\n`;
+        if (State.body1) context += `Body 1 (${countWords(State.body1)} words): "${State.body1.substring(0, 100)}..."\n`;
+        if (State.body2) context += `Body 2 (${countWords(State.body2)} words): "${State.body2.substring(0, 100)}..."\n`;
+        if (State.body3) context += `Body 3 (${countWords(State.body3)} words): "${State.body3.substring(0, 100)}..."\n`;
+    } else if (State.currentPage === 6) {
+        context += `\nSTUDENT'S CONCLUSION:\n`;
+        if (State.thesis) context += `Thesis: "${State.thesis}"\n`;
+        if (State.conclusion) context += `Conclusion (${countWords(State.conclusion)} words): "${State.conclusion.substring(0, 150)}..."\n`;
+    }
     
     const messages = [
-        { role: 'system', content: COACH_PROMPT + '\n\nCONTEXT: ' + context },
-        ...State.chatHistory.slice(-6),
+        { role: 'system', content: COACH_PROMPT + '\n\n' + context },
+        ...State.chatHistory.slice(-4),  // Reduced from -6 to -4 to save tokens
         { role: 'user', content: userMessage }
     ];
     
     const endpoints = {
-        groq: { url: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-70b-versatile' },
+        groq: { url: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.3-70b-versatile' },
         openai: { url: 'https://api.openai.com/v1/chat/completions', model: 'gpt-4o-mini' },
         deepseek: { url: 'https://api.deepseek.com/v1/chat/completions', model: 'deepseek-chat' }
     };
@@ -2125,7 +3180,7 @@ function saveSettings() {
     State.apiKey = document.getElementById('apiKey').value;
     saveState();
     closeSettings();
-    showToast('Settings saved!', 'success');
+    showToast('Settings saved! | 设置已保存！', 'success');
 }
 
 function toggleTheme() {
@@ -2184,10 +3239,10 @@ async function downloadWord() {
         
         const blob = await Packer.toBlob(doc);
         saveAs(blob, `Literary_Analysis_${(novel?.title || 'Essay').replace(/\s+/g, '_')}.docx`);
-        showToast('Word document downloaded!', 'success');
+        showToast('Word document downloaded! | Word文档已下载！', 'success');
     } catch (error) {
         console.error('Export error:', error);
-        showToast('Error creating document. Try again.', 'error');
+        showToast('Error creating document. Try again. | 创建文档出错。请重试。', 'error');
     }
 }
 
@@ -2198,9 +3253,9 @@ function copyEssay() {
         .join('\n\n');
     
     navigator.clipboard.writeText(text).then(() => {
-        showToast('Essay copied!', 'success');
+        showToast('Essay copied! | 论文已复制！', 'success');
     }).catch(() => {
-        showToast('Could not copy.', 'error');
+        showToast('Could not copy. | 无法复制。', 'error');
     });
 }
 
@@ -2217,7 +3272,7 @@ function celebrate() {
         confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0 } });
         confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 1 } });
     }, 250);
-    showToast('🎉 Congratulations on completing your essay!', 'success');
+    showToast('🎉 Congratulations on completing your essay! | 祝贺你完成了论文！', 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
