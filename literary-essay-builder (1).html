@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Literary Essay Builder | 文学论文写作助手</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <style>
+:root {
+    --primary-900: #1a1a2e;
+    --primary-700: #0f3460;
+    --primary-500: #4a9d9a;
+    --primary-400: #6ec6c6;
+    --primary-300: #94d3d3;
+    --accent-gold: #d4a574;
+    --accent-cream: #faf3e3;
+    --accent-coral: #e07a5f;
+    --accent-sage: #81b29a;
+    --success: #4caf50;
+    --success-light: #e8f5e9;
+    --warning: #ff9800;
+    --warning-light: #fff3e0;
+    --error: #f44336;
+    --error-light: #ffebee;
+    --info: #2196f3;
+    --info-light: #e3f2fd;
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --text-muted: #b2bec3;
+    --bg-primary: #fdfcfa;
+    --bg-secondary: #f7f5f2;
+    --bg-card: #ffffff;
+    --border-light: #e8e4df;
+    --border-medium: #d4cfc8;
+    --font-display: 'Crimson Pro', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-chinese: 'Noto Serif SC', serif;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+    --nav-height: 56px;
+    --container-max: 1000px;
+}
+
+[data-theme="dark"] {
+    --text-primary: #f5f5f5;
+    --text-secondary: #b8c5d0;
+    --text-muted: #6b7d8a;
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-card: #1c2128;
+    --border-light: #30363d;
+    --border-medium: #484f58;
+    --accent-cream: #2d333b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.zh { font-family: var(--font-chinese); }
+.bilingual .zh { display: block; font-size: 0.85em; color: var(--text-secondary); margin-top: 2px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVIGATION - Compact, no scroll
+   ══════════════════════════════════════════════════════════════════════ */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-light);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-md);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+.nav-logo { font-size: 1.5rem; }
+.nav-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.2; }
+.nav-title-zh { font-size: 0.7rem; color: var(--text-muted); }
+
+.nav-steps {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: 0 auto;
+    padding: 0 var(--space-sm);
+}
+
+.nav-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-light);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-step:hover { border-color: var(--primary-500); color: var(--primary-500); }
+.nav-step.active { background: var(--primary-500); border-color: var(--primary-500); color: white; }
+.nav-step.completed { background: var(--success); border-color: var(--success); color: white; }
+
+.nav-actions {
+    display: flex;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+}
+
+.nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover { background: var(--primary-500); color: white; border-color: var(--primary-500); }
+
+/* Progress Bar */
+.progress-wrapper {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+    z-index: 999;
+}
+
+.progress-bar {
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), var(--accent-gold));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--space-xs);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ══════════════════════════════════════════════════════════════════════ */
+.main-container {
+    padding-top: calc(var(--nav-height) + 50px);
+    padding-bottom: var(--space-xl);
+    min-height: 100vh;
+}
+
+.content-area {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.page { display: none; animation: fadeIn 0.3s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header { margin-bottom: var(--space-lg); }
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.card-subtitle {
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+}
+
+/* Example boxes */
+.example-box {
+    background: var(--accent-cream);
+    border-left: 4px solid var(--accent-gold);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+}
+
+.example-box.success { background: var(--success-light); border-color: var(--success); }
+.example-box.info { background: var(--info-light); border-color: var(--info); }
+.example-box.warning { background: var(--warning-light); border-color: var(--warning); }
+
+/* Form elements */
+.form-group { margin-bottom: var(--space-lg); }
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.form-textarea {
+    width: 100%;
+    padding: var(--space-md);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-500);
+}
+
+.form-select {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* Word counter */
+.word-counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-sm);
+    font-size: 0.85rem;
+}
+
+.word-counter .count { font-weight: 700; }
+.word-counter.under { color: var(--warning); }
+.word-counter.good { color: var(--success); }
+.word-counter.over { color: var(--error); }
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary-500);
+    color: white;
+}
+.btn-primary:hover { background: var(--primary-700); }
+
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-medium);
+}
+.btn-secondary:hover { background: var(--border-light); }
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-coral));
+    color: white;
+}
+.btn-gold:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.btn-lg { padding: var(--space-md) var(--space-lg); font-size: 1rem; }
+
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-light);
+}
+
+/* Selection grids */
+.formula-grid, .novel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-md);
+}
+
+.formula-card, .novel-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.formula-card:hover, .novel-card:hover {
+    border-color: var(--primary-500);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.formula-card.selected, .novel-card.selected {
+    border-color: var(--primary-500);
+    background: linear-gradient(135deg, rgba(74,157,154,0.1), rgba(212,165,116,0.1));
+}
+
+.formula-card h4, .novel-card h4 {
+    font-size: 0.95rem;
+    color: var(--primary-700);
+    margin-bottom: var(--space-xs);
+}
+
+.formula-card p, .novel-card p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Info tabs */
+.info-tabs {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.info-tab {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.info-tab:hover { background: var(--border-light); }
+.info-tab.active { background: var(--primary-500); color: white; border-color: var(--primary-500); }
+
+.info-content { display: none; }
+.info-content.active { display: block; }
+
+/* Essay preview */
+.essay-preview {
+    background: white;
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+    line-height: 2;
+    color: black;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.essay-preview p {
+    text-indent: 0.5in;
+    margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   AI COACH PANEL
+   ══════════════════════════════════════════════════════════════════════ */
+.ai-coach-toggle {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-coral));
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1001;
+    transition: transform 0.2s;
+}
+
+.ai-coach-toggle:hover { transform: scale(1.1); }
+
+.ai-coach-panel {
+    position: fixed;
+    bottom: 100px;
+    right: var(--space-lg);
+    width: 360px;
+    max-height: 500px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ai-coach-panel.active { display: flex; }
+
+.coach-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-500));
+    color: white;
+}
+
+.coach-avatar { font-size: 2rem; }
+.coach-info h4 { font-size: 1rem; margin: 0; }
+.coach-info p { font-size: 0.75rem; opacity: 0.9; margin: 0; }
+.coach-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.coach-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-height: 280px;
+}
+
+.coach-message {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.coach-message.assistant {
+    background: var(--bg-secondary);
+    align-self: flex-start;
+    max-width: 90%;
+}
+
+.coach-message.user {
+    background: var(--primary-500);
+    color: white;
+    align-self: flex-end;
+    max-width: 85%;
+}
+
+.coach-input-area {
+    padding: var(--space-sm);
+    border-top: 1px solid var(--border-light);
+}
+
+.coach-actions {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+}
+
+.coach-action-btn {
+    flex: 1;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.coach-action-btn:hover { background: var(--primary-500); color: white; }
+
+.coach-input-row {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.coach-input {
+    flex: 1;
+    padding: var(--space-sm);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
+.coach-send {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--primary-500);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: var(--space-sm);
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-8px); }
+}
+
+/* Settings Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-lg);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+    margin-top: var(--space-lg);
+}
+
+/* Toast notifications */
+.toast-container {
+    position: fixed;
+    top: calc(var(--nav-height) + 60px);
+    right: var(--space-md);
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.toast {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--info);
+    animation: slideIn 0.3s ease;
+}
+
+.toast.success { border-color: var(--success); }
+.toast.error { border-color: var(--error); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Word count summary */
+.word-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    margin: var(--space-md) 0;
+}
+
+.word-summary-item {
+    text-align: center;
+    padding: var(--space-sm);
+}
+
+.word-summary-item .number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-700);
+}
+
+.word-summary-item .label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Save indicator */
+.save-indicator {
+    position: fixed;
+    bottom: var(--space-lg);
+    left: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--success);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.save-indicator.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scroll to top */
+.scroll-top-btn {
+    position: fixed;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--primary-500);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Section guide */
+.section-guide {
+    background: linear-gradient(135deg, var(--info-light), var(--accent-cream));
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.section-guide h4 {
+    color: var(--primary-700);
+    margin-bottom: var(--space-sm);
+}
+
+/* Print styles */
+@media print {
+    .top-nav, .progress-wrapper, .ai-coach-toggle, .ai-coach-panel,
+    .page-navigation, .modal-overlay, .toast-container, .save-indicator,
+    .scroll-top-btn { display: none !important; }
+    
+    .main-container { padding-top: 0; }
+    .page { display: block !important; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-title { display: none; }
+    .nav-steps { gap: 1px; }
+    .nav-step { width: 28px; height: 28px; font-size: 0.7rem; }
+    
+    .formula-grid, .novel-grid { grid-template-columns: 1fr; }
+    
+    .ai-coach-panel { width: calc(100% - 32px); right: 16px; bottom: 90px; }
+    
+    .page-navigation { flex-direction: column; gap: var(--space-sm); }
+    .page-navigation .btn { width: 100%; justify-content: center; }
+}
+    </style>
+</head>
+<body>
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NAVIGATION
+         ══════════════════════════════════════════════════════════════════════ -->
+    <nav class="top-nav">
+        <a href="#" class="nav-brand" onclick="goToPage(1); return false;">
+            <span class="nav-logo">📚</span>
+            <div>
+                <div class="nav-title">Literary Essay Builder</div>
+                <div class="nav-title-zh">文学论文写作助手</div>
+            </div>
+        </a>
+        
+        <div class="nav-steps">
+            <button class="nav-step active" onclick="goToPage(1)" title="Start">1</button>
+            <button class="nav-step" onclick="goToPage(2)" title="Novel">2</button>
+            <button class="nav-step" onclick="goToPage(3)" title="Research">3</button>
+            <button class="nav-step" onclick="goToPage(4)" title="Introduction">4</button>
+            <button class="nav-step" onclick="goToPage(5)" title="Body">5</button>
+            <button class="nav-step" onclick="goToPage(6)" title="Conclusion">6</button>
+            <button class="nav-step" onclick="goToPage(7)" title="Export">7</button>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="openSettings()" title="Settings">⚙️</button>
+            <button class="nav-btn" onclick="toggleTheme()" title="Theme" id="themeBtn">🌙</button>
+        </div>
+    </nav>
+    
+    <!-- Progress Bar -->
+    <div class="progress-wrapper">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 14.28%"></div>
+        </div>
+        <div class="progress-text" id="progressText">Step 1 of 7 - Getting Started | 第1步，共7步</div>
+    </div>
+    
+    <!-- ══════════════════════════════════════════════════════════════════════
+         MAIN CONTENT
+         ══════════════════════════════════════════════════════════════════════ -->
+    <main class="main-container">
+        <div class="content-area">
+            
+            <!-- PAGE 1: GETTING STARTED -->
+            <div id="page-1" class="page active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📖 Building Your Literary Essay</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Create a 1200-1800 word literary analysis essay with guided sections.</span>
+                            <span class="zh">创建一篇1200-1800字的文学分析论文，配有引导部分。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="example-box info">
+                        <h4>📊 Essay Structure & Word Counts</h4>
+                        <div class="word-summary">
+                            <div class="word-summary-item">
+                                <div class="number">75-125</div>
+                                <div class="label">Hook</div>
+                            </div>
+                            <div class="word-summary-item">
+                                <div class="number">100-150</div>
+                                <div class="label">Background</div>
+                            </div>
+                            <div class="word-summary-item">
+                                <div class="number">35-60</div>
+                                <div class="label">Thesis</div>
+                            </div>
+                            <div class="word-summary-item">
+                                <div class="number">250-400</div>
+                                <div class="label">Body ×3</div>
+                            </div>
+                            <div class="word-summary-item">
+                                <div class="number">150-250</div>
+                                <div class="label">Conclusion</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: var(--space-sm); font-size: 0.9rem;">
+                            <strong>Total: 1200-1800 words</strong> | Times New Roman, 12pt, Double-spaced
+                        </p>
+                    </div>
+                    
+                    <h3 style="margin: var(--space-lg) 0 var(--space-md);">Select Your Thesis Formula</h3>
+                    <p class="bilingual" style="margin-bottom: var(--space-md);">
+                        <span class="en">Choose a formula that will guide your thesis statement and essay structure.</span>
+                        <span class="zh">选择一个将指导你论点陈述和论文结构的公式。</span>
+                    </p>
+                    
+                    <div class="formula-grid" id="formulaGrid"></div>
+                    
+                    <div id="formulaDetails" style="display: none;"></div>
+                </div>
+                
+                <div class="page-navigation">
+                    <div></div>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(2)" id="toPage2Btn" disabled>
+                        Select Novel →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- PAGE 2: NOVEL SELECTION -->
+            <div id="page-2" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📚 Select Your Novel</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Choose the novel you're analyzing. Each includes research resources.</span>
+                            <span class="zh">选择你正在分析的小说。每本都包含研究资源。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="novel-grid" id="novelGrid"></div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(1)">← Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(3)" id="toPage3Btn" disabled>
+                        View Resources →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- PAGE 3: RESEARCH RESOURCES -->
+            <div id="page-3" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🔬 Research: <span id="researchNovelTitle"></span></h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Use these resources to find evidence for your essay.</span>
+                            <span class="zh">使用这些资源为你的论文寻找证据。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="info-tabs">
+                        <button class="info-tab active" onclick="switchTab('symbols')">🎭 Symbols</button>
+                        <button class="info-tab" onclick="switchTab('devices')">✍️ Devices</button>
+                        <button class="info-tab" onclick="switchTab('themes')">💭 Themes</button>
+                        <button class="info-tab" onclick="switchTab('characters')">👥 Characters</button>
+                        <button class="info-tab" onclick="switchTab('conflicts')">⚔️ Conflicts</button>
+                    </div>
+                    
+                    <div id="info-symbols" class="info-content active"></div>
+                    <div id="info-devices" class="info-content"></div>
+                    <div id="info-themes" class="info-content"></div>
+                    <div id="info-characters" class="info-content"></div>
+                    <div id="info-conflicts" class="info-content"></div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(2)">← Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(4)">Write Introduction →</button>
+                </div>
+            </div>
+            
+            <!-- PAGE 4: INTRODUCTION (Hook + Background + Thesis) -->
+            <div id="page-4" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">✨ Introduction Paragraph</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Your introduction has 3 parts: Hook, Background, and Thesis Statement.</span>
+                            <span class="zh">你的引言有3个部分：开篇钩子、背景信息和论点陈述。</span>
+                        </p>
+                    </div>
+                    
+                    <!-- HOOK SECTION -->
+                    <div class="section-guide">
+                        <h4>🪝 Part 1: Hook (75-125 words)</h4>
+                        <p class="bilingual">
+                            <span class="en">Capture the reader's attention with a compelling opening. Use a thought-provoking question, surprising fact, vivid scene, or relevant quote.</span>
+                            <span class="zh">用引人入胜的开头吸引读者的注意力。使用发人深省的问题、令人惊讶的事实、生动的场景或相关引言。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>📝 Hook Example</h4>
+                        <p id="hookExample" style="font-style: italic;"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Hook</label>
+                        <textarea class="form-textarea" id="hookInput" rows="4" 
+                            placeholder="Write your hook here. Capture the reader's attention..."
+                            oninput="updateWordCount('hook')"></textarea>
+                        <div class="word-counter" id="hookCounter">
+                            <span>Words: <span class="count">0</span> / 75-125</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- BACKGROUND SECTION -->
+                    <div class="section-guide" style="margin-top: var(--space-xl);">
+                        <h4>📖 Part 2: Background Information (100-150 words)</h4>
+                        <p class="bilingual">
+                            <span class="en">Provide context about the novel, author, or literary period. Introduce the main characters or themes relevant to your thesis.</span>
+                            <span class="zh">提供关于小说、作者或文学时期的背景。介绍与你论点相关的主要人物或主题。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>📝 Background Example</h4>
+                        <p id="backgroundExample" style="font-style: italic;"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Background</label>
+                        <textarea class="form-textarea" id="backgroundInput" rows="5" 
+                            placeholder="Provide context about the novel and introduce key elements..."
+                            oninput="updateWordCount('background')"></textarea>
+                        <div class="word-counter" id="backgroundCounter">
+                            <span>Words: <span class="count">0</span> / 100-150</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- THESIS SECTION -->
+                    <div class="section-guide" style="margin-top: var(--space-xl);">
+                        <h4>🎯 Part 3: Thesis Statement (35-60 words)</h4>
+                        <p class="bilingual">
+                            <span class="en">Your thesis = Observation + Analysis + Significance. It should be arguable and provide a roadmap for your essay.</span>
+                            <span class="zh">你的论点 = 观察 + 分析 + 意义。它应该是可论证的，并为你的论文提供路线图。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="example-box" id="thesisTemplateBox">
+                        <h4>📝 Your Formula Template</h4>
+                        <p id="thesisTemplate" style="font-style: italic;"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Thesis Statement</label>
+                        <textarea class="form-textarea" id="thesisInput" rows="3" 
+                            placeholder="Write your thesis statement following the formula..."
+                            oninput="updateWordCount('thesis')"></textarea>
+                        <div class="word-counter" id="thesisCounter">
+                            <span>Words: <span class="count">0</span> / 35-60</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <button class="btn btn-gold" onclick="askTheoAbout('introduction')">
+                            🦉 Ask Theo for Feedback
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(3)">← Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(5)">Write Body Paragraphs →</button>
+                </div>
+            </div>
+            
+            <!-- PAGE 5: BODY PARAGRAPHS -->
+            <div id="page-5" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📝 Body Paragraphs</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Write 3 body paragraphs (250-400 words each) supporting your thesis.</span>
+                            <span class="zh">撰写3个支持你论点的正文段落（每个250-400字）。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="example-box info" id="bodyRoadmap">
+                        <!-- Roadmap will be populated based on formula -->
+                    </div>
+                    
+                    <!-- Body 1 -->
+                    <div class="section-guide">
+                        <h4 id="body1Guide">📌 Body Paragraph 1</h4>
+                        <p id="body1Instruction"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-textarea" id="body1Input" rows="10" 
+                            placeholder="Write your first body paragraph. Start with a topic sentence..."
+                            oninput="updateWordCount('body1')"></textarea>
+                        <div class="word-counter" id="body1Counter">
+                            <span>Words: <span class="count">0</span> / 250-400</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Body 2 -->
+                    <div class="section-guide" style="margin-top: var(--space-xl);">
+                        <h4 id="body2Guide">📌 Body Paragraph 2</h4>
+                        <p id="body2Instruction"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-textarea" id="body2Input" rows="10" 
+                            placeholder="Write your second body paragraph..."
+                            oninput="updateWordCount('body2')"></textarea>
+                        <div class="word-counter" id="body2Counter">
+                            <span>Words: <span class="count">0</span> / 250-400</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Body 3 -->
+                    <div class="section-guide" style="margin-top: var(--space-xl);">
+                        <h4 id="body3Guide">📌 Body Paragraph 3</h4>
+                        <p id="body3Instruction"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-textarea" id="body3Input" rows="10" 
+                            placeholder="Write your third body paragraph..."
+                            oninput="updateWordCount('body3')"></textarea>
+                        <div class="word-counter" id="body3Counter">
+                            <span>Words: <span class="count">0</span> / 250-400</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <button class="btn btn-gold" onclick="askTheoAbout('body')">
+                            🦉 Ask Theo for Body Feedback
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(4)">← Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(6)">Write Conclusion →</button>
+                </div>
+            </div>
+            
+            <!-- PAGE 6: CONCLUSION -->
+            <div id="page-6" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🎯 Conclusion</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Wrap up your essay (150-250 words). Restate thesis and reflect on significance.</span>
+                            <span class="zh">总结你的论文（150-250字）。重述论点并反思意义。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="section-guide">
+                        <h4>📋 Conclusion Structure</h4>
+                        <ul style="margin-left: var(--space-lg); margin-top: var(--space-sm);">
+                            <li class="bilingual"><span class="en"><strong>Restate</strong> your thesis in new words</span><span class="zh">用新的词语<strong>重述</strong>你的论点</span></li>
+                            <li class="bilingual"><span class="en"><strong>Summarize</strong> your main arguments briefly</span><span class="zh">简要<strong>总结</strong>你的主要论点</span></li>
+                            <li class="bilingual"><span class="en"><strong>Extend</strong> the significance—why does this matter?</span><span class="zh"><strong>延伸</strong>意义——这为什么重要？</span></li>
+                            <li class="bilingual"><span class="en"><strong>End</strong> with a thought-provoking final statement</span><span class="zh">以发人深省的结束语<strong>收尾</strong></span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>📝 Conclusion Example</h4>
+                        <p id="conclusionExample" style="font-style: italic;"></p>
+                    </div>
+                    
+                    <div class="example-box info">
+                        <h4>📌 Your Thesis (for reference)</h4>
+                        <p id="thesisReference" style="font-style: italic;"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Conclusion</label>
+                        <textarea class="form-textarea" id="conclusionInput" rows="10" 
+                            placeholder="Write your conclusion. Restate your thesis in new words and reflect on the broader significance..."
+                            oninput="updateWordCount('conclusion')"></textarea>
+                        <div class="word-counter" id="conclusionCounter">
+                            <span>Words: <span class="count">0</span> / 150-250</span>
+                            <span class="bilingual"><span class="en">Recommended</span><span class="zh">建议</span></span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: var(--space-lg);">
+                        <button class="btn btn-gold" onclick="askTheoAbout('conclusion')">
+                            🦉 Ask Theo for Conclusion Feedback
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(5)">← Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(7)">Review & Export →</button>
+                </div>
+            </div>
+            
+            <!-- PAGE 7: REVIEW & EXPORT -->
+            <div id="page-7" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">🎉 Your Complete Essay</h2>
+                        <p class="card-subtitle bilingual">
+                            <span class="en">Review your essay and download as a formatted Word document.</span>
+                            <span class="zh">审查你的论文并下载为格式化的Word文档。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="word-summary" id="finalWordSummary">
+                        <!-- Will be populated -->
+                    </div>
+                    
+                    <div class="essay-preview" id="essayPreview">
+                        <!-- Essay content will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📤 Export Options</h2>
+                    </div>
+                    
+                    <div class="example-box success">
+                        <p><strong>📄 Format:</strong> Times New Roman, 12pt, Black, Double-spaced</p>
+                    </div>
+                    
+                    <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-lg" onclick="downloadWord()">
+                            📥 Download Word Document
+                        </button>
+                        <button class="btn btn-secondary" onclick="copyEssay()">📋 Copy Essay</button>
+                        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
+                        <button class="btn btn-secondary" onclick="startOver()">🔄 Start Over</button>
+                    </div>
+                </div>
+                
+                <div class="page-navigation">
+                    <button class="btn btn-secondary" onclick="goToPage(6)">← Back</button>
+                    <button class="btn btn-gold btn-lg" onclick="celebrate()">🎊 I'm Done!</button>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <!-- AI Coach -->
+    <button class="ai-coach-toggle" onclick="toggleCoach()">🦉</button>
+    
+    <div class="ai-coach-panel" id="coachPanel">
+        <div class="coach-header">
+            <div class="coach-avatar">🦉</div>
+            <div class="coach-info">
+                <h4>Theo the Essay Coach</h4>
+                <p>I guide, I don't give answers!</p>
+            </div>
+            <button class="coach-close" onclick="toggleCoach()">×</button>
+        </div>
+        
+        <div class="coach-messages" id="coachMessages">
+            <div class="coach-message assistant">
+                <p>👋 Hello! I'm <strong>Theo</strong>, your essay writing coach! I'll help you with hints, grammar checks, and formula guidance. Remember—I guide, I don't write for you!</p>
+            </div>
+        </div>
+        
+        <div class="coach-input-area">
+            <div class="coach-actions">
+                <button class="coach-action-btn" onclick="askForHint()">💡 Hint</button>
+                <button class="coach-action-btn" onclick="checkGrammar()">✏️ Grammar</button>
+                <button class="coach-action-btn" onclick="explainFormula()">📝 Formula</button>
+            </div>
+            <div class="coach-input-row">
+                <input type="text" class="coach-input" id="coachInput" 
+                    placeholder="Ask Theo..." onkeypress="if(event.key==='Enter')sendToCoach()">
+                <button class="coach-send" onclick="sendToCoach()">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-content">
+            <h3>⚙️ API Settings</h3>
+            
+            <div class="form-group">
+                <label class="form-label">AI Provider</label>
+                <select class="form-select" id="apiProvider">
+                    <option value="groq">Groq (Free & Fast)</option>
+                    <option value="openai">OpenAI</option>
+                    <option value="deepseek">DeepSeek</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">API Key</label>
+                <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key...">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-xs);">
+                    Stored locally only. Never sent to our servers.
+                </p>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Save Indicator -->
+    <div class="save-indicator" id="saveIndicator">✓ Saved</div>
+    
+    <!-- Scroll to Top -->
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑ Top</button>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         JAVASCRIPT
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   APPLICATION STATE
+   ═══════════════════════════════════════════════════════════════════════════ */
+const State = {
+    currentPage: 1,
+    totalPages: 7,
+    selectedFormula: null,
+    selectedNovel: null,
+    hook: '',
+    background: '',
+    thesis: '',
+    body1: '',
+    body2: '',
+    body3: '',
+    conclusion: '',
+    apiProvider: 'groq',
+    apiKey: '',
+    theme: 'light',
+    chatHistory: []
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORMULA DATA
+   ═══════════════════════════════════════════════════════════════════════════ */
+const Formulas = {
+    1: {
+        name: 'Device-to-Claim',
+        nameZh: '手法论证',
+        template: 'The author uses [literary device] to reveal [character/theme aspect], showing that [significance].',
+        templateZh: '作者使用[文学手法]来揭示[人物/主题方面]，表明[意义]。',
+        roadmap: [
+            'Identify the device and show how it reveals a character or theme aspect.',
+            'Explain how this connects to a larger pattern in the work.',
+            'Argue the significance—what the reader gains from this understanding.'
+        ]
+    },
+    2: {
+        name: 'Symbolic Imagery',
+        nameZh: '象征意象',
+        template: 'The author uses symbolic imagery to reveal [character] as [role/quality], suggesting that [significance].',
+        templateZh: '作者使用象征意象来揭示[人物]作为[角色/品质]，暗示[意义]。',
+        roadmap: [
+            'Describe the symbols and their immediate associations.',
+            'Explain how they shape understanding of the character/theme.',
+            'Argue the broader consequence for the work\'s meaning.'
+        ]
+    },
+    3: {
+        name: 'Pattern & Contestation',
+        nameZh: '模式与质疑',
+        template: 'The author employs [motif/device] to establish a pattern where [A] and [B] converge, challenging [assumption].',
+        templateZh: '作者运用[母题/手法]建立一种模式，其中[A]和[B]汇合，挑战[假设]。',
+        roadmap: [
+            'Show how the pattern emerges across scenes.',
+            'Explain what the convergence reveals about themes.',
+            'Argue how this challenges standard interpretations.'
+        ]
+    },
+    4: {
+        name: 'Character Development',
+        nameZh: '人物发展',
+        template: 'The author develops [character] through actions, dialogue, and perceptions, illustrating [transformation] and its implications for [significance].',
+        templateZh: '作者通过行动、对话和认知发展[人物]，说明[转变]及其对[意义]的含义。',
+        roadmap: [
+            'Trace key actions and dialogue that drive change.',
+            'Show how others\' perceptions reinforce the transformation.',
+            'Conclude with broader significance for the work\'s themes.'
+        ]
+    }
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NOVEL DATA
+   ═══════════════════════════════════════════════════════════════════════════ */
+const Novels = [
+    { title: 'Death on the Nile', author: 'Agatha Christie', titleZh: '尼罗河上的惨案' },
+    { title: 'The Order of the Phoenix', author: 'J.K. Rowling', titleZh: '凤凰社' },
+    { title: 'Wuthering Heights', author: 'Emily Brontë', titleZh: '呼啸山庄' },
+    { title: 'Lord of the Flies', author: 'William Golding', titleZh: '蝇王' },
+    { title: 'Jane Eyre', author: 'Charlotte Brontë', titleZh: '简·爱' },
+    { title: 'The Picture of Dorian Gray', author: 'Oscar Wilde', titleZh: '道林·格雷的画像' },
+    { title: 'To Kill a Mockingbird', author: 'Harper Lee', titleZh: '杀死一只知更鸟' },
+    { title: 'Frankenstein', author: 'Mary Shelley', titleZh: '弗兰肯斯坦' },
+    { title: 'The Count of Monte Cristo', author: 'Alexandre Dumas', titleZh: '基督山伯爵' },
+    { title: 'Pride and Prejudice', author: 'Jane Austen', titleZh: '傲慢与偏见' },
+    { title: 'Old Goriot', author: 'Honoré de Balzac', titleZh: '高老头' },
+    { title: 'Life of Pi', author: 'Yann Martel', titleZh: '少年派的奇幻漂流' },
+    { title: 'The Outsiders', author: 'S.E. Hinton', titleZh: '局外人' },
+    { title: '1984', author: 'George Orwell', titleZh: '1984' },
+    { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', titleZh: '了不起的盖茨比' },
+    { title: '100 Years of Solitude', author: 'Gabriel García Márquez', titleZh: '百年孤独' }
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NOVEL RESOURCES (Condensed for key novels)
+   ═══════════════════════════════════════════════════════════════════════════ */
+const NovelResources = {
+    0: { // Death on the Nile
+        symbols: [
+            { name: 'The Nile River', meaning: 'Fate and inevitability—the flow of time catches up with characters.' },
+            { name: 'The Boat', meaning: 'Social entrapment—wealth cannot escape moral consequences.' },
+            { name: 'Pearls/Jewelry', meaning: 'Wealth, vanity, and the corrupting influence of possessions.' }
+        ],
+        devices: [
+            { name: 'Red Herring', desc: 'False clues mislead both detective and reader.' },
+            { name: 'Foreshadowing', desc: 'Subtle hints about violence become clear in retrospect.' },
+            { name: 'Dramatic Irony', desc: 'The audience knows information characters do not.' }
+        ],
+        themes: [
+            { name: 'Jealousy & Obsession', desc: 'Romantic jealousy drives characters to extreme actions.' },
+            { name: 'Wealth & Consequences', desc: 'Money attracts danger and corrupts relationships.' },
+            { name: 'Appearance vs. Reality', desc: 'Surface charm masks darker intentions.' }
+        ],
+        characters: [
+            { name: 'Hercule Poirot', role: 'Detective who balances truth-seeking with compassion.' },
+            { name: 'Linnet Ridgeway', role: 'Wealthy victim whose privilege cannot protect her.' },
+            { name: 'Jacqueline de Bellefort', role: 'Jealous ex-fiancée consumed by betrayal.' }
+        ],
+        conflicts: [
+            { type: 'Person vs. Person', desc: 'Jacqueline vs. Linnet—rivalry over Simon.' },
+            { type: 'Truth vs. Deception', desc: 'Poirot\'s pursuit of truth against elaborate lies.' }
+        ]
+    },
+    3: { // Lord of the Flies
+        symbols: [
+            { name: 'The Conch Shell', meaning: 'Civilization, democratic order—its destruction signals collapse.' },
+            { name: 'The Lord of the Flies', meaning: 'The beast within humanity; evil is internal, not external.' },
+            { name: 'Piggy\'s Glasses', meaning: 'Intellect and reason—their theft represents reason\'s defeat.' },
+            { name: 'The Signal Fire', meaning: 'Hope for rescue and connection to civilization.' }
+        ],
+        devices: [
+            { name: 'Allegory', desc: 'The island represents the world; boys represent society.' },
+            { name: 'Symbolism', desc: 'Objects carry deeper meanings about civilization vs. savagery.' },
+            { name: 'Foreshadowing', desc: 'Roger throwing stones hints at later violence.' },
+            { name: 'Irony', desc: 'The "rescuing" naval officer is also waging war.' }
+        ],
+        themes: [
+            { name: 'Civilization vs. Savagery', desc: 'How easily the veneer of civilization collapses.' },
+            { name: 'Innocence & Evil', desc: 'Children are not inherently innocent; evil exists within all.' },
+            { name: 'Power & Leadership', desc: 'Democratic vs. authoritarian leadership styles.' },
+            { name: 'Fear of the Unknown', desc: 'Fear as a tool of control and catalyst for violence.' }
+        ],
+        characters: [
+            { name: 'Ralph', role: 'Represents civilization, democracy, rational leadership.' },
+            { name: 'Jack', role: 'Represents savagery, dictatorship, dark impulses.' },
+            { name: 'Piggy', role: 'Represents intellect, science, rational thinking.' },
+            { name: 'Simon', role: 'Represents spirituality, natural goodness, prophetic insight.' }
+        ],
+        conflicts: [
+            { type: 'Person vs. Person', desc: 'Ralph vs. Jack for leadership.' },
+            { type: 'Person vs. Self', desc: 'Each boy struggles with capacity for violence.' },
+            { type: 'Order vs. Chaos', desc: 'Gradual breakdown of rules and society.' }
+        ]
+    },
+    6: { // To Kill a Mockingbird
+        symbols: [
+            { name: 'The Mockingbird', meaning: 'Innocence destroyed by evil—"sin to kill a mockingbird."' },
+            { name: 'Boo Radley\'s House', meaning: 'Fear of the unknown; prejudice based on rumors.' },
+            { name: 'The Tree Knothole', meaning: 'Connection between innocence (children) and isolation (Boo).' }
+        ],
+        devices: [
+            { name: 'First-Person Child Narrator', desc: 'Scout\'s innocence highlights adult hypocrisy.' },
+            { name: 'Symbolism', desc: 'The mockingbird represents innocent victims.' },
+            { name: 'Irony', desc: 'A town that values "Christian" morality commits injustice.' }
+        ],
+        themes: [
+            { name: 'Racial Injustice', desc: 'Systemic racism in the American South.' },
+            { name: 'Loss of Innocence', desc: 'Children confronting evil in their community.' },
+            { name: 'Moral Courage', desc: 'Standing for what\'s right despite opposition.' },
+            { name: 'Empathy', desc: '"Walk in another\'s shoes" as moral education.' }
+        ],
+        characters: [
+            { name: 'Scout Finch', role: 'Narrator whose innocence illuminates adult failures.' },
+            { name: 'Atticus Finch', role: 'Moral compass; defends justice against racism.' },
+            { name: 'Tom Robinson', role: 'Innocent victim of racial prejudice—a "mockingbird."' },
+            { name: 'Boo Radley', role: 'Misunderstood recluse; another "mockingbird."' }
+        ],
+        conflicts: [
+            { type: 'Justice vs. Prejudice', desc: 'Tom\'s trial against the racist system.' },
+            { type: 'Innocence vs. Experience', desc: 'Children learning about human evil.' }
+        ]
+    },
+    13: { // 1984
+        symbols: [
+            { name: 'Big Brother', meaning: 'Totalitarian surveillance and cult of personality.' },
+            { name: 'The Telescreen', meaning: 'Constant surveillance; destruction of private life.' },
+            { name: 'Room 101', meaning: 'Ultimate torture—facing one\'s worst fear.' },
+            { name: 'Newspeak', meaning: 'Language control as thought control.' }
+        ],
+        devices: [
+            { name: 'Dystopian Setting', desc: 'Nightmarish future extrapolated from present trends.' },
+            { name: 'Irony', desc: 'Ministry names mean the opposite of their function.' },
+            { name: 'Psychological Realism', desc: 'Detailed exploration of Winston\'s breakdown.' }
+        ],
+        themes: [
+            { name: 'Totalitarianism', desc: 'Complete state control over every aspect of life.' },
+            { name: 'Language & Thought', desc: 'Controlling language to limit thought.' },
+            { name: 'Reality & Truth', desc: '"Who controls the past controls the future."' },
+            { name: 'Psychological Manipulation', desc: 'Breaking individuals through fear and torture.' }
+        ],
+        characters: [
+            { name: 'Winston Smith', role: 'Individual crushed by totalitarianism.' },
+            { name: 'Julia', role: 'Instinctive rather than intellectual rebellion.' },
+            { name: 'O\'Brien', role: 'True believer who represents Party\'s seductive power.' }
+        ],
+        conflicts: [
+            { type: 'Individual vs. State', desc: 'Winston\'s thoughts vs. Party\'s control.' },
+            { type: 'Truth vs. Propaganda', desc: 'Reality vs. manufactured "truth."' }
+        ]
+    },
+    14: { // The Great Gatsby
+        symbols: [
+            { name: 'The Green Light', meaning: 'Gatsby\'s dreams; the American Dream\'s promise and impossibility.' },
+            { name: 'The Valley of Ashes', meaning: 'The dark underside of wealth; moral decay.' },
+            { name: 'Doctor Eckleburg\'s Eyes', meaning: 'God\'s judgment or its absence; moral blindness.' }
+        ],
+        devices: [
+            { name: 'First-Person Peripheral Narrator', desc: 'Nick observes rather than participates.' },
+            { name: 'Symbolism', desc: 'Objects carry profound thematic weight.' },
+            { name: 'Irony', desc: 'Gatsby\'s dream is doomed from the start.' }
+        ],
+        themes: [
+            { name: 'The American Dream', desc: 'Promise and corruption of upward mobility.' },
+            { name: 'Wealth & Class', desc: 'Old money vs. new money; class immobility.' },
+            { name: 'Illusion vs. Reality', desc: 'Gap between dream and actuality.' },
+            { name: 'Moral Decay', desc: 'Carelessness beneath wealth\'s surface.' }
+        ],
+        characters: [
+            { name: 'Jay Gatsby', role: 'American Dream\'s romantic hope and fatal flaw.' },
+            { name: 'Nick Carraway', role: 'Moral center who judges the wealthy.' },
+            { name: 'Daisy Buchanan', role: 'Careless cruelty of the elite.' },
+            { name: 'Tom Buchanan', role: 'Old money\'s brutality and entitlement.' }
+        ],
+        conflicts: [
+            { type: 'Dream vs. Reality', desc: 'Gatsby\'s vision vs. corrupt reality.' },
+            { type: 'Past vs. Present', desc: 'Gatsby trying to recreate the past.' }
+        ]
+    }
+};
+
+// Default resources for novels without specific data
+const DefaultResources = {
+    symbols: [{ name: 'Explore symbols in your novel', meaning: 'Look for recurring objects with deeper meaning.' }],
+    devices: [{ name: 'Literary devices', desc: 'Identify techniques the author uses.' }],
+    themes: [{ name: 'Major themes', desc: 'What ideas does the author explore?' }],
+    characters: [{ name: 'Key characters', role: 'Analyze their development and significance.' }],
+    conflicts: [{ type: 'Central conflicts', desc: 'What tensions drive the story?' }]
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AI COACH SYSTEM PROMPT
+   ═══════════════════════════════════════════════════════════════════════════ */
+const COACH_PROMPT = `You are Theo, a friendly literary essay writing coach. Your role is to GUIDE students, not write for them.
+
+RULES:
+1. NEVER write content for the student—only give hints and guidance
+2. NEVER provide thesis statements, topic sentences, or essay content
+3. When asked to check grammar, point out issues but don't rewrite sentences
+4. Help explain formulas and structures without providing examples that could be copied
+5. Ask guiding questions to help students think critically
+6. Be encouraging but honest about weaknesses
+7. Keep responses concise (under 100 words when possible)
+8. Use emojis sparingly to be friendly
+
+When evaluating work, consider:
+- Purpose: Does it make an arguable claim?
+- Focus: Is it specific enough?
+- Scope: Can it be supported in the essay length?
+
+FORBIDDEN:
+- "Here's a better version..."
+- "You should write..."
+- "Try this thesis: ..."
+- Writing more than one sentence of example content`;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXAMPLES FOR EACH SECTION (Dynamic based on novel)
+   ═══════════════════════════════════════════════════════════════════════════ */
+const Examples = {
+    hook: {
+        default: "What happens when the thin veneer of civilization is stripped away? This question haunts readers as they delve into the dark corners of human nature explored in literature.",
+        3: "What happens when children are left to govern themselves, free from adult supervision and societal rules? William Golding's disturbing answer reveals uncomfortable truths about human nature.",
+        14: "In the glittering excess of the 1920s, one man believed he could buy back the past. His green light beckoned across the water, a symbol of hope that would prove tragically elusive."
+    },
+    background: {
+        default: "The novel explores complex themes through its characters and setting, challenging readers to examine fundamental questions about human nature. Published during a significant period in literary history, it continues to resonate with contemporary audiences.",
+        3: "Published in 1954, Lord of the Flies follows a group of British schoolboys stranded on an uninhabited island after a plane crash. What begins as an adventure quickly descends into chaos as the boys' attempt at self-governance collapses into violence and tribal warfare.",
+        14: "F. Scott Fitzgerald's 1925 masterpiece captures the decadence and disillusionment of the Jazz Age through narrator Nick Carraway's eyes. Set in the fictional towns of West Egg and East Egg on Long Island, the novel traces the mysterious millionaire Jay Gatsby's pursuit of his lost love, Daisy Buchanan."
+    },
+    conclusion: {
+        default: "Through masterful use of literary devices, the author reveals profound truths about the human condition. The themes explored remain relevant today, challenging readers to examine their own assumptions about society and morality.",
+        3: "Golding's allegory ultimately suggests that civilization is merely a fragile construct, easily shattered when fear and power corrupt leadership. The novel's disturbing conclusion—rescue by a naval officer conducting war—implies that adult society is no less savage than the boys' island kingdom.",
+        14: "Fitzgerald's masterpiece ultimately reveals the American Dream as a beautiful illusion, forever receding like Gatsby's green light. The tragedy lies not in Gatsby's death but in the emptiness of a society where wealth cannot buy happiness and the past cannot be recaptured."
+    }
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INITIALIZATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+    loadState();
+    renderFormulas();
+    renderNovels();
+    setupScrollListener();
+    console.log('📚 Literary Essay Builder initialized!');
+});
+
+function loadState() {
+    const saved = localStorage.getItem('essayBuilder');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            Object.assign(State, data);
+            
+            if (State.theme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').textContent = '☀️';
+            }
+        } catch (e) {
+            console.error('Error loading state:', e);
+        }
+    }
+}
+
+function saveState() {
+    localStorage.setItem('essayBuilder', JSON.stringify(State));
+    const indicator = document.getElementById('saveIndicator');
+    indicator.classList.add('show');
+    setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+function goToPage(num) {
+    if (num < 1 || num > State.totalPages) return;
+    
+    // Hide all pages, show target
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(`page-${num}`).classList.add('active');
+    
+    // Update nav steps
+    document.querySelectorAll('.nav-step').forEach((step, i) => {
+        step.classList.remove('active', 'completed');
+        if (i + 1 === num) step.classList.add('active');
+        else if (i + 1 < num) step.classList.add('completed');
+    });
+    
+    // Update progress
+    const progress = (num / State.totalPages) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+    
+    const names = ['Getting Started', 'Select Novel', 'Research', 'Introduction', 'Body Paragraphs', 'Conclusion', 'Export'];
+    document.getElementById('progressText').textContent = `Step ${num} of 7 - ${names[num-1]} | 第${num}步，共7步`;
+    
+    State.currentPage = num;
+    
+    // Setup pages
+    if (num === 3) setupResearchPage();
+    if (num === 4) setupIntroPage();
+    if (num === 5) setupBodyPage();
+    if (num === 6) setupConclusionPage();
+    if (num === 7) setupExportPage();
+    
+    scrollToTop();
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setupScrollListener() {
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('scrollTopBtn');
+        btn.classList.toggle('visible', window.scrollY > 300);
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORMULA SELECTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+function renderFormulas() {
+    const grid = document.getElementById('formulaGrid');
+    grid.innerHTML = Object.entries(Formulas).map(([id, f]) => `
+        <div class="formula-card ${State.selectedFormula == id ? 'selected' : ''}" 
+             onclick="selectFormula(${id})" id="formula-${id}">
+            <h4>${id}. ${f.name}</h4>
+            <p class="zh">${f.nameZh}</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem; font-style: italic;">${f.template.substring(0, 60)}...</p>
+        </div>
+    `).join('');
+    
+    if (State.selectedFormula) {
+        document.getElementById('toPage2Btn').disabled = false;
+        showFormulaDetails(State.selectedFormula);
+    }
+}
+
+function selectFormula(id) {
+    document.querySelectorAll('.formula-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById(`formula-${id}`).classList.add('selected');
+    
+    State.selectedFormula = id;
+    document.getElementById('toPage2Btn').disabled = false;
+    
+    showFormulaDetails(id);
+    saveState();
+    showToast('Formula selected!', 'success');
+}
+
+function showFormulaDetails(id) {
+    const f = Formulas[id];
+    const details = document.getElementById('formulaDetails');
+    details.style.display = 'block';
+    details.innerHTML = `
+        <div class="example-box" style="margin-top: var(--space-lg);">
+            <h4>📝 ${f.name} Template</h4>
+            <p style="font-style: italic; margin: var(--space-sm) 0;">${f.template}</p>
+            <p class="zh">${f.templateZh}</p>
+            <h4 style="margin-top: var(--space-md);">🗺️ Essay Roadmap</h4>
+            <ol style="margin: var(--space-sm) 0 0 var(--space-lg);">
+                ${f.roadmap.map(r => `<li>${r}</li>`).join('')}
+            </ol>
+        </div>
+    `;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NOVEL SELECTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+function renderNovels() {
+    const grid = document.getElementById('novelGrid');
+    grid.innerHTML = Novels.map((n, i) => `
+        <div class="novel-card ${State.selectedNovel === i ? 'selected' : ''}" 
+             onclick="selectNovel(${i})" id="novel-${i}">
+            <h4>${n.title}</h4>
+            <p>${n.author}</p>
+            <p class="zh">${n.titleZh}</p>
+        </div>
+    `).join('');
+    
+    if (State.selectedNovel !== null) {
+        document.getElementById('toPage3Btn').disabled = false;
+    }
+}
+
+function selectNovel(index) {
+    document.querySelectorAll('.novel-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById(`novel-${index}`).classList.add('selected');
+    
+    State.selectedNovel = index;
+    document.getElementById('toPage3Btn').disabled = false;
+    
+    saveState();
+    showToast(`Selected: ${Novels[index].title}`, 'success');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESEARCH PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setupResearchPage() {
+    if (State.selectedNovel === null) return;
+    
+    const novel = Novels[State.selectedNovel];
+    document.getElementById('researchNovelTitle').textContent = novel.title;
+    
+    const resources = NovelResources[State.selectedNovel] || DefaultResources;
+    
+    // Populate tabs
+    document.getElementById('info-symbols').innerHTML = resources.symbols.map(s => `
+        <div class="example-box" style="margin-bottom: var(--space-md);">
+            <h4>🔮 ${s.name}</h4>
+            <p>${s.meaning}</p>
+        </div>
+    `).join('');
+    
+    document.getElementById('info-devices').innerHTML = resources.devices.map(d => `
+        <div class="example-box" style="margin-bottom: var(--space-md);">
+            <h4>✨ ${d.name}</h4>
+            <p>${d.desc}</p>
+        </div>
+    `).join('');
+    
+    document.getElementById('info-themes').innerHTML = resources.themes.map(t => `
+        <div class="example-box" style="margin-bottom: var(--space-md);">
+            <h4>💡 ${t.name}</h4>
+            <p>${t.desc}</p>
+        </div>
+    `).join('');
+    
+    document.getElementById('info-characters').innerHTML = resources.characters.map(c => `
+        <div class="example-box" style="margin-bottom: var(--space-md);">
+            <h4>👤 ${c.name}</h4>
+            <p>${c.role}</p>
+        </div>
+    `).join('');
+    
+    document.getElementById('info-conflicts').innerHTML = resources.conflicts.map(c => `
+        <div class="example-box" style="margin-bottom: var(--space-md);">
+            <h4>⚡ ${c.type}</h4>
+            <p>${c.desc}</p>
+        </div>
+    `).join('');
+}
+
+function switchTab(tabId) {
+    document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.info-content').forEach(c => c.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById(`info-${tabId}`).classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INTRODUCTION PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setupIntroPage() {
+    const novelIndex = State.selectedNovel;
+    const formula = Formulas[State.selectedFormula];
+    
+    // Set examples
+    document.getElementById('hookExample').textContent = Examples.hook[novelIndex] || Examples.hook.default;
+    document.getElementById('backgroundExample').textContent = Examples.background[novelIndex] || Examples.background.default;
+    document.getElementById('thesisTemplate').textContent = formula ? formula.template : 'Select a formula first.';
+    
+    // Restore saved content
+    if (State.hook) {
+        document.getElementById('hookInput').value = State.hook;
+        updateWordCount('hook');
+    }
+    if (State.background) {
+        document.getElementById('backgroundInput').value = State.background;
+        updateWordCount('background');
+    }
+    if (State.thesis) {
+        document.getElementById('thesisInput').value = State.thesis;
+        updateWordCount('thesis');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BODY PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setupBodyPage() {
+    const formula = Formulas[State.selectedFormula];
+    
+    if (formula) {
+        document.getElementById('bodyRoadmap').innerHTML = `
+            <h4>🗺️ Your Essay Roadmap (${formula.name})</h4>
+            <p style="margin-top: var(--space-sm);">${formula.roadmap.join(' → ')}</p>
+        `;
+        
+        formula.roadmap.forEach((step, i) => {
+            const instruction = document.getElementById(`body${i+1}Instruction`);
+            if (instruction) instruction.textContent = step;
+        });
+    }
+    
+    // Restore saved content
+    ['body1', 'body2', 'body3'].forEach(field => {
+        if (State[field]) {
+            document.getElementById(`${field}Input`).value = State[field];
+            updateWordCount(field);
+        }
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONCLUSION PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setupConclusionPage() {
+    const novelIndex = State.selectedNovel;
+    
+    document.getElementById('conclusionExample').textContent = Examples.conclusion[novelIndex] || Examples.conclusion.default;
+    document.getElementById('thesisReference').textContent = State.thesis || 'No thesis written yet.';
+    
+    if (State.conclusion) {
+        document.getElementById('conclusionInput').value = State.conclusion;
+        updateWordCount('conclusion');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXPORT PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setupExportPage() {
+    const novel = Novels[State.selectedNovel];
+    
+    // Calculate word counts
+    const counts = {
+        hook: countWords(State.hook),
+        background: countWords(State.background),
+        thesis: countWords(State.thesis),
+        body1: countWords(State.body1),
+        body2: countWords(State.body2),
+        body3: countWords(State.body3),
+        conclusion: countWords(State.conclusion)
+    };
+    
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    
+    // Word summary
+    document.getElementById('finalWordSummary').innerHTML = `
+        <div class="word-summary-item">
+            <div class="number">${counts.hook + counts.background + counts.thesis}</div>
+            <div class="label">Intro</div>
+        </div>
+        <div class="word-summary-item">
+            <div class="number">${counts.body1}</div>
+            <div class="label">Body 1</div>
+        </div>
+        <div class="word-summary-item">
+            <div class="number">${counts.body2}</div>
+            <div class="label">Body 2</div>
+        </div>
+        <div class="word-summary-item">
+            <div class="number">${counts.body3}</div>
+            <div class="label">Body 3</div>
+        </div>
+        <div class="word-summary-item">
+            <div class="number">${counts.conclusion}</div>
+            <div class="label">Conclusion</div>
+        </div>
+        <div class="word-summary-item" style="background: ${total >= 1200 && total <= 1800 ? 'var(--success-light)' : 'var(--warning-light)'};">
+            <div class="number" style="color: ${total >= 1200 && total <= 1800 ? 'var(--success)' : 'var(--warning)'};">${total}</div>
+            <div class="label">TOTAL</div>
+        </div>
+    `;
+    
+    // Essay preview
+    const intro = `${State.hook} ${State.background} ${State.thesis}`.trim() || '[Introduction not written]';
+    
+    document.getElementById('essayPreview').innerHTML = `
+        <p>${intro}</p>
+        <p>${State.body1 || '[Body paragraph 1 not written]'}</p>
+        <p>${State.body2 || '[Body paragraph 2 not written]'}</p>
+        <p>${State.body3 || '[Body paragraph 3 not written]'}</p>
+        <p>${State.conclusion || '[Conclusion not written]'}</p>
+    `;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WORD COUNT
+   ═══════════════════════════════════════════════════════════════════════════ */
+function countWords(text) {
+    if (!text) return 0;
+    return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function updateWordCount(field) {
+    const input = document.getElementById(`${field}Input`);
+    const counter = document.getElementById(`${field}Counter`);
+    const text = input.value;
+    const count = countWords(text);
+    
+    State[field] = text;
+    saveState();
+    
+    const limits = {
+        hook: [75, 125],
+        background: [100, 150],
+        thesis: [35, 60],
+        body1: [250, 400],
+        body2: [250, 400],
+        body3: [250, 400],
+        conclusion: [150, 250]
+    };
+    
+    const [min, max] = limits[field] || [0, 999];
+    const countSpan = counter.querySelector('.count');
+    countSpan.textContent = count;
+    
+    counter.classList.remove('under', 'good', 'over');
+    if (count < min) counter.classList.add('under');
+    else if (count <= max) counter.classList.add('good');
+    else counter.classList.add('over');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AI COACH
+   ═══════════════════════════════════════════════════════════════════════════ */
+function toggleCoach() {
+    document.getElementById('coachPanel').classList.toggle('active');
+}
+
+async function sendToCoach() {
+    const input = document.getElementById('coachInput');
+    const message = input.value.trim();
+    if (!message) return;
+    
+    addMessage(message, 'user');
+    input.value = '';
+    
+    showTyping();
+    
+    try {
+        const response = await callAI(message);
+        hideTyping();
+        addMessage(response, 'assistant');
+    } catch (error) {
+        hideTyping();
+        addMessage(`Error: ${error.message}. Check your API settings.`, 'assistant');
+    }
+}
+
+function addMessage(text, type) {
+    const container = document.getElementById('coachMessages');
+    const div = document.createElement('div');
+    div.className = `coach-message ${type}`;
+    div.innerHTML = `<p>${text}</p>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    
+    State.chatHistory.push({ role: type === 'user' ? 'user' : 'assistant', content: text });
+}
+
+function showTyping() {
+    const container = document.getElementById('coachMessages');
+    const div = document.createElement('div');
+    div.className = 'typing-indicator';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function hideTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+}
+
+async function callAI(userMessage) {
+    if (!State.apiKey) {
+        return "🦉 Please set your API key first! Click ⚙️ in the navigation.";
+    }
+    
+    // Build context
+    const novel = Novels[State.selectedNovel];
+    const formula = Formulas[State.selectedFormula];
+    let context = `Student is writing about "${novel?.title || 'a novel'}"`;
+    if (formula) context += ` using the ${formula.name} formula.`;
+    if (State.thesis) context += ` Their thesis: "${State.thesis}"`;
+    
+    const messages = [
+        { role: 'system', content: COACH_PROMPT + '\n\nCONTEXT: ' + context },
+        ...State.chatHistory.slice(-6),
+        { role: 'user', content: userMessage }
+    ];
+    
+    const endpoints = {
+        groq: { url: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-70b-versatile' },
+        openai: { url: 'https://api.openai.com/v1/chat/completions', model: 'gpt-4o-mini' },
+        deepseek: { url: 'https://api.deepseek.com/v1/chat/completions', model: 'deepseek-chat' }
+    };
+    
+    const config = endpoints[State.apiProvider];
+    
+    const response = await fetch(config.url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${State.apiKey}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            model: config.model,
+            messages: messages,
+            max_tokens: 300,
+            temperature: 0.7
+        })
+    });
+    
+    if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.error?.message || `HTTP ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || 'No response received.';
+}
+
+// Quick actions
+function askForHint() {
+    document.getElementById('coachInput').value = "Can you give me a hint for improving my current section?";
+    sendToCoach();
+}
+
+function checkGrammar() {
+    const currentField = getCurrentField();
+    const text = State[currentField] || '';
+    if (!text) {
+        addMessage("🦉 Write something first, then I can check your grammar!", 'assistant');
+        return;
+    }
+    document.getElementById('coachInput').value = `Please check the grammar in this text (don't rewrite it, just point out issues): "${text.substring(0, 500)}"`;
+    sendToCoach();
+}
+
+function explainFormula() {
+    const formula = Formulas[State.selectedFormula];
+    if (!formula) {
+        addMessage("🦉 Select a formula first on page 1!", 'assistant');
+        return;
+    }
+    document.getElementById('coachInput').value = `Can you explain how to use the ${formula.name} formula?`;
+    sendToCoach();
+}
+
+function askTheoAbout(section) {
+    if (!document.getElementById('coachPanel').classList.contains('active')) {
+        toggleCoach();
+    }
+    document.getElementById('coachInput').value = `Can you give me feedback on my ${section}?`;
+    sendToCoach();
+}
+
+function getCurrentField() {
+    const page = State.currentPage;
+    if (page === 4) return 'thesis';
+    if (page === 5) return 'body1';
+    if (page === 6) return 'conclusion';
+    return 'thesis';
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SETTINGS
+   ═══════════════════════════════════════════════════════════════════════════ */
+function openSettings() {
+    document.getElementById('settingsModal').classList.add('active');
+    document.getElementById('apiProvider').value = State.apiProvider;
+    document.getElementById('apiKey').value = State.apiKey;
+}
+
+function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('active');
+}
+
+function saveSettings() {
+    State.apiProvider = document.getElementById('apiProvider').value;
+    State.apiKey = document.getElementById('apiKey').value;
+    saveState();
+    closeSettings();
+    showToast('Settings saved!', 'success');
+}
+
+function toggleTheme() {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+    State.theme = isDark ? 'light' : 'dark';
+    saveState();
+}
+
+// Close modal on outside click
+document.getElementById('settingsModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSettings();
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   EXPORT FUNCTIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+async function downloadWord() {
+    const novel = Novels[State.selectedNovel];
+    const intro = `${State.hook} ${State.background} ${State.thesis}`.trim() || '[Introduction not written]';
+    
+    try {
+        const { Document, Packer, Paragraph, TextRun } = docx;
+        
+        const createPara = (text) => new Paragraph({
+            indent: { firstLine: 720 },
+            spacing: { line: 480, after: 0 },
+            children: [new TextRun({ text, font: 'Times New Roman', size: 24, color: '000000' })]
+        });
+        
+        const doc = new Document({
+            sections: [{
+                properties: {},
+                children: [
+                    new Paragraph({
+                        alignment: docx.AlignmentType.CENTER,
+                        spacing: { after: 400, line: 480 },
+                        children: [new TextRun({
+                            text: `Literary Analysis: ${novel?.title || 'Essay'}`,
+                            font: 'Times New Roman',
+                            size: 24,
+                            bold: true,
+                            color: '000000'
+                        })]
+                    }),
+                    new Paragraph({ spacing: { line: 480 }, children: [] }),
+                    createPara(intro),
+                    createPara(State.body1 || '[Body paragraph 1]'),
+                    createPara(State.body2 || '[Body paragraph 2]'),
+                    createPara(State.body3 || '[Body paragraph 3]'),
+                    createPara(State.conclusion || '[Conclusion]')
+                ]
+            }]
+        });
+        
+        const blob = await Packer.toBlob(doc);
+        saveAs(blob, `Literary_Analysis_${(novel?.title || 'Essay').replace(/\s+/g, '_')}.docx`);
+        showToast('Word document downloaded!', 'success');
+    } catch (error) {
+        console.error('Export error:', error);
+        showToast('Error creating document. Try again.', 'error');
+    }
+}
+
+function copyEssay() {
+    const intro = `${State.hook} ${State.background} ${State.thesis}`.trim();
+    const text = [intro, State.body1, State.body2, State.body3, State.conclusion]
+        .filter(Boolean)
+        .join('\n\n');
+    
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Essay copied!', 'success');
+    }).catch(() => {
+        showToast('Could not copy.', 'error');
+    });
+}
+
+function startOver() {
+    if (confirm('Clear all progress and start over?')) {
+        localStorage.removeItem('essayBuilder');
+        location.reload();
+    }
+}
+
+function celebrate() {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+    setTimeout(() => {
+        confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 1 } });
+    }, 250);
+    showToast('🎉 Congratulations on completing your essay!', 'success');
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+    </script>
+</body>
+</html>
