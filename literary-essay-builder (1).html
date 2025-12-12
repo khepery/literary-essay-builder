@@ -2041,47 +2041,245 @@ const DefaultResources = {
 /* ═══════════════════════════════════════════════════════════════════════════
    AI COACH SYSTEM PROMPT
    ═══════════════════════════════════════════════════════════════════════════ */
-const COACH_PROMPT = `You are Theo, a friendly literary essay writing coach. Your role is to GUIDE students, not write for them.
+const COACH_PROMPT = `You are Theo, a focused literary essay writing coach. Your ONLY purpose is to provide coaching, guidance, hints, grammar checks, and formula explanations.
 
-RULES:
-1. NEVER write content for the student—only give hints and guidance
-2. NEVER provide thesis statements, topic sentences, or essay content
-3. When asked to check grammar, point out issues but don't rewrite sentences
-4. Help explain formulas and structures without providing examples that could be copied
-5. Ask guiding questions to help students think critically
-6. Be encouraging but honest about weaknesses
-7. Keep responses concise (under 100 words when possible)
-8. Use emojis sparingly to be friendly
+STRICT RULES:
+1. ONLY respond to: coaching requests, guidance questions, hints, grammar checks, formula explanations
+2. REFUSE general chat, small talk, or unrelated topics with: "I only help with essay writing tasks. Ask me about your hook, thesis, body paragraphs, conclusion, grammar, or formulas."
+3. NEVER write content for students—only give targeted hints
+4. NEVER provide complete thesis statements, topic sentences, or essay content
+5. Keep ALL responses under 75 words—be concise and specific
+6. When checking grammar: point out 2-3 specific issues, don't rewrite
+7. For formula help: explain the component they're asking about only
+8. For hints: ask 1-2 guiding questions, don't give answers
 
-When evaluating work, consider:
-- Purpose: Does it make an arguable claim?
-- Focus: Is it specific enough?
-- Scope: Can it be supported in the essay length?
+RESPONSE PRIORITY:
+1. Grammar check → Point out issues
+2. Formula question → Explain specific part
+3. Hint request → Ask guiding questions
+4. Feedback → Give 2-3 specific points
+5. Anything else → Redirect to essay tasks
 
-FORBIDDEN:
+FORBIDDEN PHRASES:
 - "Here's a better version..."
 - "You should write..."
-- "Try this thesis: ..."
-- Writing more than one sentence of example content`;
+- "Try this: ..."
+- Any full sentence examples
+- Small talk or general conversation`;
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EXAMPLES FOR EACH SECTION (Dynamic based on novel)
+   EXAMPLES FOR EACH SECTION (Bilingual, dynamic based on novel)
    ═══════════════════════════════════════════════════════════════════════════ */
 const Examples = {
     hook: {
-        default: "What happens when the thin veneer of civilization is stripped away? This question haunts readers as they delve into the dark corners of human nature explored in literature.",
-        3: "What happens when children are left to govern themselves, free from adult supervision and societal rules? William Golding's disturbing answer reveals uncomfortable truths about human nature.",
-        14: "In the glittering excess of the 1920s, one man believed he could buy back the past. His green light beckoned across the water, a symbol of hope that would prove tragically elusive."
+        default: {
+            en: "What happens when the thin veneer of civilization is stripped away? This question haunts readers as they delve into the dark corners of human nature explored in literature.",
+            zh: "当文明的薄纱被剥去时会发生什么？这个问题困扰着读者，当他们深入探索文学中人性的阴暗角落时。"
+        },
+        0: {  // Death on the Nile
+            en: "Can wealth buy happiness—or does it merely attract danger? When a golden heiress cruises down the Nile, paradise becomes a deadly trap where jealousy proves more dangerous than any weapon.",
+            zh: "财富能买到幸福吗——还是它只会招来危险？当一位富有的女继承人沿尼罗河航行时，天堂变成了致命的陷阱，嫉妒比任何武器都更危险。"
+        },
+        1: {  // Order of the Phoenix
+            en: "What happens when those in power refuse to acknowledge the truth? In a world where authority lies and propaganda reigns, teenagers must choose between blind obedience and dangerous rebellion.",
+            zh: "当掌权者拒绝承认真相时会发生什么？在一个权威撒谎、宣传盛行的世界里，青少年必须在盲目服从和危险反抗之间做出选择。"
+        },
+        2: {  // Wuthering Heights
+            en: "Can love survive beyond the grave, or does it transform into something darker? On the windswept moors of Yorkshire, passion becomes a force of destruction that haunts two families for generations.",
+            zh: "爱能在坟墓之外存活吗，还是会转化为更黑暗的东西？在约克郡荒凉的荒原上，激情成为一种破坏力量，困扰两个家族数代人。"
+        },
+        3: {  // Lord of the Flies
+            en: "What happens when children are left to govern themselves, free from adult supervision and societal rules? William Golding's disturbing answer reveals uncomfortable truths about human nature.",
+            zh: "当孩子们被留下自我管理，摆脱成人监督和社会规则时会发生什么？威廉·戈尔丁令人不安的答案揭示了关于人性的不舒服真相。"
+        },
+        4: {  // Jane Eyre
+            en: "Can a poor, plain governess find love and independence in Victorian England's rigid class system? Jane Eyre's journey from orphaned child to self-assured woman challenges every social convention of her time.",
+            zh: "一个贫穷、相貌平平的家庭教师能在维多利亚时代英格兰严格的阶级制度中找到爱情和独立吗？简·爱从孤儿到自信女性的旅程挑战了她那个时代的每一个社会习俗。"
+        },
+        5: {  // Picture of Dorian Gray
+            en: "What price would you pay for eternal youth and beauty? When a beautiful portrait captures a young man's soul, his life of hedonistic pleasure leads to a terrifying moral decay hidden from the world's eyes.",
+            zh: "你会为永恒的青春和美丽付出什么代价？当一幅美丽的肖像捕捉到一个年轻人的灵魂时，他享乐主义的生活导致了隐藏在世人眼中的可怕道德堕落。"
+        },
+        6: {  // To Kill a Mockingbird
+            en: "How do children learn about injustice in a world where adults fail to practice what they preach? Through a child's eyes, a Southern town's moral courage—and cowardice—comes into stark relief.",
+            zh: "在一个成年人言行不一的世界里，孩子们如何了解不公正？通过一个孩子的眼睛，一个南方小镇的道德勇气和懦弱形成鲜明对比。"
+        },
+        7: {  // Frankenstein
+            en: "What happens when humanity plays God? A young scientist's ambition to create life unleashes a monster that forces us to question who the real monster truly is—creator or creation?",
+            zh: "当人类扮演上帝时会发生什么？一位年轻科学家创造生命的野心释放出一个怪物，迫使我们质疑谁才是真正的怪物——创造者还是被造物？"
+        },
+        8: {  // Count of Monte Cristo
+            en: "How far would you go for revenge? When an innocent man is imprisoned for crimes he didn't commit, his transformation from sailor to count becomes a masterclass in patient, calculated vengeance.",
+            zh: "你会为了复仇走多远？当一个无辜的人因他没有犯下的罪行而入狱时，他从水手到伯爵的转变成为耐心、精心策划的复仇的大师课。"
+        },
+        9: {  // Pride and Prejudice
+            en: "Can first impressions be trusted, or do they blind us to deeper truths? In Regency England's marriage market, pride and prejudice must give way to understanding before love can flourish.",
+            zh: "第一印象可以信任吗，还是它们让我们看不到更深的真相？在摄政时期英格兰的婚姻市场上，骄傲和偏见必须让位于理解，爱情才能繁荣。"
+        },
+        10: {  // Old Goriot
+            en: "What happens when parental love knows no bounds? In post-Revolutionary Paris, a father's self-sacrificing devotion exposes the cruelty of ambition and the corrosive power of wealth.",
+            zh: "当父爱无限时会发生什么？在革命后的巴黎，一位父亲的自我牺牲奉献揭示了野心的残酷和财富的腐蚀力量。"
+        },
+        11: {  // Life of Pi
+            en: "Which story do you choose to believe—the one that uplifts or the one that merely survives? Stranded at sea with a Bengal tiger, a boy's faith becomes the difference between life and madness.",
+            zh: "你选择相信哪个故事——那个振奋人心的还是那个仅仅生存的？与一只孟加拉虎被困在海上，一个男孩的信仰成为生命与疯狂之间的差异。"
+        },
+        12: {  // The Outsiders
+            en: "Can you see beyond social labels to recognize our shared humanity? When rival gangs clash in 1960s Oklahoma, three deaths force teenagers to confront the cost of loyalty and the power of empathy.",
+            zh: "你能超越社会标签看到我们共同的人性吗？当对立帮派在1960年代的俄克拉荷马州发生冲突时，三人死亡迫使青少年面对忠诚的代价和同理心的力量。"
+        },
+        13: {  // 1984
+            en: "What happens when a government controls not just your actions but your thoughts? In Oceania's totalitarian nightmare, even the past becomes a weapon, and truth itself becomes a revolutionary act.",
+            zh: "当政府不仅控制你的行为，还控制你的思想时会发生什么？在大洋洲的极权主义噩梦中，甚至过去也成为武器，真理本身成为革命行为。"
+        },
+        14: {  // The Great Gatsby
+            en: "In the glittering excess of the 1920s, one man believed he could buy back the past. His green light beckoned across the water, a symbol of hope that would prove tragically elusive.",
+            zh: "在1920年代的灿烂奢华中，一个人相信他可以买回过去。他的绿光在水面上召唤，一个希望的象征，却被证明是悲剧性地难以捉摸。"
+        },
+        15: {  // 100 Years of Solitude
+            en: "Can a family—or a civilization—escape the cycle of its own mistakes? In the magical town of Macondo, seven generations of the Buendía family repeat history's patterns until time itself runs out.",
+            zh: "一个家庭——或一个文明——能逃脱自己错误的循环吗？在神奇的马孔多镇，布恩迪亚家族的七代人重复历史的模式，直到时间本身耗尽。"
+        }
     },
     background: {
-        default: "The novel explores complex themes through its characters and setting, challenging readers to examine fundamental questions about human nature. Published during a significant period in literary history, it continues to resonate with contemporary audiences.",
-        3: "Published in 1954, Lord of the Flies follows a group of British schoolboys stranded on an uninhabited island after a plane crash. What begins as an adventure quickly descends into chaos as the boys' attempt at self-governance collapses into violence and tribal warfare.",
-        14: "F. Scott Fitzgerald's 1925 masterpiece captures the decadence and disillusionment of the Jazz Age through narrator Nick Carraway's eyes. Set in the fictional towns of West Egg and East Egg on Long Island, the novel traces the mysterious millionaire Jay Gatsby's pursuit of his lost love, Daisy Buchanan."
+        default: {
+            en: "The novel explores complex themes through its characters and setting, challenging readers to examine fundamental questions about human nature. Published during a significant period in literary history, it continues to resonate with contemporary audiences.",
+            zh: "这部小说通过其人物和背景探索复杂的主题，挑战读者审视关于人性的根本问题。在文学史上的一个重要时期出版，它继续与当代观众产生共鸣。"
+        },
+        0: {
+            en: "Agatha Christie's 1937 mystery follows detective Hercule Poirot on a luxury Nile cruise where a wealthy heiress, Linnet Ridgeway, is murdered. The confined setting of the steamer becomes a pressure cooker of jealousy, revenge, and deception as Poirot must unravel a complex web of motives among the passengers.",
+            zh: "阿加莎·克里斯蒂1937年的悬疑小说讲述了侦探赫尔克里·波洛在尼罗河豪华游轮上的故事，一位富有的女继承人林内特·里奇韦被谋杀。轮船的封闭环境成为嫉妒、复仇和欺骗的压力锅，波洛必须揭开乘客之间复杂的动机网络。"
+        },
+        1: {
+            en: "J.K. Rowling's 2003 fifth installment follows Harry Potter's turbulent fifth year at Hogwarts, where the Ministry of Magic denies Voldemort's return and installs the tyrannical Dolores Umbridge as a teacher. Harry must form Dumbledore's Army to teach defensive magic while grappling with prophetic visions and the loss of his godfather Sirius Black.",
+            zh: "J·K·罗琳2003年的第五部作品讲述了哈利·波特在霍格沃茨动荡的第五年，魔法部否认伏地魔的回归，并安插暴君多洛雷斯·乌姆里奇为教师。哈利必须组建邓布利多军来教授防御魔法，同时与预言幻象和教父小天狼星布莱克的失去搏斗。"
+        },
+        2: {
+            en: "Emily Brontë's 1847 Gothic masterpiece spans two generations on the Yorkshire moors, following the destructive passion between Heathcliff and Catherine Earnshaw. The narrative, told through multiple perspectives, reveals how childhood love transforms into obsessive revenge that consumes not just the lovers but their entire families.",
+            zh: "艾米莉·勃朗特1847年的哥特式杰作跨越约克郡荒原的两代人，讲述了希斯克利夫和凯瑟琳·恩肖之间的破坏性激情。通过多重视角讲述的叙述揭示了童年的爱如何转化为强迫性的复仇，不仅消耗了恋人，还消耗了他们的整个家庭。"
+        },
+        3: {
+            en: "Published in 1954, Lord of the Flies follows a group of British schoolboys stranded on an uninhabited island after a plane crash. What begins as an adventure quickly descends into chaos as the boys' attempt at self-governance collapses into violence and tribal warfare.",
+            zh: "出版于1954年，《蝇王》讲述了一群英国学童在飞机失事后被困在无人居住的岛上的故事。从冒险开始的故事迅速陷入混乱，男孩们的自治尝试崩溃成暴力和部落战争。"
+        },
+        4: {
+            en: "Charlotte Brontë's 1847 novel traces Jane Eyre's journey from abused orphan to independent woman. Working as a governess at Thornfield Hall, Jane falls for the brooding Mr. Rochester, but their romance is shattered by the revelation of his mad wife hidden in the attic. The novel champions female agency, moral integrity, and equality in love.",
+            zh: "夏洛蒂·勃朗特1847年的小说追踪了简·爱从受虐孤儿到独立女性的旅程。在桑菲尔德庄园担任家庭教师时，简爱上了忧郁的罗切斯特先生，但他们的浪漫被阁楼中隐藏的疯妻子的揭露粉碎了。这部小说倡导女性能动性、道德完整性和爱情中的平等。"
+        },
+        5: {
+            en: "Oscar Wilde's 1890 philosophical novel tells the story of Dorian Gray, a beautiful young man who wishes his portrait would age instead of him. As Dorian descends into hedonistic excess and moral corruption, his portrait bears the marks of his sins while he remains eternally youthful—until the final reckoning.",
+            zh: "奥斯卡·王尔德1890年的哲学小说讲述了道林·格雷的故事，一个美丽的年轻人希望他的肖像会代替他衰老。随着道林陷入享乐主义的过度和道德腐败，他的肖像承载着他的罪恶印记，而他保持永恒的青春——直到最后的清算。"
+        },
+        6: {
+            en: "Harper Lee's 1960 classic, set in 1930s Alabama, follows Scout Finch as her father, lawyer Atticus Finch, defends a black man falsely accused of rape. Through Scout's innocent eyes, the novel exposes the deep-rooted racism of the American South and explores themes of moral courage, justice, and growing up.",
+            zh: "哈珀·李1960年的经典作品，背景设定在1930年代的阿拉巴马州，讲述了斯库特·芬奇的故事，她的父亲、律师阿提克斯·芬奇为一名被错误指控强奸的黑人辩护。通过斯库特天真的眼睛，小说揭露了美国南方根深蒂固的种族主义，探索了道德勇气、正义和成长的主题。"
+        },
+        7: {
+            en: "Mary Shelley's 1818 Gothic novel tells of Victor Frankenstein, a young scientist who creates a living creature through forbidden experiments. Abandoned by his creator, the intelligent but hideous Creature seeks acceptance, but rejection drives him to violence. The novel questions the ethics of scientific ambition and the responsibilities of creation.",
+            zh: "玛丽·雪莱1818年的哥特式小说讲述了维克多·弗兰肯斯坦的故事，一位年轻的科学家通过禁忌实验创造了一个活生生的生物。被创造者遗弃后，聪明但丑陋的生物寻求接受，但拒绝驱使他诉诸暴力。小说质疑科学野心的伦理和创造的责任。"
+        },
+        8: {
+            en: "Alexandre Dumas's 1844 epic adventure follows Edmond Dantès, a young sailor betrayed by jealous rivals and wrongly imprisoned for 14 years. After a daring escape and discovering a vast treasure, he reinvents himself as the mysterious Count of Monte Cristo to exact elaborate revenge on those who destroyed his life.",
+            zh: "亚历山大·仲马1844年的史诗冒险小说讲述了爱德蒙·唐泰斯的故事，一个年轻水手被嫉妒的对手背叛，被错误监禁了14年。经过大胆逃脱并发现巨大宝藏后，他将自己重塑为神秘的基督山伯爵，对那些摧毁他生活的人进行精心复仇。"
+        },
+        9: {
+            en: "Jane Austen's 1813 novel of manners follows Elizabeth Bennet, a witty and independent woman navigating Regency England's marriage market. Her initial prejudice against the proud Mr. Darcy gradually transforms into love as both characters overcome their flaws. The novel satirizes class consciousness while celebrating personal growth and mutual respect.",
+            zh: "简·奥斯汀1813年的礼仪小说讲述了伊丽莎白·贝内特的故事，一个机智独立的女性在摄政时期英格兰的婚姻市场中航行。她对骄傲的达西先生的最初偏见逐渐转化为爱，因为两个角色都克服了他们的缺陷。小说讽刺阶级意识，同时庆祝个人成长和相互尊重。"
+        },
+        10: {
+            en: "Honoré de Balzac's 1835 novel depicts post-Revolutionary Paris through the story of Père Goriot, a retired pasta merchant who bankrupts himself providing dowries for his two ungrateful daughters. Paralleling his tragedy is young Eugène de Rastignac's moral education as he learns the corrupt rules of Parisian high society.",
+            zh: "奥诺雷·德·巴尔扎克1835年的小说通过高老头的故事描绘了革命后的巴黎，一个退休的面食商人破产为两个忘恩负义的女儿提供嫁妆。与他的悲剧平行的是年轻的欧仁·德·拉斯蒂涅的道德教育，他学习巴黎上流社会的腐败规则。"
+        },
+        11: {
+            en: "Yann Martel's 2001 novel tells the story of Piscine 'Pi' Patel, an Indian boy who survives 227 days stranded at sea on a lifeboat with a Bengal tiger named Richard Parker. The novel explores faith, survival, and storytelling itself, ultimately asking readers which version of Pi's incredible journey they choose to believe.",
+            zh: "扬·马特尔2001年的小说讲述了印度男孩皮辛'派'帕特尔的故事，他在救生艇上与一只名叫理查德·帕克的孟加拉虎一起在海上漂流了227天。小说探索信仰、生存和讲故事本身，最终要求读者选择相信派不可思议旅程的哪个版本。"
+        },
+        12: {
+            en: "S.E. Hinton's 1967 novel, written when she was just 16, follows Ponyboy Curtis, a 14-year-old 'greaser' in 1960s Oklahoma. When violence between the working-class greasers and wealthy 'Socs' escalates, three deaths force Ponyboy to see beyond social divisions. The novel pioneered young adult literature with its authentic teenage voice.",
+            zh: "S·E·欣顿1967年的小说，写于她只有16岁时，讲述了1960年代俄克拉荷马州14岁'油头仔'庞尼博伊·柯蒂斯的故事。当工人阶级油头仔和富有的'社会人'之间的暴力升级时，三人死亡迫使庞尼博伊看到社会分裂之外的东西。这部小说以其真实的青少年声音开创了青少年文学。"
+        },
+        13: {
+            en: "George Orwell's 1949 dystopian masterpiece envisions a totalitarian future where the Party, led by Big Brother, controls every aspect of citizens' lives. Winston Smith works at the Ministry of Truth rewriting history, but his secret rebellion and doomed love affair with Julia lead to his psychological destruction in the infamous Room 101.",
+            zh: "乔治·奥威尔1949年的反乌托邦杰作设想了一个极权主义的未来，党在老大哥的领导下控制公民生活的每一个方面。温斯顿·史密斯在真理部工作改写历史，但他与朱莉娅的秘密反抗和注定失败的恋情导致他在臭名昭著的101室中心理毁灭。"
+        },
+        14: {
+            en: "F. Scott Fitzgerald's 1925 masterpiece captures the decadence and disillusionment of the Jazz Age through narrator Nick Carraway's eyes. Set in the fictional towns of West Egg and East Egg on Long Island, the novel traces the mysterious millionaire Jay Gatsby's pursuit of his lost love, Daisy Buchanan.",
+            zh: "F·斯科特·菲茨杰拉德1925年的杰作通过叙述者尼克·卡拉威的眼睛捕捉了爵士时代的颓废和幻灭。背景设定在长岛虚构的西卵和东卵镇，小说追踪了神秘百万富翁杰伊·盖茨比对他失去的爱黛西·布坎南的追求。"
+        },
+        15: {
+            en: "Gabriel García Márquez's 1967 masterpiece chronicles seven generations of the Buendía family in the magical town of Macondo, from its founding to its apocalyptic end. Blending magical realism with historical allegory, the novel explores solitude, repetition, and the cyclical nature of time as the family repeatedly lives out the same patterns.",
+            zh: "加夫列尔·加西亚·马尔克斯1967年的杰作编年史记录了马孔多魔幻小镇布恩迪亚家族的七代人，从其建立到其启示录般的结束。将魔幻现实主义与历史寓言融合，小说探索孤独、重复和时间的循环性质，因为家族反复过着相同的模式。"
+        }
     },
     conclusion: {
-        default: "Through masterful use of literary devices, the author reveals profound truths about the human condition. The themes explored remain relevant today, challenging readers to examine their own assumptions about society and morality.",
-        3: "Golding's allegory ultimately suggests that civilization is merely a fragile construct, easily shattered when fear and power corrupt leadership. The novel's disturbing conclusion—rescue by a naval officer conducting war—implies that adult society is no less savage than the boys' island kingdom.",
-        14: "Fitzgerald's masterpiece ultimately reveals the American Dream as a beautiful illusion, forever receding like Gatsby's green light. The tragedy lies not in Gatsby's death but in the emptiness of a society where wealth cannot buy happiness and the past cannot be recaptured."
+        default: {
+            en: "Through masterful use of literary devices, the author reveals profound truths about the human condition. The themes explored remain relevant today, challenging readers to examine their own assumptions about society and morality.",
+            zh: "通过娴熟运用文学手法，作者揭示了关于人类状况的深刻真理。所探索的主题今天仍然相关，挑战读者审视他们自己对社会和道德的假设。"
+        },
+        0: {
+            en: "Christie's masterful manipulation of the closed setting ultimately reveals that wealth and social status offer no protection against the consequences of human passion. The Nile, ancient witness to countless human dramas, flows on—a reminder that fate catches up with everyone, regardless of privilege.",
+            zh: "克里斯蒂对封闭环境的娴熟操控最终揭示了财富和社会地位无法保护免受人类激情后果的影响。尼罗河，无数人类戏剧的古老见证，继续流淌——提醒我们命运会追上每个人，无论特权如何。"
+        },
+        1: {
+            en: "Rowling's exploration of authority and resistance demonstrates that truth-telling becomes revolutionary when governments traffic in lies. Harry's loss of Sirius teaches that rebellion demands sacrifice, yet the formation of Dumbledore's Army proves that even in darkness, collective resistance can keep hope alive.",
+            zh: "罗琳对权威和抵抗的探索表明，当政府贩卖谎言时，说真话就成为革命。哈利失去小天狼星教导我们反抗需要牺牲，但邓布利多军的组建证明即使在黑暗中，集体抵抗也能保持希望。"
+        },
+        2: {
+            en: "Brontë's haunting tale ultimately suggests that destructive passion, left unchecked, consumes everything it touches. Yet the novel's ending—Hareton and young Cathy's love breaking the cycle of revenge—hints that redemption remains possible when we choose understanding over hate.",
+            zh: "勃朗特令人难忘的故事最终表明，不受控制的破坏性激情会消耗它所触及的一切。然而，小说的结局——哈里顿和年轻凯茜的爱打破了复仇的循环——暗示当我们选择理解而不是仇恨时，救赎仍然可能。"
+        },
+        3: {
+            en: "Golding's allegory ultimately suggests that civilization is merely a fragile construct, easily shattered when fear and power corrupt leadership. The novel's disturbing conclusion—rescue by a naval officer conducting war—implies that adult society is no less savage than the boys' island kingdom.",
+            zh: "戈尔丁的寓言最终表明，文明只是一个脆弱的建构，当恐惧和权力腐蚀领导时很容易破碎。小说令人不安的结局——被正在进行战争的海军军官救援——暗示成年社会与男孩们的岛屿王国一样野蛮。"
+        },
+        4: {
+            en: "Brontë's masterpiece ultimately affirms that true equality in love requires both passion and principle, submission and independence. Jane's famous declaration—'I am no bird; and no net ensnares me'—resonates as a timeless assertion of female autonomy and dignity.",
+            zh: "勃朗特的杰作最终肯定，爱情中的真正平等需要激情和原则、服从和独立。简的著名宣言——'我不是鸟；没有网能困住我'——作为女性自主和尊严的永恒主张而产生共鸣。"
+        },
+        5: {
+            en: "Wilde's philosophical novel ultimately reveals that pursuing beauty and pleasure without moral restraint leads to spiritual death. The portrait's destruction—and Dorian's death—suggests that one cannot escape the consequences of one's actions, no matter how artfully concealed.",
+            zh: "王尔德的哲学小说最终揭示了追求没有道德约束的美丽和快乐会导致精神死亡。肖像的毁灭——和道林的死亡——表明一个人无法逃避自己行为的后果，无论多么巧妙地隐藏。"
+        },
+        6: {
+            en: "Lee's enduring classic demonstrates that true courage means standing for justice even when defeat seems certain. Scout's journey from innocence to understanding mirrors our own need to see beyond prejudice, while Atticus's moral example reminds us that doing right matters more than winning.",
+            zh: "李的经久不衰的经典作品表明，真正的勇气意味着即使失败似乎确定也要为正义而站。斯库特从天真到理解的旅程反映了我们自己需要看到偏见之外的需要，而阿提克斯的道德榜样提醒我们做对比赢更重要。"
+        },
+        7: {
+            en: "Shelley's Gothic masterpiece warns that scientific ambition without ethical consideration creates monsters—not in laboratories, but in the cruel rejection of what we create. The novel's tragic ending reminds us that creators bear responsibility for their creations, and that true monstrosity lies in abandonment, not appearance.",
+            zh: "雪莱的哥特式杰作警告说，没有道德考虑的科学野心会创造怪物——不是在实验室里，而是在残酷拒绝我们创造的东西中。小说的悲剧结局提醒我们，创造者要为他们的创造负责，真正的怪物性在于遗弃，而不是外表。"
+        },
+        8: {
+            en: "Dumas's epic ultimately questions whether revenge can ever truly satisfy. Monte Cristo's elaborate vengeance succeeds, yet brings him no peace—only the realization that 'all human wisdom is contained in these two words: Wait and Hope.' Justice and mercy, the novel suggests, prove more powerful than retribution.",
+            zh: "仲马的史诗最终质疑复仇是否真的能令人满意。基督山伯爵精心策划的复仇成功了，但没有给他带来和平——只有意识到'所有人类智慧都包含在这两个词中：等待和希望。'小说暗示，正义和仁慈比报复更强大。"
+        },
+        9: {
+            en: "Austen's masterpiece ultimately reveals that genuine love requires both partners to overcome pride and prejudice, seeing past surface appearances to recognize true worth. Elizabeth and Darcy's mutual transformation demonstrates that growth, humility, and respect form the foundation of lasting happiness.",
+            zh: "奥斯汀的杰作最终揭示了真正的爱情需要双方克服骄傲和偏见，看穿表面外表认识真正的价值。伊丽莎白和达西的相互转变表明，成长、谦逊和尊重是持久幸福的基础。"
+        },
+        10: {
+            en: "Balzac's tragedy ultimately exposes the corrosive effects of unchecked ambition and filial ingratitude. Goriot's death—abandoned by the daughters he worshipped—serves as a devastating critique of a society where money determines worth and love becomes a commodity to be exploited.",
+            zh: "巴尔扎克的悲剧最终揭露了不受控制的野心和忘恩负义的腐蚀性影响。高老头的死——被他崇拜的女儿们抛弃——成为对一个金钱决定价值、爱成为被剥削商品的社会的毁灭性批判。"
+        },
+        11: {
+            en: "Martel's novel ultimately suggests that faith—religious, spiritual, or simply in the power of stories—becomes the difference between surviving and living. Pi's question remains: 'Which story do you prefer?'—reminding us that the tales we choose to believe shape who we become.",
+            zh: "马特尔的小说最终表明，信仰——宗教的、精神的，或者仅仅是对故事力量的信仰——成为生存和生活之间的差异。派的问题仍然存在：'你更喜欢哪个故事？'——提醒我们，我们选择相信的故事塑造了我们成为的人。"
+        },
+        12: {
+            en: "Hinton's groundbreaking novel ultimately argues that social divisions harm everyone, rich and poor alike. Ponyboy's realization that 'things are rough all over' and his mission to tell his story suggest that empathy and understanding can bridge even the deepest divides—but only if we choose to see past labels to recognize our shared humanity.",
+            zh: "欣顿的开创性小说最终认为社会分裂伤害了每个人，无论富人还是穷人。庞尼博伊意识到'到处都很艰难'以及他讲述自己故事的使命表明，同理心和理解可以弥合即使是最深的鸿沟——但只有当我们选择看穿标签认识我们共同的人性时。"
+        },
+        13: {
+            en: "Orwell's nightmare vision serves as an eternal warning: when governments control language, rewrite history, and normalize surveillance, truth itself becomes revolutionary. Winston's broken spirit reminds us that freedom depends on our ability to think independently and remember accurately—liberties worth defending at all costs.",
+            zh: "奥威尔的噩梦愿景作为永恒的警告：当政府控制语言、改写历史和使监视正常化时，真理本身就成为革命。温斯顿破碎的精神提醒我们，自由取决于我们独立思考和准确记忆的能力——值得不惜一切代价捍卫的自由。"
+        },
+        14: {
+            en: "Fitzgerald's masterpiece ultimately reveals the American Dream as a beautiful illusion, forever receding like Gatsby's green light. The tragedy lies not in Gatsby's death but in the emptiness of a society where wealth cannot buy happiness and the past cannot be recaptured.",
+            zh: "菲茨杰拉德的杰作最终揭示了美国梦是一个美丽的幻觉，像盖茨比的绿光一样永远后退。悲剧不在于盖茨比的死亡，而在于一个财富无法买到幸福、过去无法重现的社会的空虚。"
+        },
+        15: {
+            en: "García Márquez's magical chronicle ultimately suggests that solitude—physical, emotional, existential—dooms both individuals and civilizations to repeat history's mistakes. The Buendías' apocalyptic end reminds us that breaking destructive cycles requires memory, connection, and the courage to choose a different path.",
+            zh: "加西亚·马尔克斯的魔幻编年史最终表明，孤独——身体的、情感的、存在的——注定个人和文明重复历史的错误。布恩迪亚家族的启示录般的结局提醒我们，打破破坏性循环需要记忆、联系和选择不同道路的勇气。"
+        }
     }
 };
 
@@ -2309,9 +2507,25 @@ function setupIntroPage() {
     const novelIndex = State.selectedNovel;
     const formula = Formulas[State.selectedFormula];
     
-    // Set examples
-    document.getElementById('hookExample').textContent = Examples.hook[novelIndex] || Examples.hook.default;
-    document.getElementById('backgroundExample').textContent = Examples.background[novelIndex] || Examples.background.default;
+    // Set examples with bilingual support
+    const hookEx = Examples.hook[novelIndex] || Examples.hook.default;
+    const bgEx = Examples.background[novelIndex] || Examples.background.default;
+    
+    const hookEl = document.getElementById('hookExample');
+    const bgEl = document.getElementById('backgroundExample');
+    
+    if (hookEx.en && hookEx.zh) {
+        hookEl.innerHTML = `<span class="en">${hookEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${hookEx.zh}</span>`;
+    } else {
+        hookEl.textContent = hookEx;
+    }
+    
+    if (bgEx.en && bgEx.zh) {
+        bgEl.innerHTML = `<span class="en">${bgEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${bgEx.zh}</span>`;
+    } else {
+        bgEl.textContent = bgEx;
+    }
+    
     document.getElementById('thesisTemplate').textContent = formula ? formula.template : 'Select a formula first.';
     
     // Restore saved content
@@ -2362,7 +2576,15 @@ function setupBodyPage() {
 function setupConclusionPage() {
     const novelIndex = State.selectedNovel;
     
-    document.getElementById('conclusionExample').textContent = Examples.conclusion[novelIndex] || Examples.conclusion.default;
+    const conclusionEx = Examples.conclusion[novelIndex] || Examples.conclusion.default;
+    const conclusionEl = document.getElementById('conclusionExample');
+    
+    if (conclusionEx.en && conclusionEx.zh) {
+        conclusionEl.innerHTML = `<span class="en">${conclusionEx.en}</span><br><span class="zh" style="margin-top: 8px; display: block; opacity: 0.85;">${conclusionEx.zh}</span>`;
+    } else {
+        conclusionEl.textContent = conclusionEx;
+    }
+    
     document.getElementById('thesisReference').textContent = State.thesis || 'No thesis written yet.';
     
     if (State.conclusion) {
@@ -2566,16 +2788,41 @@ async function callAI(userMessage) {
         return "🦉 Please set your API key first! Click ⚙️ in the navigation.";
     }
     
-    // Build context
+    // Build detailed context with current page
     const novel = Novels[State.selectedNovel];
     const formula = Formulas[State.selectedFormula];
-    let context = `Student is writing about "${novel?.title || 'a novel'}"`;
-    if (formula) context += ` using the ${formula.name} formula.`;
-    if (State.thesis) context += ` Their thesis: "${State.thesis}"`;
+    const pageNames = ['', 'Start', 'Novel Selection', 'Research', 'Introduction', 'Body Paragraphs', 'Conclusion', 'Review'];
+    const currentPageName = pageNames[State.currentPage] || 'Unknown';
+    
+    let context = `CURRENT PAGE: ${currentPageName} (Page ${State.currentPage}/7)\n`;
+    context += `Novel: "${novel?.title || 'Not selected'}" by ${novel?.author || 'Unknown'}\n`;
+    
+    if (formula) {
+        context += `Formula: ${formula.name}\n`;
+        context += `Formula Template: ${formula.template}\n`;
+    }
+    
+    // Add current section content for context
+    if (State.currentPage === 4) {
+        context += `\nSTUDENT'S INTRODUCTION:\n`;
+        if (State.hook) context += `Hook (${countWords(State.hook)} words): "${State.hook.substring(0, 150)}..."\n`;
+        if (State.background) context += `Background (${countWords(State.background)} words): "${State.background.substring(0, 150)}..."\n`;
+        if (State.thesis) context += `Thesis (${countWords(State.thesis)} words): "${State.thesis}"\n`;
+    } else if (State.currentPage === 5) {
+        context += `\nSTUDENT'S BODY PARAGRAPHS:\n`;
+        if (State.thesis) context += `Thesis: "${State.thesis}"\n`;
+        if (State.body1) context += `Body 1 (${countWords(State.body1)} words): "${State.body1.substring(0, 100)}..."\n`;
+        if (State.body2) context += `Body 2 (${countWords(State.body2)} words): "${State.body2.substring(0, 100)}..."\n`;
+        if (State.body3) context += `Body 3 (${countWords(State.body3)} words): "${State.body3.substring(0, 100)}..."\n`;
+    } else if (State.currentPage === 6) {
+        context += `\nSTUDENT'S CONCLUSION:\n`;
+        if (State.thesis) context += `Thesis: "${State.thesis}"\n`;
+        if (State.conclusion) context += `Conclusion (${countWords(State.conclusion)} words): "${State.conclusion.substring(0, 150)}..."\n`;
+    }
     
     const messages = [
-        { role: 'system', content: COACH_PROMPT + '\n\nCONTEXT: ' + context },
-        ...State.chatHistory.slice(-6),
+        { role: 'system', content: COACH_PROMPT + '\n\n' + context },
+        ...State.chatHistory.slice(-4),  // Reduced from -6 to -4 to save tokens
         { role: 'user', content: userMessage }
     ];
     
