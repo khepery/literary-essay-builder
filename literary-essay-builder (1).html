@@ -120,11 +120,12 @@ body {
 
 .nav-step {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 60px;
+    height: 48px;
+    border-radius: var(--radius-sm);
     background: var(--bg-secondary);
     border: 2px solid var(--border-light);
     color: var(--text-muted);
@@ -132,6 +133,19 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
+}
+
+.step-num {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.step-label {
+    font-size: 0.6rem;
+    line-height: 1.1;
+    text-align: center;
+    margin-top: 2px;
+    display: block;
 }
 
 .nav-step:hover { border-color: var(--primary-500); color: var(--primary-500); }
@@ -764,7 +778,9 @@ body {
 @media (max-width: 768px) {
     .nav-title { display: none; }
     .nav-steps { gap: 1px; }
-    .nav-step { width: 28px; height: 28px; font-size: 0.7rem; }
+    .nav-step { width: 44px; height: 38px; font-size: 0.65rem; }
+    .step-num { font-size: 0.8rem; }
+    .step-label { font-size: 0.5rem; margin-top: 1px; }
     
     .formula-grid, .novel-grid { grid-template-columns: 1fr; }
     
@@ -789,13 +805,34 @@ body {
         </a>
         
         <div class="nav-steps">
-            <button class="nav-step active" onclick="goToPage(1)" title="Start">1</button>
-            <button class="nav-step" onclick="goToPage(2)" title="Novel">2</button>
-            <button class="nav-step" onclick="goToPage(3)" title="Research">3</button>
-            <button class="nav-step" onclick="goToPage(4)" title="Introduction">4</button>
-            <button class="nav-step" onclick="goToPage(5)" title="Body">5</button>
-            <button class="nav-step" onclick="goToPage(6)" title="Conclusion">6</button>
-            <button class="nav-step" onclick="goToPage(7)" title="Export">7</button>
+            <button class="nav-step active" onclick="goToPage(1)" title="Start">
+                <span class="step-num">1</span>
+                <span class="step-label">Start<br>开始</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(2)" title="Novel">
+                <span class="step-num">2</span>
+                <span class="step-label">Novel<br>小说</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(3)" title="Research">
+                <span class="step-num">3</span>
+                <span class="step-label">Research<br>研究</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(4)" title="Introduction">
+                <span class="step-num">4</span>
+                <span class="step-label">Intro<br>引言</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(5)" title="Body">
+                <span class="step-num">5</span>
+                <span class="step-label">Body<br>正文</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(6)" title="Conclusion">
+                <span class="step-num">6</span>
+                <span class="step-label">End<br>结尾</span>
+            </button>
+            <button class="nav-step" onclick="goToPage(7)" title="Export">
+                <span class="step-num">7</span>
+                <span class="step-label">Export<br>导出</span>
+            </button>
         </div>
         
         <div class="nav-actions">
@@ -872,7 +909,7 @@ body {
                 <div class="page-navigation">
                     <div></div>
                     <button class="btn btn-primary btn-lg" onclick="goToPage(2)" id="toPage2Btn" disabled>
-                        Select Novel →
+                        Select Novel → | 选择小说 →
                     </button>
                 </div>
             </div>
@@ -892,9 +929,9 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(1)">← Back</button>
+                    <button class="btn btn-secondary" onclick="goToPage(1)">← Back | ← 返回</button>
                     <button class="btn btn-primary btn-lg" onclick="goToPage(3)" id="toPage3Btn" disabled>
-                        View Resources →
+                        View Resources → | 查看资源 →
                     </button>
                 </div>
             </div>
@@ -926,8 +963,8 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(2)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(4)">Write Introduction →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(2)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(4)">Write Introduction → | 写引言 →</button>
                 </div>
             </div>
             
@@ -939,6 +976,58 @@ body {
                         <p class="card-subtitle bilingual">
                             <span class="en">Your introduction has 3 parts: Hook, Background, and Thesis Statement.</span>
                             <span class="zh">你的引言有3个部分：开篇钩子、背景信息和论点陈述。</span>
+                        </p>
+                    </div>
+                    
+                    <!-- EDUCATIONAL INTRODUCTION PANEL -->
+                    <div class="example-box info">
+                        <p class="bilingual">
+                            <span class="en">Your thesis should be <strong>arguable</strong>—that is, something that you think is true about the text, but which is not a simple matter of fact. It must be complex enough to develop through evidence and arguments across the course of your essay.</span>
+                            <span class="zh">你的论点应该是<strong>可论证的</strong>——也就是说，你认为关于文本的真实内容，但不是简单的事实。它必须足够复杂，以便通过证据和论点在整篇文章中发展。</span>
+                        </p>
+                    </div>
+                    
+                    <div class="section-guide">
+                        <h4>📐 Thesis Formula | 论点公式</h4>
+                        <p style="font-size: 1.1rem; margin: var(--space-md) 0;">
+                            <strong>Thesis = Observation + Analysis + Significance</strong><br>
+                            <span class="zh" style="font-size: 0.95rem;">论点 = 观察 + 分析 + 意义</span>
+                        </p>
+                        
+                        <ul style="margin-left: var(--space-lg);">
+                            <li class="bilingual" style="margin-bottom: var(--space-sm);">
+                                <span class="en"><strong>Observation:</strong> Usually regarding the form or structure of the literature. This can be a pattern, like recurring literary devices. Example: "I noticed the poems use symbols such as the lover's longing"</span>
+                                <span class="zh"><strong>观察：</strong>通常关于文学的形式或结构。这可以是一种模式，如重复出现的文学手法。例如："我注意到诗歌使用了恋人渴望等符号"</span>
+                            </li>
+                            <li class="bilingual" style="margin-bottom: var(--space-sm);">
+                                <span class="en"><strong>Analysis:</strong> You could also call this an opinion. This explains what you think your observations show or mean. "I think these recurring symbols all represent the human soul's desire." This is where your debatable argument appears.</span>
+                                <span class="zh"><strong>分析：</strong>你也可以称之为观点。这解释了你认为你的观察显示或意味着什么。"我认为这些重复出现的符号都代表人类灵魂的渴望。"这是你可辩论的论点出现的地方。</span>
+                            </li>
+                            <li class="bilingual">
+                                <span class="en"><strong>Significance:</strong> This explains what the significance or relevance of the interpretation might be. Why should readers care? "I think these recurring symbols all show the human soul's desire to connect with God." This is where your argument gets more specific.</span>
+                                <span class="zh"><strong>意义：</strong>这解释了解释的重要性或相关性可能是什么。为什么读者应该关心？"我认为这些重复出现的符号都显示了人类灵魂与上帝连接的渴望。"这是你的论点变得更具体的地方。</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box warning">
+                        <h4>⚖️ What is the difference? | 有什么区别？</h4>
+                        
+                        <div style="background: var(--error-light); padding: var(--space-md); border-radius: var(--radius-sm); margin: var(--space-md) 0;">
+                            <p><strong>❌ Weak Thesis:</strong></p>
+                            <p style="font-style: italic;">"The works of ecstatic love poets Rumi, Hafiz, and Kabir use symbols such as a lover's longing and the Tavern of Ruin to illustrate the human soul's desire to connect with God."</p>
+                            <p class="zh" style="font-size: 0.85rem; margin-top: var(--space-xs);">较弱的论点：简单陈述事实</p>
+                        </div>
+                        
+                        <div style="background: var(--success-light); padding: var(--space-md); border-radius: var(--radius-sm);">
+                            <p><strong>✅ Strong Thesis:</strong></p>
+                            <p style="font-style: italic;">"The ecstatic love poets Rumi, Hafiz, and Kabir <mark style="background: #ffeb3b;">consistently employ</mark> symbols such as the lover's longing and the Tavern of Ruin to reveal a shared pattern: <mark style="background: #ffeb3b;">the soul's pursuit of divine union</mark>, <mark style="background: #ffeb3b;">a pursuit that both elevates personal experience</mark> and <mark style="background: #ffeb3b;">challenges conventional religious authority</mark>."</p>
+                            <p class="zh" style="font-size: 0.85rem; margin-top: var(--space-xs);">强有力的论点：具体、可辩论、有意义</p>
+                        </div>
+                        
+                        <p style="margin-top: var(--space-md);" class="bilingual">
+                            <span class="en"><strong>Notice:</strong> The strong thesis makes specific, arguable claims (highlighted). It's not just describing—it's arguing a complex interpretation.</span>
+                            <span class="zh"><strong>注意：</strong>强有力的论点提出了具体的、可辩论的主张（已突出显示）。它不仅仅是描述——而是论证一个复杂的解释。</span>
                         </p>
                     </div>
                     
@@ -1017,6 +1106,12 @@ body {
                         </div>
                     </div>
                     
+                    <div style="text-align: center; margin-top: var(--space-md);">
+                        <button class="btn btn-secondary" onclick="downloadThesis()">
+                            📥 Download Thesis | 下载论点
+                        </button>
+                    </div>
+                    
                     <div style="text-align: center; margin-top: var(--space-lg);">
                         <button class="btn btn-gold" onclick="askTheoAbout('introduction')">
                             🦉 Ask Theo for Feedback
@@ -1025,8 +1120,8 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(3)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(5)">Write Body Paragraphs →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(3)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(5)">Write Body Paragraphs → | 写正文段落 →</button>
                 </div>
             </div>
             
@@ -1051,6 +1146,27 @@ body {
                         <p id="body1Instruction"></p>
                     </div>
                     
+                    <div class="example-box">
+                        <h4>💡 Example Guidance | 示例指导</h4>
+                        <p class="bilingual">
+                            <span class="en"><strong>Topic Sentence:</strong> Connect to your thesis point</span>
+                            <span class="zh"><strong>主题句：</strong>连接到你的论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Start with a clear claim that relates to your first supporting point from the thesis.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Evidence:</strong> Quote or reference from the text</span>
+                            <span class="zh"><strong>证据：</strong>文本的引用或参考</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Include specific examples, quotes, or references that support your topic sentence.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
+                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Don't just summarize—explain WHY this evidence matters and HOW it supports your argument.</p>
+                    </div>
+                    
                     <div class="form-group">
                         <textarea class="form-textarea" id="body1Input" rows="10" 
                             placeholder="Write your first body paragraph. Start with a topic sentence..."
@@ -1067,6 +1183,27 @@ body {
                         <p id="body2Instruction"></p>
                     </div>
                     
+                    <div class="example-box">
+                        <h4>💡 Example Guidance | 示例指导</h4>
+                        <p class="bilingual">
+                            <span class="en"><strong>Topic Sentence:</strong> Connect to your second thesis point</span>
+                            <span class="zh"><strong>主题句：</strong>连接到你的第二个论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Build on your first paragraph by introducing your second supporting point.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Evidence:</strong> New examples from the text</span>
+                            <span class="zh"><strong>证据：</strong>文本的新例子</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Use different evidence than paragraph 1 to show the pattern throughout the work.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
+                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Show how this second point strengthens your overall argument.</p>
+                    </div>
+                    
                     <div class="form-group">
                         <textarea class="form-textarea" id="body2Input" rows="10" 
                             placeholder="Write your second body paragraph..."
@@ -1081,6 +1218,27 @@ body {
                     <div class="section-guide" style="margin-top: var(--space-xl);">
                         <h4 id="body3Guide">📌 Body Paragraph 3</h4>
                         <p id="body3Instruction"></p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>💡 Example Guidance | 示例指导</h4>
+                        <p class="bilingual">
+                            <span class="en"><strong>Topic Sentence:</strong> Connect to your final thesis point</span>
+                            <span class="zh"><strong>主题句：</strong>连接到你的最后论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Present your strongest or most significant supporting point last.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Evidence:</strong> Compelling examples from the text</span>
+                            <span class="zh"><strong>证据：</strong>文本中令人信服的例子</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Choose your most powerful evidence to leave a strong impression.</p>
+                        
+                        <p class="bilingual" style="margin-top: var(--space-md);">
+                            <span class="en"><strong>Analysis:</strong> Explain how this evidence proves your thesis</span>
+                            <span class="zh"><strong>分析：</strong>解释这个证据如何证明你的论点</span>
+                        </p>
+                        <p style="font-style: italic; margin: var(--space-sm) 0; color: var(--text-secondary);">Tie all three body paragraphs together to show the complete picture of your argument.</p>
                     </div>
                     
                     <div class="form-group">
@@ -1101,8 +1259,8 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(4)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(6)">Write Conclusion →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(4)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(6)">Write Conclusion → | 写结论 →</button>
                 </div>
             </div>
             
@@ -1156,8 +1314,8 @@ body {
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(5)">← Back</button>
-                    <button class="btn btn-primary btn-lg" onclick="goToPage(7)">Review & Export →</button>
+                    <button class="btn btn-secondary" onclick="goToPage(5)">← Back | ← 返回</button>
+                    <button class="btn btn-primary btn-lg" onclick="goToPage(7)">Review & Export → | 审查和导出 →</button>
                 </div>
             </div>
             
@@ -1183,26 +1341,26 @@ body {
                 
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">📤 Export Options</h2>
+                        <h2 class="card-title">📤 Export Options | 导出选项</h2>
                     </div>
                     
                     <div class="example-box success">
-                        <p><strong>📄 Format:</strong> Times New Roman, 12pt, Black, Double-spaced</p>
+                        <p><strong>📄 Format | 格式:</strong> Times New Roman, 12pt, Black, Double-spaced | 双倍行距</p>
                     </div>
                     
                     <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
                         <button class="btn btn-primary btn-lg" onclick="downloadWord()">
-                            📥 Download Word Document
+                            📥 Download Word Document | 下载Word文档
                         </button>
-                        <button class="btn btn-secondary" onclick="copyEssay()">📋 Copy Essay</button>
-                        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
-                        <button class="btn btn-secondary" onclick="startOver()">🔄 Start Over</button>
+                        <button class="btn btn-secondary" onclick="copyEssay()">📋 Copy Essay | 复制论文</button>
+                        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print | 打印</button>
+                        <button class="btn btn-secondary" onclick="startOver()">🔄 Start Over | 重新开始</button>
                     </div>
                 </div>
                 
                 <div class="page-navigation">
-                    <button class="btn btn-secondary" onclick="goToPage(6)">← Back</button>
-                    <button class="btn btn-gold btn-lg" onclick="celebrate()">🎊 I'm Done!</button>
+                    <button class="btn btn-secondary" onclick="goToPage(6)">← Back | ← 返回</button>
+                    <button class="btn btn-gold btn-lg" onclick="celebrate()">🎊 I'm Done! | 完成了！</button>
                 </div>
             </div>
             
@@ -1245,10 +1403,10 @@ body {
     <!-- Settings Modal -->
     <div class="modal-overlay" id="settingsModal">
         <div class="modal-content">
-            <h3>⚙️ API Settings</h3>
+            <h3>⚙️ API Settings | API设置</h3>
             
             <div class="form-group">
-                <label class="form-label">AI Provider</label>
+                <label class="form-label">AI Provider | AI提供商</label>
                 <select class="form-select" id="apiProvider">
                     <option value="groq">Groq (Free & Fast)</option>
                     <option value="openai">OpenAI</option>
@@ -1257,16 +1415,16 @@ body {
             </div>
             
             <div class="form-group">
-                <label class="form-label">API Key</label>
+                <label class="form-label">API Key | API密钥</label>
                 <input type="password" class="form-input" id="apiKey" placeholder="Enter your API key...">
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-xs);">
-                    Stored locally only. Never sent to our servers.
+                    Stored locally only. Never sent to our servers. | 仅本地存储。绝不发送到我们的服务器。
                 </p>
             </div>
             
             <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+                <button class="btn btn-secondary" onclick="closeSettings()">Cancel | 取消</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save | 保存</button>
             </div>
         </div>
     </div>
@@ -2306,6 +2464,47 @@ function updateWordCount(field) {
     if (count < min) counter.classList.add('under');
     else if (count <= max) counter.classList.add('good');
     else counter.classList.add('over');
+}
+
+function downloadThesis() {
+    const novel = Novels[State.selectedNovel];
+    const formula = Formulas[State.selectedFormula];
+    
+    const content = `
+Literary Thesis Statement
+文学论文陈述
+
+Novel: ${novel?.title} by ${novel?.author}
+小说：${novel?.titleZh}
+
+Formula Used: ${formula?.name} (${formula?.nameZh})
+使用的公式：
+
+Your Thesis:
+你的论点：
+${State.thesis || '[Not written yet]'}
+
+Formula Breakdown:
+公式分解：
+
+• Observation: What pattern or device do you notice?
+  观察：你注意到什么模式或手法？
+  
+• Analysis: What does this pattern reveal or mean?
+  分析：这种模式揭示或意味着什么？
+  
+• Significance: Why does this interpretation matter?
+  意义：为什么这种解释很重要？
+
+Body Paragraph Roadmap:
+正文段落路线图：
+
+${formula?.roadmap.map((r, i) => `Paragraph ${i+1}: ${r}`).join('\n')}
+    `.trim();
+    
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `Thesis_${novel?.title.replace(/\s+/g, '_')}.txt`);
+    showToast('Thesis downloaded! | 论点已下载！', 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
