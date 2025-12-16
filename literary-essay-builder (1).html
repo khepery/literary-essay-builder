@@ -843,13 +843,12 @@ body {
 
 .owl-wing.left { 
     left: -8%; 
-    transform: rotate(-10deg);
     animation-delay: 0.15s;
 }
 
 .owl-wing.right { 
     right: -8%; 
-    transform: rotate(10deg) scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .owl-face {
@@ -1012,6 +1011,15 @@ body {
 @keyframes wingWiggle {
     0%, 100% { transform: rotate(-10deg) translateY(0); }
     50% { transform: rotate(-15deg) translateY(-2%); }
+}
+
+.owl-wing.right {
+    animation-name: wingWiggleRight;
+}
+
+@keyframes wingWiggleRight {
+    0%, 100% { transform: scaleX(-1) rotate(-10deg) translateY(0); }
+    50% { transform: scaleX(-1) rotate(-15deg) translateY(-2%); }
 }
 
 @keyframes blink {
@@ -1921,6 +1929,8 @@ const Examples = {
    OWL WIDGET
    ═══════════════════════════════════════════════════════════════════════════ */
 const OwlWidget = {
+    ANIMATION_DURATION_MS: 2000,
+    
     mount: function(selector, options = {}) {
         const container = document.querySelector(selector);
         if (!container) return;
@@ -1968,11 +1978,15 @@ const OwlWidget = {
         container.innerHTML = owlHTML;
         const widget = container.querySelector('.owl-widget');
         
+        // Store timeout ID for cleanup
+        widget._autoTimeoutId = null;
+        
         // Auto animation function
         if (opts.auto) {
             const scheduleMove = () => {
                 const delay = opts.autoMinMs + Math.random() * (opts.autoMaxMs - opts.autoMinMs);
-                setTimeout(() => {
+                widget._autoTimeoutId = setTimeout(() => {
+                    if (!document.body.contains(widget)) return; // Stop if widget removed from DOM
                     const move = opts.moves[Math.floor(Math.random() * opts.moves.length)];
                     this.doMove(widget, move);
                     scheduleMove();
@@ -1992,7 +2006,7 @@ const OwlWidget = {
         
         setTimeout(() => {
             widget.classList.remove(className);
-        }, 2000);
+        }, this.ANIMATION_DURATION_MS);
     },
     
     say: function(widget, text, durationMs = 2000) {
@@ -2007,6 +2021,14 @@ const OwlWidget = {
         widget.appendChild(speech);
         
         setTimeout(() => speech.remove(), durationMs);
+    },
+    
+    cleanup: function(widget) {
+        if (!widget) return;
+        if (widget._autoTimeoutId) {
+            clearTimeout(widget._autoTimeoutId);
+            widget._autoTimeoutId = null;
+        }
     }
 };
 
