@@ -2469,9 +2469,54 @@ async function callAI(userMessage) {
     // Build context
     const novel = Novels[State.selectedNovel];
     const formula = Formulas[State.selectedFormula];
-    let context = `Student is writing about "${novel?.title || 'a novel'}"`;
-    if (formula) context += ` using the ${formula.name} formula.`;
-    if (State.thesis) context += ` Their thesis: "${State.thesis}"`;
+    const pageNames = ['Getting Started', 'Select Novel', 'Research', 'Introduction', 'Body Paragraphs', 'Conclusion', 'Export'];
+    const currentPageName = pageNames[State.currentPage - 1];
+    
+    let context = `CURRENT PAGE: Student is on page ${State.currentPage} of 7 - "${currentPageName}".`;
+    
+    // Add novel and formula context
+    if (novel) context += ` Writing about "${novel.title}" by ${novel.author}.`;
+    if (formula) context += ` Using the ${formula.name} formula.`;
+    
+    // Add section-specific context based on current page
+    if (State.currentPage === 4) {
+        // Introduction page
+        context += ` Working on the INTRODUCTION section.`;
+        if (State.hook) context += ` Hook completed (${countWords(State.hook)} words).`;
+        else context += ` Hook not yet written.`;
+        if (State.background) context += ` Background completed (${countWords(State.background)} words).`;
+        else context += ` Background not yet written.`;
+        if (State.thesis) context += ` Thesis: "${State.thesis}" (${countWords(State.thesis)} words).`;
+        else context += ` Thesis not yet written.`;
+    } else if (State.currentPage === 5) {
+        // Body paragraphs page
+        context += ` Working on BODY PARAGRAPHS.`;
+        if (State.body1) context += ` Body 1 completed (${countWords(State.body1)} words).`;
+        else context += ` Body 1 not yet written.`;
+        if (State.body2) context += ` Body 2 completed (${countWords(State.body2)} words).`;
+        else context += ` Body 2 not yet written.`;
+        if (State.body3) context += ` Body 3 completed (${countWords(State.body3)} words).`;
+        else context += ` Body 3 not yet written.`;
+    } else if (State.currentPage === 6) {
+        // Conclusion page
+        context += ` Working on CONCLUSION section.`;
+        if (State.thesis) context += ` Their thesis: "${State.thesis}".`;
+        if (State.conclusion) context += ` Conclusion: "${State.conclusion.substring(0, 100)}..." (${countWords(State.conclusion)} words).`;
+        else context += ` Conclusion not yet written.`;
+    } else if (State.currentPage === 1) {
+        // Getting started - formula selection
+        context += ` Selecting thesis formula.`;
+        if (formula) context += ` Formula selected: ${formula.name}.`;
+    } else if (State.currentPage === 2) {
+        // Novel selection
+        context += ` Selecting novel to analyze.`;
+    } else if (State.currentPage === 3) {
+        // Research page
+        context += ` Reviewing research resources for the novel.`;
+    } else if (State.currentPage === 7) {
+        // Export page
+        context += ` Reviewing and exporting completed essay.`;
+    }
     
     const messages = [
         { role: 'system', content: COACH_PROMPT + '\n\nCONTEXT: ' + context },
