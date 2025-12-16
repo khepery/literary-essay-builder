@@ -773,6 +773,319 @@ body {
     .page-navigation { flex-direction: column; gap: var(--space-sm); }
     .page-navigation .btn { width: 100%; justify-content: center; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ANIMATED OWL WIDGET
+   ══════════════════════════════════════════════════════════════════════ */
+.owl-widget {
+    --owl-body: #8B6F47;
+    --owl-belly: #D4A574;
+    --owl-wing: #6B5638;
+    --owl-beak: #FFB347;
+    --owl-eyeWhite: #FFFFFF;
+    --owl-pupil: #1a1a2e;
+    --owl-outline: #4a3820;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+}
+
+.owl-widget.small {
+    width: 50px;
+    height: 50px;
+}
+
+/* Owl body */
+.owl-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--owl-body);
+    border-radius: 50% 50% 45% 45%;
+    border: 2px solid var(--owl-outline);
+}
+
+/* Belly */
+.owl-belly {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background: var(--owl-belly);
+    border-radius: 50%;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid var(--owl-outline);
+}
+
+/* Ears/tufts */
+.owl-ear {
+    position: absolute;
+    width: 12px;
+    height: 20px;
+    background: var(--owl-body);
+    border: 2px solid var(--owl-outline);
+    border-radius: 50% 50% 0 0;
+    top: -8px;
+}
+
+.owl-ear.left { left: 15%; transform: rotate(-10deg); }
+.owl-ear.right { right: 15%; transform: rotate(10deg); }
+
+/* Wings */
+.owl-wing {
+    position: absolute;
+    width: 25px;
+    height: 40px;
+    background: var(--owl-wing);
+    border: 2px solid var(--owl-outline);
+    border-radius: 50%;
+    top: 40%;
+}
+
+.owl-wing.left {
+    left: -12px;
+    transform: rotate(-25deg);
+    transform-origin: right center;
+}
+
+.owl-wing.right {
+    right: -12px;
+    transform: rotate(25deg);
+    transform-origin: left center;
+}
+
+/* Face */
+.owl-face {
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Eyes */
+.owl-eye {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    background: var(--owl-eyeWhite);
+    border-radius: 50%;
+    border: 2px solid var(--owl-outline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-pupil {
+    width: 8px;
+    height: 8px;
+    background: var(--owl-pupil);
+    border-radius: 50%;
+}
+
+/* Eyelids */
+.owl-eyelid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: var(--owl-body);
+    border-radius: 50%;
+    transition: height 0.15s;
+}
+
+.owl-eye.blinking .owl-eyelid {
+    height: 100%;
+}
+
+/* Brows */
+.owl-brow {
+    position: absolute;
+    width: 15px;
+    height: 3px;
+    background: var(--owl-outline);
+    border-radius: 2px;
+    top: -5px;
+}
+
+.owl-brow.left { left: -2px; transform: rotate(-10deg); }
+.owl-brow.right { right: -2px; transform: rotate(10deg); }
+
+/* Beak */
+.owl-beak {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid var(--owl-beak);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Feet */
+.owl-feet {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.owl-foot {
+    width: 8px;
+    height: 8px;
+    background: var(--owl-beak);
+    border-radius: 50% 50% 0 0;
+    border: 1px solid var(--owl-outline);
+}
+
+/* Speech bubble */
+.owl-speech {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: white;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid var(--owl-outline);
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--text-primary);
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.owl-speech::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--owl-outline);
+}
+
+.owl-speech.show {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes owlIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes owlWingWiggle {
+    0%, 100% { transform: rotate(-25deg); }
+    50% { transform: rotate(-35deg); }
+}
+
+@keyframes owlWingWiggleRight {
+    0%, 100% { transform: rotate(25deg); }
+    50% { transform: rotate(35deg); }
+}
+
+@keyframes owlBlink {
+    0%, 90%, 100% { height: 0; }
+    95% { height: 100%; }
+}
+
+@keyframes owlBeakChirp {
+    0%, 100% { transform: translate(-50%, -50%) scaleY(1); }
+    50% { transform: translate(-50%, -50%) scaleY(1.3); }
+}
+
+@keyframes owlFootTap {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+/* Funny move animations */
+@keyframes owlSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes owlDab {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-45deg); }
+}
+
+@keyframes owlMoonwalk {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes owlShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+    20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+@keyframes owlSneeze {
+    0%, 100% { transform: scale(1); }
+    30% { transform: scale(1.1); }
+    50% { transform: scale(0.95); }
+    70% { transform: scale(1.05); }
+}
+
+@keyframes owlLean {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+/* Apply idle animation */
+.owl-widget {
+    animation: owlIdle 2s ease-in-out infinite;
+}
+
+.owl-wing.left {
+    animation: owlWingWiggle 3s ease-in-out infinite;
+}
+
+.owl-wing.right {
+    animation: owlWingWiggleRight 3s ease-in-out infinite;
+}
+
+/* Move classes */
+.owl-widget.spin { animation: owlSpin 0.6s ease-in-out; }
+.owl-widget.dab { animation: owlDab 0.8s ease-in-out; }
+.owl-widget.moonwalk { animation: owlMoonwalk 1s ease-in-out; }
+.owl-widget.shake { animation: owlShake 0.5s ease-in-out; }
+.owl-widget.sneeze { animation: owlSneeze 0.6s ease-in-out; }
+.owl-widget.lean { animation: owlLean 1s ease-in-out; }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .owl-widget,
+    .owl-wing.left,
+    .owl-wing.right,
+    .owl-speech {
+        animation: none !important;
+    }
+    
+    .owl-widget {
+        transform: none !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -1541,23 +1854,57 @@ const COACH_PROMPT = `You are Theo, a friendly literary essay writing coach. You
 RULES:
 1. NEVER write content for the student—only give hints and guidance
 2. NEVER provide thesis statements, topic sentences, or essay content
-3. When asked to check grammar, point out issues but don't rewrite sentences
-4. Help explain formulas and structures without providing examples that could be copied
-5. Ask guiding questions to help students think critically
-6. Be encouraging but honest about weaknesses
-7. Keep responses concise (under 100 words when possible)
-8. Use emojis sparingly to be friendly
+3. NEVER provide specific rewrites or solutions
+4. When asked to check grammar, point out issues but don't rewrite sentences
+5. Help explain formulas and structures without providing examples that could be copied
+6. Ask guiding questions to help students think critically
+7. Be encouraging but honest about weaknesses
+8. Keep responses concise (under 100 words when possible)
+9. Use emojis sparingly to be friendly
 
-When evaluating work, consider:
-- Purpose: Does it make an arguable claim?
-- Focus: Is it specific enough?
-- Scope: Can it be supported in the essay length?
+THESIS STATEMENT EVALUATION CRITERIA:
+When evaluating a thesis statement, ONLY assess it against these 9 criteria. Provide hints and guiding questions, NEVER specific solutions:
+
+1. Complete sentence - Is it a complete sentence, not a question or fragment?
+   - Hint approach: "Check if your thesis makes a complete statement. Does it have a subject and predicate?"
+
+2. Arguable - Is it arguable, not a statement of fact?
+   - Hint approach: "Could someone reasonably disagree with your claim? Or is this just a fact?"
+
+3. Scope appropriateness - Is it neither too broad nor too specific for the essay scope?
+   - Hint approach: "Can you cover this in 1200-1800 words? Is it too big or too narrow?"
+
+4. Precise language - Does it avoid vague words like "good," "bad," or "some"?
+   - Hint approach: "Look for vague words. Can you be more specific about what you mean?"
+
+5. Road-map - Does it provide a road-map indicating the general direction of evidence?
+   - Hint approach: "Does your thesis hint at what your body paragraphs will discuss?"
+
+6. Debatable - Does it invite argument and support with evidence from the text?
+   - Hint approach: "Will you be able to find evidence from the novel to support this?"
+
+7. Specific - Does it identify particular elements (symbols, characters, themes, poets, etc.)?
+   - Hint approach: "Are you naming specific literary elements or being too general?"
+
+8. Narrow scope - Is it narrow enough to be proven within the assignment's scope?
+   - Hint approach: "Is this claim focused enough for your essay, or are you trying to prove too much?"
+
+9. Significance - Does it indicate why readers should care or what the significance is?
+   - Hint approach: "What's the 'so what?' Why does this interpretation matter?"
+
+When a thesis criterion is not met:
+- Point to the specific criterion
+- Ask a guiding question
+- Give a hint about what to consider
+- NEVER provide the corrected version
 
 FORBIDDEN:
 - "Here's a better version..."
 - "You should write..."
 - "Try this thesis: ..."
-- Writing more than one sentence of example content`;
+- "Change X to Y..."
+- Writing more than one sentence of example content
+- Providing specific rewrites or solutions`;
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EXAMPLES FOR EACH SECTION (Dynamic based on novel)
@@ -1581,6 +1928,84 @@ const Examples = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   OWL WIDGET
+   ═══════════════════════════════════════════════════════════════════════════ */
+function OwlWidget(container, size = 'normal') {
+    const widget = document.createElement('div');
+    widget.className = `owl-widget ${size === 'small' ? 'small' : ''}`;
+    
+    widget.innerHTML = `
+        <div class="owl-body">
+            <div class="owl-belly"></div>
+            <div class="owl-ear left"></div>
+            <div class="owl-ear right"></div>
+            <div class="owl-wing left"></div>
+            <div class="owl-wing right"></div>
+            <div class="owl-face">
+                <div class="owl-eye left">
+                    <div class="owl-brow left"></div>
+                    <div class="owl-pupil"></div>
+                    <div class="owl-eyelid"></div>
+                </div>
+                <div class="owl-eye right">
+                    <div class="owl-brow right"></div>
+                    <div class="owl-pupil"></div>
+                    <div class="owl-eyelid"></div>
+                </div>
+            </div>
+            <div class="owl-beak"></div>
+            <div class="owl-feet">
+                <div class="owl-foot"></div>
+                <div class="owl-foot"></div>
+            </div>
+        </div>
+        <div class="owl-speech"></div>
+    `;
+    
+    container.innerHTML = '';
+    container.appendChild(widget);
+    
+    // Blinking animation
+    const eyes = widget.querySelectorAll('.owl-eye');
+    setInterval(() => {
+        if (Math.random() > 0.7) {
+            eyes.forEach(eye => {
+                eye.classList.add('blinking');
+                setTimeout(() => eye.classList.remove('blinking'), 150);
+            });
+        }
+    }, 3000);
+    
+    // Funny moves on click
+    const moves = ['spin', 'dab', 'moonwalk', 'shake', 'sneeze', 'lean'];
+    
+    widget.addEventListener('click', () => {
+        const move = moves[Math.floor(Math.random() * moves.length)];
+        widget.classList.add(move);
+        
+        // Show speech bubble
+        const speech = widget.querySelector('.owl-speech');
+        const messages = [
+            'Hoot hoot! 🦉',
+            'Keep writing!',
+            'You got this!',
+            'Think deeper!',
+            'Great progress!',
+            'Stay focused!'
+        ];
+        speech.textContent = messages[Math.floor(Math.random() * messages.length)];
+        speech.classList.add('show');
+        
+        setTimeout(() => {
+            widget.classList.remove(move);
+            speech.classList.remove('show');
+        }, 1000);
+    });
+    
+    return widget;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    INITIALIZATION
    ═══════════════════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', function() {
@@ -1588,6 +2013,27 @@ document.addEventListener('DOMContentLoaded', function() {
     renderFormulas();
     renderNovels();
     setupScrollListener();
+    
+    // Initialize owl widgets
+    const toggleButton = document.querySelector('.ai-coach-toggle');
+    const coachAvatar = document.querySelector('.coach-avatar');
+    
+    if (toggleButton) {
+        new OwlWidget(toggleButton, 'normal');
+        toggleButton.style.fontSize = '0'; // Hide emoji if any
+        toggleButton.style.display = 'flex';
+        toggleButton.style.alignItems = 'center';
+        toggleButton.style.justifyContent = 'center';
+    }
+    
+    if (coachAvatar) {
+        new OwlWidget(coachAvatar, 'small');
+        coachAvatar.style.fontSize = '0'; // Hide emoji if any
+        coachAvatar.style.display = 'flex';
+        coachAvatar.style.alignItems = 'center';
+        coachAvatar.style.justifyContent = 'center';
+    }
+    
     console.log('📚 Literary Essay Builder initialized!');
 });
 
@@ -2023,9 +2469,54 @@ async function callAI(userMessage) {
     // Build context
     const novel = Novels[State.selectedNovel];
     const formula = Formulas[State.selectedFormula];
-    let context = `Student is writing about "${novel?.title || 'a novel'}"`;
-    if (formula) context += ` using the ${formula.name} formula.`;
-    if (State.thesis) context += ` Their thesis: "${State.thesis}"`;
+    const pageNames = ['Getting Started', 'Select Novel', 'Research', 'Introduction', 'Body Paragraphs', 'Conclusion', 'Export'];
+    const currentPageName = pageNames[State.currentPage - 1];
+    
+    let context = `CURRENT PAGE: Student is on page ${State.currentPage} of 7 - "${currentPageName}".`;
+    
+    // Add novel and formula context
+    if (novel) context += ` Writing about "${novel.title}" by ${novel.author}.`;
+    if (formula) context += ` Using the ${formula.name} formula.`;
+    
+    // Add section-specific context based on current page
+    if (State.currentPage === 4) {
+        // Introduction page
+        context += ` Working on the INTRODUCTION section.`;
+        if (State.hook) context += ` Hook completed (${countWords(State.hook)} words).`;
+        else context += ` Hook not yet written.`;
+        if (State.background) context += ` Background completed (${countWords(State.background)} words).`;
+        else context += ` Background not yet written.`;
+        if (State.thesis) context += ` Thesis: "${State.thesis}" (${countWords(State.thesis)} words).`;
+        else context += ` Thesis not yet written.`;
+    } else if (State.currentPage === 5) {
+        // Body paragraphs page
+        context += ` Working on BODY PARAGRAPHS.`;
+        if (State.body1) context += ` Body 1 completed (${countWords(State.body1)} words).`;
+        else context += ` Body 1 not yet written.`;
+        if (State.body2) context += ` Body 2 completed (${countWords(State.body2)} words).`;
+        else context += ` Body 2 not yet written.`;
+        if (State.body3) context += ` Body 3 completed (${countWords(State.body3)} words).`;
+        else context += ` Body 3 not yet written.`;
+    } else if (State.currentPage === 6) {
+        // Conclusion page
+        context += ` Working on CONCLUSION section.`;
+        if (State.thesis) context += ` Their thesis: "${State.thesis}".`;
+        if (State.conclusion) context += ` Conclusion: "${State.conclusion.substring(0, 100)}..." (${countWords(State.conclusion)} words).`;
+        else context += ` Conclusion not yet written.`;
+    } else if (State.currentPage === 1) {
+        // Getting started - formula selection
+        context += ` Selecting thesis formula.`;
+        if (formula) context += ` Formula selected: ${formula.name}.`;
+    } else if (State.currentPage === 2) {
+        // Novel selection
+        context += ` Selecting novel to analyze.`;
+    } else if (State.currentPage === 3) {
+        // Research page
+        context += ` Reviewing research resources for the novel.`;
+    } else if (State.currentPage === 7) {
+        // Export page
+        context += ` Reviewing and exporting completed essay.`;
+    }
     
     const messages = [
         { role: 'system', content: COACH_PROMPT + '\n\nCONTEXT: ' + context },
@@ -2034,7 +2525,7 @@ async function callAI(userMessage) {
     ];
     
     const endpoints = {
-        groq: { url: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-70b-versatile' },
+        groq: { url: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.3-70b-versatile' },
         openai: { url: 'https://api.openai.com/v1/chat/completions', model: 'gpt-4o-mini' },
         deepseek: { url: 'https://api.deepseek.com/v1/chat/completions', model: 'deepseek-chat' }
     };
