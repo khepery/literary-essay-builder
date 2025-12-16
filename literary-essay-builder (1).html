@@ -1978,10 +1978,8 @@ function OwlWidget(container, size = 'normal') {
     
     // Funny moves on click
     const moves = ['spin', 'dab', 'moonwalk', 'shake', 'sneeze', 'lean'];
-    let clickCount = 0;
     
     widget.addEventListener('click', () => {
-        clickCount++;
         const move = moves[Math.floor(Math.random() * moves.length)];
         widget.classList.add(move);
         
