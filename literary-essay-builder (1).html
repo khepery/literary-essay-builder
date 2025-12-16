@@ -760,6 +760,333 @@ body {
     .page { display: block !important; }
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   OWL WIDGET
+   ══════════════════════════════════════════════════════════════════════ */
+.owl-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-widget {
+    --owl-size: 100px;
+    --owl-color-body: #c17817;
+    --owl-color-belly: #f5d4a0;
+    --owl-color-face: #d4a574;
+    --owl-color-beak: #8b6f47;
+    --owl-color-eye: #ffffff;
+    --owl-color-pupil: #2c1810;
+    --owl-color-lid: #a66b2c;
+    --owl-color-wing: #8b5a00;
+    --owl-color-foot: #d4a574;
+    
+    width: var(--owl-size);
+    height: var(--owl-size);
+    position: relative;
+    display: inline-block;
+}
+
+.owl-stage {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    animation: owlIdle 4s ease-in-out infinite;
+}
+
+.owl-body {
+    width: 70%;
+    height: 85%;
+    background: var(--owl-color-body);
+    border-radius: 45% 45% 40% 40%;
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-belly {
+    width: 55%;
+    height: 60%;
+    background: var(--owl-color-belly);
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+}
+
+.owl-ear {
+    width: 0;
+    height: 0;
+    border-left: calc(var(--owl-size) * 0.08) solid transparent;
+    border-right: calc(var(--owl-size) * 0.08) solid transparent;
+    border-bottom: calc(var(--owl-size) * 0.2) solid var(--owl-color-body);
+    position: absolute;
+    top: 5%;
+}
+
+.owl-ear.left { left: 15%; transform: rotate(-15deg); }
+.owl-ear.right { right: 15%; transform: rotate(15deg); }
+
+.owl-wing {
+    width: 35%;
+    height: 55%;
+    background: var(--owl-color-wing);
+    border-radius: 40% 0 80% 50%;
+    position: absolute;
+    top: 25%;
+    animation: wingWiggle 3s ease-in-out infinite;
+}
+
+.owl-wing.left { 
+    left: -8%; 
+    transform: rotate(-10deg);
+    animation-delay: 0.15s;
+}
+
+.owl-wing.right { 
+    right: -8%; 
+    transform: rotate(10deg) scaleX(-1);
+}
+
+.owl-face {
+    width: 60%;
+    height: 45%;
+    background: var(--owl-color-face);
+    border-radius: 50%;
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8%;
+}
+
+.owl-eye {
+    width: 38%;
+    height: 65%;
+    background: var(--owl-color-eye);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--owl-color-beak);
+}
+
+.owl-pupil {
+    width: 45%;
+    height: 45%;
+    background: var(--owl-color-pupil);
+    border-radius: 50%;
+    position: relative;
+    animation: blink 5s infinite;
+}
+
+.owl-lid {
+    width: 100%;
+    height: 0%;
+    background: var(--owl-color-lid);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: height 0.15s;
+}
+
+.owl-eye.blinking .owl-lid {
+    height: 100%;
+}
+
+.owl-brow {
+    width: 45%;
+    height: 3px;
+    background: var(--owl-color-beak);
+    position: absolute;
+    top: -8%;
+    border-radius: 2px;
+}
+
+.owl-brow.left { left: 8%; transform: rotate(-10deg); }
+.owl-brow.right { right: 8%; transform: rotate(10deg); }
+
+.owl-beak {
+    width: 0;
+    height: 0;
+    border-left: calc(var(--owl-size) * 0.08) solid transparent;
+    border-right: calc(var(--owl-size) * 0.08) solid transparent;
+    border-top: calc(var(--owl-size) * 0.12) solid var(--owl-color-beak);
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: beakChirp 6s ease-in-out infinite;
+}
+
+.owl-feet {
+    width: 80%;
+    position: absolute;
+    bottom: -5%;
+    left: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.owl-foot {
+    width: 30%;
+    height: calc(var(--owl-size) * 0.12);
+    background: var(--owl-color-foot);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    animation: footTap 4s ease-in-out infinite;
+}
+
+.owl-foot.left { animation-delay: 0.2s; }
+
+.owl-foot::before,
+.owl-foot::after {
+    content: '';
+    width: 30%;
+    height: 60%;
+    background: var(--owl-color-foot);
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+}
+
+.owl-foot::before { left: -15%; }
+.owl-foot::after { right: -15%; }
+
+.owl-speech {
+    position: absolute;
+    top: -20%;
+    left: 110%;
+    min-width: 120px;
+    max-width: 200px;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-size: calc(var(--owl-size) * 0.12);
+    color: #333;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+    animation: popTalk 0.3s ease-out forwards;
+}
+
+.owl-speech::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+}
+
+/* Move Animations */
+.owl-widget.do-spin .owl-stage { animation: owlSpin 1s ease-in-out; }
+.owl-widget.do-dab .owl-stage { animation: owlDab 1.2s ease-in-out; }
+.owl-widget.do-moonwalk .owl-stage { animation: owlMoonwalk 2s ease-in-out; }
+.owl-widget.do-shake .owl-stage { animation: owlShake 0.5s ease-in-out; }
+.owl-widget.do-sneeze .owl-stage { animation: owlSneeze 0.6s ease-in-out; }
+.owl-widget.do-sneeze .owl-beak { animation: beakSneeze 0.6s ease-in-out; }
+.owl-widget.do-sneeze .owl-pupil { animation: pupilPanic 0.6s ease-in-out; }
+.owl-widget.do-lean .owl-stage { animation: owlLean 2s ease-in-out; }
+
+/* Keyframe Animations */
+@keyframes owlIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3%); }
+}
+
+@keyframes wingWiggle {
+    0%, 100% { transform: rotate(-10deg) translateY(0); }
+    50% { transform: rotate(-15deg) translateY(-2%); }
+}
+
+@keyframes blink {
+    0%, 96%, 100% { height: 0%; }
+    98% { height: 100%; }
+}
+
+@keyframes beakChirp {
+    0%, 95%, 100% { transform: translateX(-50%) scale(1); }
+    96%, 98% { transform: translateX(-50%) scale(1.2, 0.8); }
+}
+
+@keyframes footTap {
+    0%, 90%, 100% { transform: translateY(0); }
+    94% { transform: translateY(-15%); }
+}
+
+@keyframes popTalk {
+    0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes owlSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes owlDab {
+    0%, 100% { transform: rotate(0deg) translate(0, 0); }
+    30% { transform: rotate(-15deg) translate(-10%, -5%); }
+    60% { transform: rotate(-20deg) translate(-15%, -8%); }
+}
+
+@keyframes owlMoonwalk {
+    0%, 100% { transform: translateX(0) rotateY(0deg); }
+    25% { transform: translateX(-30%) rotateY(0deg); }
+    50% { transform: translateX(-30%) rotateY(180deg); }
+    75% { transform: translateX(0) rotateY(180deg); }
+}
+
+@keyframes owlShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5%); }
+    20%, 40%, 60%, 80% { transform: translateX(5%); }
+}
+
+@keyframes owlSneeze {
+    0%, 100% { transform: scale(1) translateY(0); }
+    30% { transform: scale(1.05) translateY(-5%); }
+    50% { transform: scale(0.95) translateY(3%); }
+}
+
+@keyframes beakSneeze {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.5, 0.6); }
+}
+
+@keyframes pupilPanic {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(30%, -30%); }
+    50% { transform: translate(-30%, 30%); }
+    75% { transform: translate(20%, 20%); }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .owl-stage,
+    .owl-wing,
+    .owl-pupil,
+    .owl-beak,
+    .owl-foot {
+        animation: none !important;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .nav-title { display: none; }
@@ -1210,11 +1537,13 @@ body {
     </main>
     
     <!-- AI Coach -->
-    <button class="ai-coach-toggle" onclick="toggleCoach()">🦉</button>
+    <button class="ai-coach-toggle" onclick="toggleCoach()">
+        <div id="owlToggle" class="owl-slot"></div>
+    </button>
     
     <div class="ai-coach-panel" id="coachPanel">
         <div class="coach-header">
-            <div class="coach-avatar">🦉</div>
+            <div id="owlAvatar" class="coach-avatar owl-slot"></div>
             <div class="coach-info">
                 <h4>Theo the Essay Coach</h4>
                 <p>I guide, I don't give answers!</p>
@@ -1548,10 +1877,18 @@ RULES:
 7. Keep responses concise (under 100 words when possible)
 8. Use emojis sparingly to be friendly
 
-When evaluating work, consider:
-- Purpose: Does it make an arguable claim?
-- Focus: Is it specific enough?
-- Scope: Can it be supported in the essay length?
+When evaluating a student's thesis statement, check these 9 criteria:
+1. **Complete sentence** - It is a complete sentence, not a question or fragment.
+2. **Arguable** - It is arguable, not a statement of fact.
+3. **Scope appropriateness** - It is neither too broad nor too specific for the scope of the essay.
+4. **Precise language** - It avoids vague words like "good," "bad," or "some."
+5. **Road-map** - It provides a road-map for the rest of the paper, indicating the general direction of the evidence.
+6. **Debatable** - It is debatable. It should invite argument and support with evidence from the poems.
+7. **Specific** - It is specific. It should identify the particular reading you are defending or the symbols, poets, etc.
+8. **Narrow scope** - It is narrow enough to be proven within the assignment's scope.
+9. **Significance** - It indicates the significance or tells why readers should care.
+
+IMPORTANT: When a criterion is not met, provide HINTS and ask GUIDING QUESTIONS—never give specific solutions or rewrites.
 
 FORBIDDEN:
 - "Here's a better version..."
@@ -1581,6 +1918,99 @@ const Examples = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   OWL WIDGET
+   ═══════════════════════════════════════════════════════════════════════════ */
+const OwlWidget = {
+    mount: function(selector, options = {}) {
+        const container = document.querySelector(selector);
+        if (!container) return;
+        
+        const opts = {
+            size: options.size || 100,
+            auto: options.auto !== undefined ? options.auto : true,
+            autoMinMs: options.autoMinMs || 3000,
+            autoMaxMs: options.autoMaxMs || 10000,
+            moves: ['spin', 'dab', 'moonwalk', 'shake', 'sneeze', 'lean']
+        };
+        
+        // Create owl HTML structure
+        const owlHTML = `
+            <div class="owl-widget" style="--owl-size: ${opts.size}px">
+                <div class="owl-stage">
+                    <div class="owl-ear left"></div>
+                    <div class="owl-ear right"></div>
+                    <div class="owl-body">
+                        <div class="owl-belly"></div>
+                        <div class="owl-wing left"></div>
+                        <div class="owl-wing right"></div>
+                        <div class="owl-face">
+                            <div class="owl-eye left">
+                                <div class="owl-pupil"></div>
+                                <div class="owl-lid"></div>
+                            </div>
+                            <div class="owl-eye right">
+                                <div class="owl-pupil"></div>
+                                <div class="owl-lid"></div>
+                            </div>
+                        </div>
+                        <div class="owl-brow left"></div>
+                        <div class="owl-brow right"></div>
+                        <div class="owl-beak"></div>
+                        <div class="owl-feet">
+                            <div class="owl-foot left"></div>
+                            <div class="owl-foot right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        container.innerHTML = owlHTML;
+        const widget = container.querySelector('.owl-widget');
+        
+        // Auto animation function
+        if (opts.auto) {
+            const scheduleMove = () => {
+                const delay = opts.autoMinMs + Math.random() * (opts.autoMaxMs - opts.autoMinMs);
+                setTimeout(() => {
+                    const move = opts.moves[Math.floor(Math.random() * opts.moves.length)];
+                    this.doMove(widget, move);
+                    scheduleMove();
+                }, delay);
+            };
+            scheduleMove();
+        }
+        
+        return widget;
+    },
+    
+    doMove: function(widget, move) {
+        if (!widget) return;
+        
+        const className = `do-${move}`;
+        widget.classList.add(className);
+        
+        setTimeout(() => {
+            widget.classList.remove(className);
+        }, 2000);
+    },
+    
+    say: function(widget, text, durationMs = 2000) {
+        if (!widget) return;
+        
+        const existing = widget.querySelector('.owl-speech');
+        if (existing) existing.remove();
+        
+        const speech = document.createElement('div');
+        speech.className = 'owl-speech';
+        speech.textContent = text;
+        widget.appendChild(speech);
+        
+        setTimeout(() => speech.remove(), durationMs);
+    }
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
    INITIALIZATION
    ═══════════════════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', function() {
@@ -1588,6 +2018,11 @@ document.addEventListener('DOMContentLoaded', function() {
     renderFormulas();
     renderNovels();
     setupScrollListener();
+    
+    // Initialize owl widgets
+    OwlWidget.mount("#owlToggle", { size: 60, auto: false });
+    OwlWidget.mount("#owlAvatar", { size: 50, auto: true, autoMinMs: 4000, autoMaxMs: 8000 });
+    
     console.log('📚 Literary Essay Builder initialized!');
 });
 
